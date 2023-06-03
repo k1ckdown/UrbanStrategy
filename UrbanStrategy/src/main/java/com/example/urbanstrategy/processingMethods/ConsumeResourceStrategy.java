@@ -9,7 +9,7 @@ public class ConsumeResourceStrategy extends ResourceProcessingStrategy  {
         super(ProcessingMethodType.CONSUME);
     }
 
-    public void process(Resource resource) {
+    public void process(Resource resource, double processingRate) {
         resource.decreaseAmount(processingRate);
     }
 }

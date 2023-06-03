@@ -9,7 +9,7 @@ public class RecycleResourceStrategy extends ResourceProcessingStrategy {
         super(ProcessingMethodType.RECYCLE);
     }
 
-    public void process(Resource resource) {
+    public void process(Resource resource, double processingRate) {
         resource.decreaseAmount(processingRate);
     }
 }

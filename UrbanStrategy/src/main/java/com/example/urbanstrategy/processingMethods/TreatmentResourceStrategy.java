@@ -9,7 +9,7 @@ public class TreatmentResourceStrategy extends ResourceProcessingStrategy {
         super(ProcessingMethodType.TREATMENT);
     }
 
-    public void process(Resource resource) {
+    public void process(Resource resource, double processingRate) {
         resource.decreaseAmount(processingRate);
     }
 }

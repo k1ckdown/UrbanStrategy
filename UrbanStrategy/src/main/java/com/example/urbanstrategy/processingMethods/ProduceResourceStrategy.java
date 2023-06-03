@@ -9,7 +9,7 @@ public class ProduceResourceStrategy extends ResourceProcessingStrategy {
         super(ProcessingMethodType.PRODUCE);
     }
 
-    public void process(Resource resource) {
+    public void process(Resource resource, double processingRate) {
         resource.increaseAmount(processingRate);
     }
 }

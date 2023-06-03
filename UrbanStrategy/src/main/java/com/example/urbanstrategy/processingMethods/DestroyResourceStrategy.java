@@ -8,7 +8,7 @@ public class DestroyResourceStrategy extends ResourceProcessingStrategy {
         super(ProcessingMethodType.DESTROY);
     }
 
-    public void process(Resource resource) {
+    public void process(Resource resource, double processingRate) {
         resource.resetAmount();
     }
 }

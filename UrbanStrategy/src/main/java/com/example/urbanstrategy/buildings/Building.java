@@ -111,13 +111,24 @@ public abstract class Building {
     }
 
     private void processResources() {
+        System.out.println("=============Processing=============");
         for (Resource resource : processingByResource.keySet()) {
             for (ResourceProcessingStrategy resourceProcessing : processingByResource.get(resource)) {
-                resourceProcessing.process(resource);
-                System.out.printf("Processed the %s resource from the %s building\n", resource.getName(), name);
+                final double rate = randomGenerator.nextDouble();
+                final int oldAmount = resource.getAmount();
+                resourceProcessing.process(resource, rate);
+
+                System.out.printf(
+                        "Resource - %s (%d / %d). From - %s. Processing - %s.\n",
+                        resource.getName().toUpperCase(),
+                        (int)(oldAmount * rate),
+                        oldAmount,
+                        name.toUpperCase(),
+                        resourceProcessing.getName().toUpperCase()
+                );
             }
         }
-        System.out.println();
+        System.out.println("=============Processing=============\n");
     }
 
 

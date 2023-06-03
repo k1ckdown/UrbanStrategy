@@ -44,20 +44,21 @@ public final class LogisticMediatorImpl implements LogisticMediator {
                 return;
             }
 
+            int amount = (int)(resource.getAmount() * rate);
             Building destination = destinations.get(randomGenerator.nextInt(destinations.size()));
             transport.load(resource);
-            transport.moveResources(destination, (int)(resource.getAmount() * rate));
+            transport.moveResources(destination, amount);
 
-            System.out.println("=====================");
-            System.out.printf(String.format(
-                    "Transport %s moved %s from %s to %s",
+            System.out.println("=============Transportation=============");
+            System.out.printf(
+                    "Transport %s moved %s from %s to %s (%d).\n",
                     transport.getName(),
                     resource.getName(),
                     sender.getName(),
-                    destination.getName()));
-            System.out.println();
-            System.out.println("=====================");
-            System.out.println();
+                    destination.getName(),
+                    amount
+            );
+            System.out.println("=============Transportation=============\n");
         }
 
     }
