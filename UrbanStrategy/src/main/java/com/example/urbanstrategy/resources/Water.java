@@ -11,7 +11,7 @@ public class Water extends Resource {
         super(
                 amount,
                 "water",
-                List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.TREATMENT),
+                List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE),
                 ResourceType.WATER
         );
     }

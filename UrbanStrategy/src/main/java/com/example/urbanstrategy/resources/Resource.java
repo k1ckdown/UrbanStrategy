@@ -13,6 +13,7 @@ public abstract class Resource implements IResourceTransported {
 
     private final ResourceType type;
     private final List<ProcessingMethodType> supportedMethods;
+
     public Resource(int amount, String name, List<ProcessingMethodType> supportedMethods, ResourceType type) {
         this.name = name;
         this.amount = amount;
@@ -24,20 +25,16 @@ public abstract class Resource implements IResourceTransported {
         amount += value;
     }
 
-    public void remove(int value) {
-        amount -= value;
-    }
-
     public void resetAmount() {
         amount = 0;
     }
 
-    public void decreaseAmount(Double processingRate) {
-        amount -= amount * processingRate;
+    public void decreaseAmount(double rate) {
+        amount -= amount * rate;
     }
 
-    public void increaseAmount(Double processingRate) {
-        amount += amount * processingRate;
+    public void increaseAmount(double rate) {
+        amount += amount * rate;
     }
 
     public int getAmount() {

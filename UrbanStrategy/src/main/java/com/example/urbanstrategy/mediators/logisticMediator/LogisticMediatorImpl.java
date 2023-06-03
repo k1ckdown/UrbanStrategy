@@ -15,7 +15,7 @@ public final class LogisticMediatorImpl implements LogisticMediator {
 
     private List<Building> buildingList;
     private final List<Transport> transportList;
-    private Random randomGenerator;
+    private final Random randomGenerator;
 
     public LogisticMediatorImpl() {
         this.transportList = TransportFactory.getInstance().createAllTransport();
@@ -26,8 +26,8 @@ public final class LogisticMediatorImpl implements LogisticMediator {
         this.buildingList = buildingList;
     }
 
-    public void transportResources(Building sender, Resource resource, int amount) {
-        resource.remove(amount);
+    public void transportResources(Building sender, Resource resource, double rate) {
+        resource.decreaseAmount(rate);
         final Optional<Transport> optTransport = getTransportFor(resource.getType());
 
         if (optTransport.isPresent()) {
@@ -46,7 +46,7 @@ public final class LogisticMediatorImpl implements LogisticMediator {
 
             Building destination = destinations.get(randomGenerator.nextInt(destinations.size()));
             transport.load(resource);
-            transport.moveResources(destination, amount);
+            transport.moveResources(destination, (int)(resource.getAmount() * rate));
 
             System.out.println("=====================");
             System.out.printf(String.format(

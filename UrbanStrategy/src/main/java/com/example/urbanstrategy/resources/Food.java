@@ -11,7 +11,7 @@ public class Food extends Resource{
         super(
                 amount,
                 "food",
-                List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE),
+                List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE, ProcessingMethodType.TREATMENT),
                 ResourceType.FOOD
         );
     }

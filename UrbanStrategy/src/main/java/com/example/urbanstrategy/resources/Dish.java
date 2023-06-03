@@ -11,7 +11,7 @@ public class Dish extends Resource{
         super(
                 amount,
                 "dish",
-                List.of(ProcessingMethodType.PRODUCE),
+                List.of(ProcessingMethodType.PRODUCE, ProcessingMethodType.CONSUME),
                 ResourceType.DISH
         );
     }

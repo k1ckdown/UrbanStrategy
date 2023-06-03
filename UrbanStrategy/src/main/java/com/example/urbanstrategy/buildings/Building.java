@@ -19,7 +19,8 @@ public abstract class Building {
     private final String description;
 
     private final ICityBuilding city;
-    private final LogisticMediator cityLogistics;
+    private final Random randomGenerator;
+    private final LogisticMediator logisticMediator;
     private final Map<Resource, List<LocalTime>> scheduleSending;
     private final Map<Resource, List<ResourceProcessingStrategy>> processingByResource;
 
@@ -28,16 +29,17 @@ public abstract class Building {
             String name,
             String imagePath,
             String description,
-            LogisticMediator cityLogistics,
+            LogisticMediator logisticMediator,
             Map<Resource, List<ResourceProcessingStrategy>> processingByResource
     ) {
         this.city = city;
         this.name = name;
         this.imagePath = imagePath;
         this.description = description;
-        this.cityLogistics = cityLogistics;
+        this.logisticMediator = logisticMediator;
         this.processingByResource = processingByResource;
         scheduleSending = new HashMap<>();
+        randomGenerator = new Random();
         generateResourceSendingSchedule();
     }
 
@@ -51,11 +53,6 @@ public abstract class Building {
 
     public String getDescription() {
         return description;
-    }
-
-    private int getRandomNumber(int start, int end) {
-        Random rd = new Random();
-        return rd.nextInt(end - start + 1) + start;
     }
 
     public void simulate() {
@@ -74,25 +71,41 @@ public abstract class Building {
         simulate.start();
     }
 
+    private LocalTime getRandomTime() {
+        int hour = ThreadLocalRandom.current().nextInt(24);
+        return LocalTime.of(hour, 0, 0);
+    }
+
+    private int getRandomNumber(int start, int end) {
+        return randomGenerator.nextInt(end - start + 1) + start;
+    }
+
     public boolean needsResource(ResourceType resourceType) {
         for (Resource resource : processingByResource.keySet()) {
             if (resource.getType() == resourceType) {
-                return processingByResource.get(resource).stream().anyMatch(process -> process instanceof ConsumeResourceStrategy);
+                return processingByResource.get(resource)
+                        .stream()
+                        .anyMatch(process -> process instanceof ConsumeResourceStrategy
+                                || process instanceof TreatmentResourceStrategy);
             }
         }
         return false;
     }
 
     public void receiveResource(ResourceType resourceType, int amount) {
-        Optional<Resource> sentResource = processingByResource.keySet().stream().filter(resource -> resource.getType() == resourceType).findFirst();
+        Optional<Resource> sentResource = processingByResource.keySet()
+                .stream()
+                .filter(resource -> resource.getType() == resourceType).findFirst();
         sentResource.ifPresent(resource -> resource.put(amount));
     }
 
     private void sendResourcesIfTime() {
         for (Resource resource : scheduleSending.keySet()) {
-            if (scheduleSending.get(resource).stream().anyMatch(time -> time.getHour() == city.getLocalTime().getHour())) {
-                int amount = 10;
-                cityLogistics.transportResources(this, resource, amount);
+            if (scheduleSending.get(resource)
+                    .stream()
+                    .anyMatch(time -> time.getHour() == city.getLocalTime().getHour())) {
+                double rate = 0.2;
+                logisticMediator.transportResources(this, resource, rate);
             }
         }
     }
@@ -107,15 +120,11 @@ public abstract class Building {
         System.out.println();
     }
 
-    private LocalTime getRandomTime() {
-        int hour = ThreadLocalRandom.current().nextInt(24);
-        return LocalTime.of(hour, 0, 0);
-    }
 
     private void generateResourceSendingSchedule() {
         for (Resource resource : processingByResource.keySet()) {
             if (processingByResource.get(resource).stream().anyMatch(process ->
-                    process instanceof ProduceResourceStrategy || process instanceof TreatmentResourceStrategy
+                    process instanceof ProduceResourceStrategy
             )) {
 
                 scheduleSending.put(resource, new ArrayList<>());

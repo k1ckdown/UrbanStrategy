@@ -7,7 +7,7 @@ import java.util.Random;
 public abstract class ResourceProcessingStrategy {
 
     private final ProcessingMethodType type;
-    protected final Double processingRate;
+    protected final double processingRate;
 
     public ResourceProcessingStrategy(ProcessingMethodType type) {
         this.type = type;
