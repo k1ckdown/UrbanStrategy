@@ -2,37 +2,62 @@ package com.example.urbanstrategy.mediators.logisticMediator;
 
 import com.example.urbanstrategy.buildings.Building;
 import com.example.urbanstrategy.factories.TransportFactory;
+import com.example.urbanstrategy.resources.Resource;
 import com.example.urbanstrategy.resources.ResourceType;
 import com.example.urbanstrategy.transports.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 public final class LogisticMediatorImpl implements LogisticMediator {
 
     private List<Building> buildingList;
     private final List<Transport> transportList;
+    private Random randomGenerator;
 
     public LogisticMediatorImpl() {
         this.transportList = TransportFactory.getInstance().createAllTransport();
+        randomGenerator = new Random();
     }
 
     public void updateBuildingList(List<Building> buildingList) {
         this.buildingList = buildingList;
     }
 
-    public void transportResources(Building sender, ResourceType resourceType, int amount) {
-        final Optional<Transport> optTransport = getTransportFor(resourceType);
+    public void transportResources(Building sender, Resource resource, int amount) {
+        resource.remove(amount);
+        final Optional<Transport> optTransport = getTransportFor(resource.getType());
 
         if (optTransport.isPresent()) {
             Transport transport = optTransport.get();
+            List<Building> destinations = new ArrayList<>();
 
-            for (Building building : buildingList) {
-                if (building.needsResource(resourceType)) {
-                    transport.load(resourceType);
-                    transport.moveResources(resourceType, building, amount);
+            for (Building destination : buildingList) {
+                if (destination.needsResource(resource.getType())) {
+                    destinations.add(destination);
                 }
             }
+
+            if (destinations.size() == 0) {
+                return;
+            }
+
+            Building destination = destinations.get(randomGenerator.nextInt(destinations.size()));
+            transport.load(resource);
+            transport.moveResources(destination, amount);
+
+            System.out.println("=====================");
+            System.out.printf(String.format(
+                    "Transport %s moved %s from %s to %s",
+                    transport.getName(),
+                    resource.getName(),
+                    sender.getName(),
+                    destination.getName()));
+            System.out.println();
+            System.out.println("=====================");
+            System.out.println();
         }
 
     }

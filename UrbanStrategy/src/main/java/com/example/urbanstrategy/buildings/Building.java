@@ -3,6 +3,7 @@ package com.example.urbanstrategy.buildings;
 import com.example.urbanstrategy.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.mediators.logisticMediator.LogisticMediator;
 import com.example.urbanstrategy.processingMethods.ConsumeResourceStrategy;
+import com.example.urbanstrategy.processingMethods.ProduceResourceStrategy;
 import com.example.urbanstrategy.processingMethods.ResourceProcessingStrategy;
 import com.example.urbanstrategy.processingMethods.TreatmentResourceStrategy;
 import com.example.urbanstrategy.resources.Resource;
@@ -18,8 +19,8 @@ public abstract class Building {
     private final String description;
 
     private final ICityBuilding city;
-    private final LogisticMediator logisticMediator;
-    private Map<Resource, List<LocalTime>> scheduleSending;
+    private final LogisticMediator cityLogistics;
+    private final Map<Resource, List<LocalTime>> scheduleSending;
     private final Map<Resource, List<ResourceProcessingStrategy>> processingByResource;
 
     public Building(
@@ -27,15 +28,17 @@ public abstract class Building {
             String name,
             String imagePath,
             String description,
-            LogisticMediator logisticMediator,
+            LogisticMediator cityLogistics,
             Map<Resource, List<ResourceProcessingStrategy>> processingByResource
     ) {
         this.city = city;
         this.name = name;
         this.imagePath = imagePath;
         this.description = description;
-        this.logisticMediator = logisticMediator;
+        this.cityLogistics = cityLogistics;
         this.processingByResource = processingByResource;
+        scheduleSending = new HashMap<>();
+        generateResourceSendingSchedule();
     }
 
     public String getName() {
@@ -60,6 +63,7 @@ public abstract class Building {
             while (true) {
                 try {
                     processResources();
+                    sendResourcesIfTime();
                     Thread.sleep(getRandomNumber(3000, 6000));
                 } catch (Exception error) {
                     throw new RuntimeException(error);
@@ -86,10 +90,9 @@ public abstract class Building {
 
     private void sendResourcesIfTime() {
         for (Resource resource : scheduleSending.keySet()) {
-            if (scheduleSending.get(resource).contains(city.getLocalTime())) {
+            if (scheduleSending.get(resource).stream().anyMatch(time -> time.getHour() == city.getLocalTime().getHour())) {
                 int amount = 10;
-                resource.remove(amount);
-                logisticMediator.transportResources(this, resource.getType(), amount);
+                cityLogistics.transportResources(this, resource, amount);
             }
         }
     }
@@ -114,16 +117,19 @@ public abstract class Building {
     private void generateResourceSendingSchedule() {
         for (Resource resource : processingByResource.keySet()) {
             if (processingByResource.get(resource).stream().anyMatch(process ->
-                    process instanceof ConsumeResourceStrategy || process instanceof TreatmentResourceStrategy
+                    process instanceof ProduceResourceStrategy || process instanceof TreatmentResourceStrategy
             )) {
 
                 if (!scheduleSending.containsKey(resource)) {
                     scheduleSending.put(resource, new ArrayList<>());
+
+                    for (int i = 0; i < 5; i++) {
+                        LocalTime localTime = getRandomTime();
+                        scheduleSending.get(resource).add(localTime);
+                        scheduleSending.get(resource).add(LocalTime.of(8, 30, 0));
+                    }
                 }
 
-                for (int i = 0; i < 3; i++) {
-                    scheduleSending.get(resource).add(getRandomTime());
-                }
             }
         }
     }

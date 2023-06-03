@@ -4,6 +4,7 @@ import com.example.urbanstrategy.buildings.Building;
 import com.example.urbanstrategy.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.city.interfaces.ICityController;
 import com.example.urbanstrategy.factories.BuildingFactory;
+import com.example.urbanstrategy.mediators.logisticMediator.LogisticMediatorImpl;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -23,9 +24,8 @@ public final class City implements ICityController, ICityBuilding {
         for (Building building : buildings) {
             building.simulate();
         }
-
         while (true) {
-            localTime = localTime.plusMinutes(10);
+            localTime = localTime.plusSeconds(1);
         }
     }
 
