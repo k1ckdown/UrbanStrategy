@@ -17,9 +17,9 @@ public class Sawmill extends Building {
 
     public Sawmill(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "sawmill", "", "", logisticMediator, Map.of(
-                new Tree(5000), List.of(new DestroyResourceStrategy(), new TreatmentResourceStrategy()),
-                new Water(1000), List.of(new ConsumeResourceStrategy()),
-                new Wood(0), List.of(new ProduceResourceStrategy())
+                new Tree(), List.of(new DestroyResourceStrategy(), new TreatmentResourceStrategy()),
+                new Water(), List.of(new ConsumeResourceStrategy()),
+                new Wood(), List.of(new ProduceResourceStrategy())
         ));
     }
 

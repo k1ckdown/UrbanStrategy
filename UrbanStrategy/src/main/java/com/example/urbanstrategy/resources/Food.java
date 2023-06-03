@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Food extends Resource{
 
-    public Food(int amount) {
+    public Food() {
         super(
-                amount,
                 "food",
                 List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE, ProcessingMethodType.TREATMENT),
                 ResourceType.FOOD

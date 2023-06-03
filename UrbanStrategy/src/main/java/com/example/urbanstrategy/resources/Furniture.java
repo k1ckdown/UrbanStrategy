@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Furniture extends Resource {
 
-    public Furniture(int amount) {
+    public Furniture() {
         super(
-                amount,
                 "furniture",
                 List.of(ProcessingMethodType.PRODUCE, ProcessingMethodType.CONSUME),
                 ResourceType.FURNITURE

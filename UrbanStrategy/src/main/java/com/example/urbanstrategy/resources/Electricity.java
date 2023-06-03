@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Electricity extends Resource {
 
-    public Electricity(int amount) {
+    public Electricity() {
         super(
-                amount,
                 "electricity",
                 List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE),
                 ResourceType.ELECTRICITY

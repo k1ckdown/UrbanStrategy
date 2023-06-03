@@ -17,9 +17,9 @@ public class Factory extends Building {
 
     public Factory(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "factory", "", "", logisticMediator, Map.of(
-                new Wood(1000), List.of(new ConsumeResourceStrategy()),
-                new Waste(0), List.of(new ProduceResourceStrategy(), new RecycleResourceStrategy()),
-                new Furniture(0), List.of(new ProduceResourceStrategy())
+                new Wood(), List.of(new ConsumeResourceStrategy()),
+                new Waste(), List.of(new ProduceResourceStrategy(), new RecycleResourceStrategy()),
+                new Furniture(), List.of(new ProduceResourceStrategy())
         ));
     }
 

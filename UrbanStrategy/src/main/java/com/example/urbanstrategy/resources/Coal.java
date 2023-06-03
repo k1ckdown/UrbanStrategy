@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Coal extends Resource {
 
-    public Coal(int amount) {
+    public Coal() {
         super(
-                amount,
                 "coal",
                 List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE),
                 ResourceType.COAL

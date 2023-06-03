@@ -15,8 +15,8 @@ public class WaterTreatmentPlant extends Building {
 
     public WaterTreatmentPlant(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "water treatment plant", "", "", logisticMediator, Map.of(
-                new Water(10000), List.of(new ProduceResourceStrategy()),
-                new Electricity(500), List.of(new ConsumeResourceStrategy())
+                new Water(), List.of(new ProduceResourceStrategy()),
+                new Electricity(), List.of(new ConsumeResourceStrategy())
         ));
     }
 

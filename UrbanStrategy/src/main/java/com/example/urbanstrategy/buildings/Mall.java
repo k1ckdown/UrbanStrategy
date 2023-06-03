@@ -13,8 +13,8 @@ public class Mall extends Building {
 
     public Mall(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "mall", "", "", logisticMediator, Map.of(
-                new Furniture(50), List.of(new ConsumeResourceStrategy()),
-                new Electricity(1000), List.of(new ConsumeResourceStrategy())
+                new Furniture(), List.of(new ConsumeResourceStrategy()),
+                new Electricity(), List.of(new ConsumeResourceStrategy())
         ));
     }
 

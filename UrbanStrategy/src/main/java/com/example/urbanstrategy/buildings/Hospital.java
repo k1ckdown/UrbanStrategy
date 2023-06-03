@@ -12,7 +12,7 @@ public class Hospital extends Building {
 
     public Hospital(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "hospital", "", "", logisticMediator, Map.of(
-                new MedicalSupplies(0), List.of(new ProduceResourceStrategy())
+                new MedicalSupplies(), List.of(new ProduceResourceStrategy())
         ));
     }
 }

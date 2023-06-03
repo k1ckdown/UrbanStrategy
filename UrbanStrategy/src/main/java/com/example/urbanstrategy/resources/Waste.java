@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Waste extends Resource {
 
-    public Waste(int amount) {
+    public Waste() {
         super(
-                amount,
                 "waste",
                 List.of(ProcessingMethodType.PRODUCE, ProcessingMethodType.RECYCLE, ProcessingMethodType.CONSUME),
                 ResourceType.WASTE

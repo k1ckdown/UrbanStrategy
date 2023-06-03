@@ -17,9 +17,9 @@ public class Farm extends Building {
 
     public Farm(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "farm", "", "", logisticMediator, Map.of(
-                new Grain(0), List.of(new TreatmentResourceStrategy()),
-                new Water(500), List.of(new ConsumeResourceStrategy()),
-                new Food(0), List.of(new ProduceResourceStrategy())
+                new Grain(), List.of(new TreatmentResourceStrategy()),
+                new Water(), List.of(new ConsumeResourceStrategy()),
+                new Food(), List.of(new ProduceResourceStrategy())
         ));
     }
 

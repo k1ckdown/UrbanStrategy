@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Grain extends Resource {
 
-    public Grain(int amount) {
+    public Grain() {
         super(
-                amount,
                 "grain",
                 List.of(ProcessingMethodType.TREATMENT),
                 ResourceType.GRAIN

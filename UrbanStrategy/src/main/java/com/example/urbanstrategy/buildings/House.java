@@ -14,12 +14,12 @@ public final class House extends Building {
 
     public House(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city,"house", "", "", logisticMediator, Map.of(
-                new MedicalSupplies(0), List.of(new ConsumeResourceStrategy()),
-                new Electricity(2000), List.of(new ConsumeResourceStrategy()),
-                new Water(3000), List.of(new ConsumeResourceStrategy()),
-                new Food(100), List.of(new ConsumeResourceStrategy()),
-                new Waste(0), List.of(new ProduceResourceStrategy()),
-                new Dish(0), List.of(new ConsumeResourceStrategy())
+                new MedicalSupplies(), List.of(new ConsumeResourceStrategy()),
+                new Electricity(), List.of(new ConsumeResourceStrategy()),
+                new Water(), List.of(new ConsumeResourceStrategy()),
+                new Food(), List.of(new ConsumeResourceStrategy()),
+                new Waste(), List.of(new ProduceResourceStrategy()),
+                new Dish(), List.of(new ConsumeResourceStrategy())
         ));
     }
 

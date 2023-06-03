@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Tree extends Resource {
 
-    public Tree(int amount) {
+    public Tree() {
         super(
-                amount,
                 "tree",
                 List.of(ProcessingMethodType.DESTROY, ProcessingMethodType.TREATMENT),
                 ResourceType.TREE

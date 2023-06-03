@@ -5,6 +5,7 @@ import com.example.urbanstrategy.processingMethods.ProcessingMethodType;
 import com.example.urbanstrategy.resources.interfaces.IResourceTransported;
 
 import java.util.List;
+import java.util.Random;
 
 public abstract class Resource implements IResourceTransported {
 
@@ -14,9 +15,9 @@ public abstract class Resource implements IResourceTransported {
     private final ResourceType type;
     private final List<ProcessingMethodType> supportedMethods;
 
-    public Resource(int amount, String name, List<ProcessingMethodType> supportedMethods, ResourceType type) {
+    public Resource(String name, List<ProcessingMethodType> supportedMethods, ResourceType type) {
         this.name = name;
-        this.amount = amount;
+        this.amount = new Random().nextInt(5000 - 1000 + 1) + 1000;
         this.supportedMethods = supportedMethods;
         this.type = type;
     }
@@ -30,11 +31,11 @@ public abstract class Resource implements IResourceTransported {
     }
 
     public void decreaseAmount(double rate) {
-        amount -= amount * rate;
+        amount -= (int)(amount * rate);
     }
 
     public void increaseAmount(double rate) {
-        amount += amount * rate;
+        amount += (int)(amount * rate);
     }
 
     public int getAmount() {

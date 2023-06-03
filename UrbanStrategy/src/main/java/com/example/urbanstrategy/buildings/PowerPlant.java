@@ -14,8 +14,8 @@ public class PowerPlant extends Building {
 
     public PowerPlant(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "power plant", "", "", logisticMediator, Map.of(
-                new Electricity(1000), List.of(new ProduceResourceStrategy()),
-                new Coal(5000), List.of(new ConsumeResourceStrategy())
+                new Electricity(), List.of(new ProduceResourceStrategy()),
+                new Coal(), List.of(new ConsumeResourceStrategy())
         ));
     }
 

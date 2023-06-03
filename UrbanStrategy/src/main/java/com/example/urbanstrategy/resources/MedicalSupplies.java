@@ -7,9 +7,8 @@ import java.util.List;
 
 public class MedicalSupplies extends Resource {
 
-    public MedicalSupplies(int amount) {
+    public MedicalSupplies() {
         super(
-                amount,
                 "medical supplies",
                 List.of(ProcessingMethodType.PRODUCE),
                 ResourceType.MEDICAL_SUPPLIES

@@ -114,7 +114,7 @@ public abstract class Building {
         System.out.println("=============Processing=============");
         for (Resource resource : processingByResource.keySet()) {
             for (ResourceProcessingStrategy resourceProcessing : processingByResource.get(resource)) {
-                final double rate = randomGenerator.nextDouble();
+                final double rate = 0.05 + (0.1 * randomGenerator.nextDouble());
                 final int oldAmount = resource.getAmount();
                 resourceProcessing.process(resource, rate);
 

@@ -15,8 +15,8 @@ public class Mine extends Building {
 
     public Mine(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "mine", "", "", logisticMediator, Map.of(
-                new Coal(0), List.of(new ProduceResourceStrategy()),
-                new Waste(0), List.of(new RecycleResourceStrategy())
+                new Coal(), List.of(new ProduceResourceStrategy()),
+                new Waste(), List.of(new RecycleResourceStrategy())
         ));
     }
 

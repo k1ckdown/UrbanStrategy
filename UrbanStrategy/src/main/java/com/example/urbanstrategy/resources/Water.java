@@ -7,9 +7,8 @@ import java.util.List;
 
 public class Water extends Resource {
 
-    public Water(int amount) {
+    public Water() {
         super(
-                amount,
                 "water",
                 List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE),
                 ResourceType.WATER

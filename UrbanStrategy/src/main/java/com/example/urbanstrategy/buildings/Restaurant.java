@@ -16,9 +16,9 @@ public class Restaurant extends Building  {
 
     public Restaurant(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "restaurant", "", "", logisticMediator, Map.of(
-                new Food(500), List.of(new TreatmentResourceStrategy()),
-                new Water(1000), List.of(new ConsumeResourceStrategy()),
-                new Dish(100), List.of(new ProduceResourceStrategy())
+                new Food(), List.of(new TreatmentResourceStrategy()),
+                new Water(), List.of(new ConsumeResourceStrategy()),
+                new Dish(), List.of(new ProduceResourceStrategy())
         ));
     }
 
