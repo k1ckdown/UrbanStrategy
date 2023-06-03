@@ -10,6 +10,6 @@ public class ConsumeResourceStrategy extends ResourceProcessingStrategy  {
     }
 
     public void process(Resource resource) {
-        resource.decreaseAmount();
+        resource.decreaseAmount(processingRate);
     }
 }

@@ -24,6 +24,7 @@ public final class City implements ICityController, ICityBuilding {
         for (Building building : buildings) {
             building.simulate();
         }
+
         while (true) {
             localTime = localTime.plusSeconds(1);
         }

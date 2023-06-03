@@ -10,6 +10,6 @@ public class RecycleResourceStrategy extends ResourceProcessingStrategy {
     }
 
     public void process(Resource resource) {
-        resource.resetAmount();
+        resource.decreaseAmount(processingRate);
     }
 }

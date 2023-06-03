@@ -9,6 +9,6 @@ public class DestroyResourceStrategy extends ResourceProcessingStrategy {
     }
 
     public void process(Resource resource) {
-        resource.decreaseAmount();
+        resource.resetAmount();
     }
 }

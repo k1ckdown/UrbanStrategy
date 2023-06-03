@@ -109,9 +109,7 @@ public abstract class Building {
 
     private LocalTime getRandomTime() {
         int hour = ThreadLocalRandom.current().nextInt(24);
-        int minute = ThreadLocalRandom.current().nextInt(60);
-        int second = ThreadLocalRandom.current().nextInt(60);
-        return LocalTime.of(hour, minute, second);
+        return LocalTime.of(hour, 0, 0);
     }
 
     private void generateResourceSendingSchedule() {
@@ -120,14 +118,10 @@ public abstract class Building {
                     process instanceof ProduceResourceStrategy || process instanceof TreatmentResourceStrategy
             )) {
 
-                if (!scheduleSending.containsKey(resource)) {
-                    scheduleSending.put(resource, new ArrayList<>());
+                scheduleSending.put(resource, new ArrayList<>());
 
-                    for (int i = 0; i < 5; i++) {
-                        LocalTime localTime = getRandomTime();
-                        scheduleSending.get(resource).add(localTime);
-                        scheduleSending.get(resource).add(LocalTime.of(8, 30, 0));
-                    }
+                for (int i = 0; i < 5; i++) {
+                    scheduleSending.get(resource).add(getRandomTime());
                 }
 
             }

@@ -11,7 +11,7 @@ public class Wood extends Resource {
         super(
                 amount,
                 "wood",
-                List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE),
+                List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE, ProcessingMethodType.TREATMENT),
                 ResourceType.WOOD
         );
     }

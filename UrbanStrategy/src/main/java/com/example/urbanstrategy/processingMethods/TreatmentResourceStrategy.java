@@ -10,6 +10,6 @@ public class TreatmentResourceStrategy extends ResourceProcessingStrategy {
     }
 
     public void process(Resource resource) {
-        resource.increaseAmount();
+        resource.decreaseAmount(processingRate);
     }
 }

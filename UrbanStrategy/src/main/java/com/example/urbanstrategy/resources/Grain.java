@@ -11,7 +11,7 @@ public class Grain extends Resource {
         super(
                 amount,
                 "grain",
-                List.of(ProcessingMethodType.PRODUCE, ProcessingMethodType.CONSUME),
+                List.of( ProcessingMethodType.CONSUME, ProcessingMethodType.TREATMENT),
                 ResourceType.GRAIN
         );
     }

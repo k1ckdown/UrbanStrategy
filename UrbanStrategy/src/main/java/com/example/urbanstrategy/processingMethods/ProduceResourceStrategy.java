@@ -10,6 +10,6 @@ public class ProduceResourceStrategy extends ResourceProcessingStrategy {
     }
 
     public void process(Resource resource) {
-        resource.increaseAmount();
+        resource.increaseAmount(processingRate);
     }
 }
