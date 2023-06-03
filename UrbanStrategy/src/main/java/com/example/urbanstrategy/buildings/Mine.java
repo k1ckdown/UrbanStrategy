@@ -11,7 +11,7 @@ import com.example.urbanstrategy.resources.Waste;
 import java.util.List;
 import java.util.Map;
 
-public class Mine extends Building {
+public final class Mine extends Building {
 
     public Mine(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "mine", "", "", logisticMediator, Map.of(

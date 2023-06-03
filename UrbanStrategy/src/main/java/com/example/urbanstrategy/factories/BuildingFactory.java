@@ -8,7 +8,7 @@ import com.example.urbanstrategy.mediators.logisticMediator.LogisticMediatorImpl
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuildingFactory {
+public final class BuildingFactory {
 
     private BuildingFactory() {}
 
@@ -42,7 +42,11 @@ public class BuildingFactory {
         return buildingList;
     }
 
-    private Building createDefaultBuilding(BuildingType buildingType, City city, LogisticMediatorImpl logisticMediator) {
+    private Building createDefaultBuilding(
+            BuildingType buildingType,
+            City city,
+            LogisticMediatorImpl logisticMediator
+    ) {
         switch (buildingType) {
             case MINE:
                 return new Mine(city, logisticMediator);

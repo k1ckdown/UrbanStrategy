@@ -5,7 +5,7 @@ import com.example.urbanstrategy.processingMethods.ProcessingMethodType;
 
 import java.util.List;
 
-public class Water extends Resource {
+public final class Water extends Resource {
 
     public Water() {
         super(

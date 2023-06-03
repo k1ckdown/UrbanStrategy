@@ -5,7 +5,7 @@ import com.example.urbanstrategy.transports.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransportFactory {
+public final class TransportFactory {
 
     private TransportFactory() {}
 

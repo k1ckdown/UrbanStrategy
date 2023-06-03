@@ -1,11 +1,9 @@
-package com.example.urbanstrategy.buildings;//package buildings;
+//package com.example.urbanstrategy.buildings;
 //
-//import city.ICityBuilding;
-//import factories.ResourcesFactory;
-//import resources.Resource;
-//import resources.ResourceType;
-//import strategy.ProcessingMethodType;
-//import strategy.ResourceProcessingStrategy;
+//import com.example.urbanstrategy.processingMethods.ProcessingMethodType;
+//import com.example.urbanstrategy.processingMethods.ResourceProcessingStrategy;
+//import com.example.urbanstrategy.resources.Resource;
+//import com.example.urbanstrategy.resources.ResourceType;
 //
 //import java.util.List;
 //import java.util.Map;
@@ -29,5 +27,9 @@ package com.example.urbanstrategy.buildings;//package buildings;
 //
 //    public void addResourceProcessingMethod(ProcessingMethodType type, ResourceType forResource) {
 //        processingByResource.get()
+//    }
+//
+//    public Building getAssembledBuilding() {
+//        return
 //    }
 //}

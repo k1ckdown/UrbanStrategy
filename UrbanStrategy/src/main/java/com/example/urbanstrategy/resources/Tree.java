@@ -5,7 +5,7 @@ import com.example.urbanstrategy.processingMethods.ProcessingMethodType;
 
 import java.util.List;
 
-public class Tree extends Resource {
+public final class Tree extends Resource {
 
     public Tree() {
         super(

@@ -13,7 +13,7 @@ import com.example.urbanstrategy.resources.Water;
 import java.util.List;
 import java.util.Map;
 
-public class Farm extends Building {
+public final class Farm extends Building {
 
     public Farm(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "farm", "", "", logisticMediator, Map.of(

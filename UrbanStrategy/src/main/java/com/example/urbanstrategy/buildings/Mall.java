@@ -9,7 +9,7 @@ import com.example.urbanstrategy.resources.Furniture;
 import java.util.List;
 import java.util.Map;
 
-public class Mall extends Building {
+public final class Mall extends Building {
 
     public Mall(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "mall", "", "", logisticMediator, Map.of(

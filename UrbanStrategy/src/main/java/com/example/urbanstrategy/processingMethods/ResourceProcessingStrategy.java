@@ -2,8 +2,6 @@ package com.example.urbanstrategy.processingMethods;
 
 import com.example.urbanstrategy.resources.Resource;
 
-import java.util.Random;
-
 public abstract class ResourceProcessingStrategy {
 
     private final ProcessingMethodType type;

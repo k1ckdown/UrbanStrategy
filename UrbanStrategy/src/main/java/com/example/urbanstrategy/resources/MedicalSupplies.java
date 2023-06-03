@@ -5,7 +5,7 @@ import com.example.urbanstrategy.processingMethods.ProcessingMethodType;
 
 import java.util.List;
 
-public class MedicalSupplies extends Resource {
+public final class MedicalSupplies extends Resource {
 
     public MedicalSupplies() {
         super(

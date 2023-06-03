@@ -5,7 +5,7 @@ import com.example.urbanstrategy.processingMethods.ProcessingMethodType;
 
 import java.util.List;
 
-public class Coal extends Resource {
+public final class Coal extends Resource {
 
     public Coal() {
         super(

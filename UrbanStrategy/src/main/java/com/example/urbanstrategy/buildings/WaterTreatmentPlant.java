@@ -11,7 +11,7 @@ import com.example.urbanstrategy.resources.Water;
 import java.util.List;
 import java.util.Map;
 
-public class WaterTreatmentPlant extends Building {
+public final class WaterTreatmentPlant extends Building {
 
     public WaterTreatmentPlant(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "water treatment plant", "", "", logisticMediator, Map.of(

@@ -10,7 +10,7 @@ import com.example.urbanstrategy.resources.Electricity;
 import java.util.List;
 import java.util.Map;
 
-public class PowerPlant extends Building {
+public final class PowerPlant extends Building {
 
     public PowerPlant(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "power plant", "", "", logisticMediator, Map.of(

@@ -12,7 +12,7 @@ import com.example.urbanstrategy.resources.Water;
 import java.util.List;
 import java.util.Map;
 
-public class Restaurant extends Building  {
+public final class Restaurant extends Building  {
 
     public Restaurant(ICityBuilding city, LogisticMediator logisticMediator) {
         super(city, "restaurant", "", "", logisticMediator, Map.of(
