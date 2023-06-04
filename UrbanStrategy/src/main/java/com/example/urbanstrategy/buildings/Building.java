@@ -61,7 +61,7 @@ public abstract class Building {
                 try {
                     processResources();
                     sendResourcesIfTime();
-                    Thread.sleep(getRandomNumber(3000, 6000));
+                    Thread.sleep(getRandomNumber(4000, 7000));
                 } catch (Exception error) {
                     throw new RuntimeException(error);
                 }

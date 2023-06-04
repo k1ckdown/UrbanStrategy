@@ -2,15 +2,24 @@ package com.example.urbanstrategy.factories;
 
 
 import com.example.urbanstrategy.buildings.*;
-import com.example.urbanstrategy.city.City;
+import com.example.urbanstrategy.buildings.customBuilding.CustomBuilding;
+import com.example.urbanstrategy.buildings.defaultBuildings.*;
+import com.example.urbanstrategy.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.mediators.logisticMediator.LogisticMediatorImpl;
+import com.example.urbanstrategy.processingMethods.ResourceProcessingStrategy;
+import com.example.urbanstrategy.resources.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public final class BuildingFactory {
 
-    private BuildingFactory() {}
+    private final LogisticMediatorImpl logisticMediator;
+
+    private BuildingFactory() {
+        logisticMediator = new LogisticMediatorImpl();
+    }
 
     public static BuildingFactory getInstance() {
         return Holder.INSTANCE;
@@ -20,33 +29,34 @@ public final class BuildingFactory {
         static final BuildingFactory INSTANCE = new BuildingFactory();
     }
 
-//    public Building createCustomBuilding(
-//            City city,
-//            String buildingName,
-//            LogisticMediatorImpl logisticMediator,
-//            Map<Resource, List<ResourceProcessingStrategy>> processingByResource
-//    ) {
-//        return new CustomBuildingBuilder("some name", city, processingByResource);
-//    }
+    public Building makeCustomBuilding(
+            ICityBuilding city,
+            String name,
+            Map<Resource, List<ResourceProcessingStrategy>> processingByResource
+    ) {
+        return new CustomBuilding(
+                city,
+                name,
+                "imagePath",
+                "desc",
+                logisticMediator,
+                processingByResource
+        );
+    }
 
-    public List<Building> createAllBuildings(City city) {
+    public List<Building> makeAllBuildings(ICityBuilding city) {
         List<Building> buildingList = new ArrayList<>();
         BuildingType[] buildingTypes = BuildingType.values();
-        final LogisticMediatorImpl logisticMediator = new LogisticMediatorImpl();
 
         for (BuildingType type : buildingTypes) {
-            buildingList.add(createDefaultBuilding(type, city, logisticMediator));
+            buildingList.add(makeDefaultBuilding(type, city));
         }
 
         logisticMediator.updateBuildingList(buildingList);
         return buildingList;
     }
 
-    private Building createDefaultBuilding(
-            BuildingType buildingType,
-            City city,
-            LogisticMediatorImpl logisticMediator
-    ) {
+    private Building makeDefaultBuilding(BuildingType buildingType, ICityBuilding city) {
         switch (buildingType) {
             case MINE:
                 return new Mine(city, logisticMediator);

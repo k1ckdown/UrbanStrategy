@@ -16,7 +16,7 @@ public final class City implements ICityController, ICityBuilding {
     public City() {
         localTime = LocalTime.of(8, 0, 0);
 
-        this.buildings = BuildingFactory.getInstance().createAllBuildings(this);
+        this.buildings = BuildingFactory.getInstance().makeAllBuildings(this);
     }
 
     public void startSimulate() {
@@ -32,7 +32,6 @@ public final class City implements ICityController, ICityBuilding {
     public LocalTime getLocalTime() {
         return localTime;
     }
-
 
     public void addBuilding(Building building) {
         buildings.add(building);

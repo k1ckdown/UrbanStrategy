@@ -1,6 +1,7 @@
-package com.example.urbanstrategy.buildings;
+package com.example.urbanstrategy.buildings.defaultBuildings;
 
 
+import com.example.urbanstrategy.buildings.Building;
 import com.example.urbanstrategy.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.mediators.logisticMediator.LogisticMediator;
 import com.example.urbanstrategy.processingMethods.ProduceResourceStrategy;
