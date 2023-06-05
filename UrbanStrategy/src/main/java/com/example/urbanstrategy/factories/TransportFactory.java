@@ -30,11 +30,11 @@ public final class TransportFactory {
 
     private Transport createTransport(TransportType type) {
         switch (type) {
-            case Car:
+            case CAR:
                 return new Car();
-            case Train:
+            case TRAIN:
                 return new Train();
-            case Lorry:
+            case LORRY:
                 return new Lorry();
             case POWER_LINES:
                 return new PowerLines();

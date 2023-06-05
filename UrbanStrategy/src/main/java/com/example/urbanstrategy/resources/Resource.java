@@ -9,11 +9,12 @@ import java.util.Random;
 
 public abstract class Resource implements IResourceTransported {
 
+    public final List<ProcessingMethodType> supportedMethods;
+
     private int amount;
     private final String name;
 
     private final ResourceType type;
-    private final List<ProcessingMethodType> supportedMethods;
 
     public Resource(String name, List<ProcessingMethodType> supportedMethods, ResourceType type) {
         this.name = name;
