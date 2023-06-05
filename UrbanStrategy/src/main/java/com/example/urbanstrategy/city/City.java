@@ -24,9 +24,13 @@ public final class City implements ICityController, ICityBuilding {
             building.simulate();
         }
 
-        while (true) {
-            localTime = localTime.plusSeconds(1);
-        }
+        Thread simulate = new Thread(() -> {
+            while (true) {
+                localTime = localTime.plusSeconds(1);
+            }
+        });
+
+        simulate.start();
     }
 
     public LocalTime getLocalTime() {

@@ -131,7 +131,6 @@ public abstract class Building {
         System.out.println("=============Processing=============\n");
     }
 
-
     private void generateResourceSendingSchedule() {
         for (Resource resource : processingByResource.keySet()) {
             if (processingByResource.get(resource).stream().anyMatch(process ->

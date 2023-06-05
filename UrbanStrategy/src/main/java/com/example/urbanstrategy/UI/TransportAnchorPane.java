@@ -31,7 +31,7 @@ public class TransportAnchorPane extends AnchorPane {
         getChildren().add(nameTitleLabel);
 
         nameTitleLabel.setPrefHeight(40);
-        nameTitleLabel.setStyle("-fx-background-color: #3a79ee; -fx-font-family: 'Futura'");
+        nameTitleLabel.setStyle("-fx-background-color: #799ad9; -fx-font-family: 'Futura'");
         nameTitleLabel.setTextFill(Color.BLACK);
         nameTitleLabel.setAlignment(Pos.CENTER);
 
@@ -44,14 +44,13 @@ public class TransportAnchorPane extends AnchorPane {
         getChildren().add(statusTitleLabel);
 
         statusTitleLabel.setPrefHeight(180);
-        statusTitleLabel.setStyle("-fx-background-color: #1dc722;");
+        statusTitleLabel.setStyle("-fx-background-color: #d1d3d1;");
         statusTitleLabel.setTextFill(Color.BLACK);
         statusTitleLabel.setAlignment(Pos.CENTER);
 
         AnchorPane.setTopAnchor(statusTitleLabel, nameTitleLabel.getPrefHeight());
         AnchorPane.setLeftAnchor(statusTitleLabel, 0.0);
         AnchorPane.setRightAnchor(statusTitleLabel, 0.0);
-
     }
 
 }

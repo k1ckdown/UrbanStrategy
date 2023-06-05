@@ -19,11 +19,11 @@ public class BuildingAnchorPane extends AnchorPane {
         nameTitleLabel.setText(title);
     }
 
-    public void updateResourcesTitle(String title) {
+    public void setResourcesTitle(String title) {
         resourcesLabel.setText(title);
     }
 
-    public void updateProcessingTitle(String title) {
+    public void setProcessingTitle(String title) {
         processingInfoLabel.setText(title);
     }
 
@@ -44,7 +44,7 @@ public class BuildingAnchorPane extends AnchorPane {
         nameTitleLabel.setPrefHeight(30);
         nameTitleLabel.setTextFill(Color.BLACK);
         nameTitleLabel.setAlignment(Pos.CENTER);
-        nameTitleLabel.setStyle("-fx-background-color: #7f7fd2; -fx-font-size: 17px");
+        nameTitleLabel.setStyle("-fx-background-color: #8484d0; -fx-font-size: 17px");
 
         AnchorPane.setTopAnchor(nameTitleLabel, 0.0);
         AnchorPane.setLeftAnchor(nameTitleLabel, 0.0);
@@ -57,7 +57,7 @@ public class BuildingAnchorPane extends AnchorPane {
         resourcesLabel.setPrefHeight(90);
         resourcesLabel.setTextFill(Color.BLACK);
         resourcesLabel.setAlignment(Pos.CENTER);
-        resourcesLabel.setStyle("-fx-background-color: #7f7fd2; -fx-font-size: 17px");
+        resourcesLabel.setStyle("-fx-background-color: #8484d0; -fx-font-size: 17px");
 
         AnchorPane.setTopAnchor(resourcesLabel, nameTitleLabel.getPrefHeight() + 20);
         AnchorPane.setLeftAnchor(resourcesLabel, 0.0);
@@ -70,7 +70,7 @@ public class BuildingAnchorPane extends AnchorPane {
         processingInfoLabel.setPrefHeight(80);
         processingInfoLabel.setTextFill(Color.BLACK);
         processingInfoLabel.setAlignment(Pos.CENTER);
-        processingInfoLabel.setStyle("-fx-background-color: #7f7fd2; -fx-font-size: 9px");
+        processingInfoLabel.setStyle("-fx-background-color: #8484d0; -fx-font-size: 9px");
 
         AnchorPane.setLeftAnchor(processingInfoLabel, 0.0);
         AnchorPane.setRightAnchor(processingInfoLabel, 0.0);

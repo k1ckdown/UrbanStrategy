@@ -21,8 +21,8 @@ public final class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-//        GameController gameController = new GameController(new GameAnchorPane());
-//        gameController.play();
+        GameController gameController = new GameController(new GameAnchorPane());
+        gameController.play();
         launch();
     }
 }

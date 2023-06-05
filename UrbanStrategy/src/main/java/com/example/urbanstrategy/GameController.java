@@ -19,6 +19,8 @@ public final class GameController {
     private final CustomBuildingBuilder customBuildingBuilder;
 
     private final GameAnchorPane view;
+    private final int numberOfRows = 2;
+
     private final ResourceType[] resourceTypes = ResourceType.values();
     private final BuildingType[] buildingTypes = BuildingType.values();
     private final TransportType[] transportTypes = TransportType.values();
@@ -33,6 +35,14 @@ public final class GameController {
 
     public void play() {
         cityController.startSimulate();
+    }
+
+    public int getNumberOfRows() {
+        return numberOfRows;
+    }
+
+    public int getNumberOfColumns() {
+        return buildingTypes.length / numberOfRows;
     }
 
     public void didTapOnResourceButton(int atIndex) {
@@ -51,6 +61,10 @@ public final class GameController {
         cityController.addBuilding(customBuildingBuilder.getAssembledBuilding());
     }
 
+    public String getBuildingTitle(int row, int col) {
+        return buildingTypes[row * numberOfRows + col].name();
+    }
+
     public List<String> getTransportTitles() {
         final List<String> titles = new ArrayList<>();
 
@@ -59,10 +73,6 @@ public final class GameController {
         }
 
         return titles;
-    }
-
-    public String getBuildingTitle(int atIndex) {
-        return buildingTypes[atIndex].name();
     }
 
     public List<String> getSupportedProcessingMethodsTitles() {

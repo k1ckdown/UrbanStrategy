@@ -22,6 +22,21 @@ public class GameAnchorPane extends AnchorPane {
         setup();
     }
 
+    public void updateTransportationInfoTitle(int atIndex, String title) {
+        final TransportAnchorPane transportAnchorPane = (TransportAnchorPane) transportBox.getChildren().get(atIndex);
+        transportAnchorPane.setStatusTitle(title);
+    }
+
+    public void updateResourcesTitle(int atIndex, String title) {
+        final BuildingAnchorPane buildingAnchorPane = (BuildingAnchorPane) buildingsGridPane.getChildren().get(atIndex);
+        buildingAnchorPane.setResourcesTitle(title);
+    }
+
+    public void updateProcessingTitle(int atIndex, String title) {
+        final BuildingAnchorPane buildingAnchorPane = (BuildingAnchorPane) buildingsGridPane.getChildren().get(atIndex);
+        buildingAnchorPane.setProcessingTitle(title);
+    }
+
     private void setup() {
         setupSuperView();
         setupBuildingsGridPane();
@@ -43,16 +58,16 @@ public class GameAnchorPane extends AnchorPane {
         buildingsGridPane.setAlignment(Pos.CENTER);
         buildingsGridPane.setStyle("-fx-background-color: #413e3c;");
 
-        for (int row = 0; row < 2; row++) {
-            for (int col = 0; col < 5; col++) {
+        for (int row = 0; row < gameController.getNumberOfRows(); row++) {
+            for (int col = 0; col < gameController.getNumberOfColumns(); col++) {
                 final BuildingAnchorPane cell = new BuildingAnchorPane();
 
                 cell.setPrefHeight(280);
                 cell.setPrefWidth(180);
 
-                cell.setTitleBuilding("House");
-                cell.updateResourcesTitle("Waste: 3443\nFood: 3434\nWater: 34333");
-                cell.updateProcessingTitle("Processing (CONSUME) ELECTRICITY (34)\nProcessing (PRODUCT) WATER (234)");
+                cell.setTitleBuilding(gameController.getBuildingTitle(row, col));
+//                cell.setResourcesTitle("Waste: 3443\nFood: 3434\nWater: 34333");
+//                cell.setProcessingTitle("Processing (CONSUME) ELECTRICITY (34)\nProcessing (PRODUCT) WATER (234)");
 
                 buildingsGridPane.add(cell, col, row);
             }
@@ -74,7 +89,6 @@ public class GameAnchorPane extends AnchorPane {
             final TransportAnchorPane transportAnchorPane = new TransportAnchorPane();
 
             transportAnchorPane.setNameTitle(transportTitle);
-            transportAnchorPane.setStatusTitle("Status Transport");
             transportBox.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(transportAnchorPane, Priority.ALWAYS);
 

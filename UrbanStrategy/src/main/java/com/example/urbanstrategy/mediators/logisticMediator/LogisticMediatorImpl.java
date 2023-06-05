@@ -46,6 +46,7 @@ public final class LogisticMediatorImpl implements LogisticMediator {
 
             int amount = (int)(resource.getAmount() * rate);
             Building destination = destinations.get(randomGenerator.nextInt(destinations.size()));
+
             transport.load(resource);
             transport.moveResources(destination, amount);
 
