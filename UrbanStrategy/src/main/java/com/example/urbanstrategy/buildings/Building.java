@@ -17,6 +17,8 @@ public abstract class Building {
     private final String name;
     private final String imagePath;
     private final String description;
+    private String infoAboutResources;
+    private String infoAboutProcessing;
 
     private final ICityBuilding city;
     private final Random randomGenerator;
@@ -55,6 +57,14 @@ public abstract class Building {
         return description;
     }
 
+    public String getInfoAboutResources() {
+        return infoAboutResources;
+    }
+
+    public String getInfoAboutProcessing() {
+        return infoAboutProcessing;
+    }
+
     public void simulate() {
         Thread simulate = new Thread(() -> {
             while (true) {
@@ -69,15 +79,6 @@ public abstract class Building {
         });
 
         simulate.start();
-    }
-
-    private LocalTime getRandomTime() {
-        int hour = ThreadLocalRandom.current().nextInt(24);
-        return LocalTime.of(hour, 0, 0);
-    }
-
-    private int getRandomNumber(int start, int end) {
-        return randomGenerator.nextInt(end - start + 1) + start;
     }
 
     public boolean needsResource(ResourceType resourceType) {
@@ -97,6 +98,15 @@ public abstract class Building {
                 .stream()
                 .filter(resource -> resource.getType() == resourceType).findFirst();
         sentResource.ifPresent(resource -> resource.put(amount));
+    }
+
+    private LocalTime getRandomTime() {
+        int hour = ThreadLocalRandom.current().nextInt(24);
+        return LocalTime.of(hour, 0, 0);
+    }
+
+    private int getRandomNumber(int start, int end) {
+        return randomGenerator.nextInt(end - start + 1) + start;
     }
 
     private void sendResourcesIfTime() {

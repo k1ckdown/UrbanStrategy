@@ -1,9 +1,10 @@
-package com.example.urbanstrategy.UI;
+package com.example.urbanstrategy.ui;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 public class TransportAnchorPane extends AnchorPane {
 
@@ -47,6 +48,8 @@ public class TransportAnchorPane extends AnchorPane {
         statusTitleLabel.setStyle("-fx-background-color: #d1d3d1;");
         statusTitleLabel.setTextFill(Color.BLACK);
         statusTitleLabel.setAlignment(Pos.CENTER);
+        statusTitleLabel.setWrapText(true);
+        statusTitleLabel.setTextAlignment(TextAlignment.CENTER);
 
         AnchorPane.setTopAnchor(statusTitleLabel, nameTitleLabel.getPrefHeight());
         AnchorPane.setLeftAnchor(statusTitleLabel, 0.0);

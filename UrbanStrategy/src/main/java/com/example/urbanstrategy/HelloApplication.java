@@ -1,6 +1,7 @@
 package com.example.urbanstrategy;
 
-import com.example.urbanstrategy.UI.GameAnchorPane;
+import com.example.urbanstrategy.controllers.GameController;
+import com.example.urbanstrategy.ui.GameAnchorPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

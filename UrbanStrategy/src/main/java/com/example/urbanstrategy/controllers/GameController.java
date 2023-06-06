@@ -1,6 +1,5 @@
-package com.example.urbanstrategy;
+package com.example.urbanstrategy.controllers;
 
-import com.example.urbanstrategy.UI.GameAnchorPane;
 import com.example.urbanstrategy.buildings.BuildingType;
 import com.example.urbanstrategy.buildings.customBuilding.CustomBuildingBuilder;
 import com.example.urbanstrategy.city.City;
@@ -8,8 +7,10 @@ import com.example.urbanstrategy.city.interfaces.ICityController;
 import com.example.urbanstrategy.processingMethods.ProcessingMethodType;
 import com.example.urbanstrategy.resources.ResourceType;
 import com.example.urbanstrategy.transports.TransportType;
+import com.example.urbanstrategy.ui.GameAnchorPane;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,21 @@ public final class GameController {
 
     public void didTapOnCreateCustomBuildingButton() {
         cityController.addBuilding(customBuildingBuilder.getAssembledBuilding());
+    }
+
+    public void didUpdateTransportationInfoTitle(TransportType type, String text) {
+        final int index = Arrays.asList(transportTypes).indexOf(type);
+        view.updateTransportationInfoTitle(index, text);
+    }
+
+    public void didUpdateResourcesTitle(BuildingType forBuildingType, String text) {
+        final int index = Arrays.asList(buildingTypes).indexOf(forBuildingType);
+        view.updateResourcesTitle(index, text);
+    }
+
+    public void didUpdateProcessingTitle(BuildingType forBuildingType, String text) {
+        final int index = Arrays.asList(buildingTypes).indexOf(forBuildingType);
+        view.updateProcessingTitle(index, text);
     }
 
     public String getBuildingTitle(int row, int col) {

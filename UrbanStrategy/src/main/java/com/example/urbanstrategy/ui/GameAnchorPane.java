@@ -1,6 +1,6 @@
-package com.example.urbanstrategy.UI;
+package com.example.urbanstrategy.ui;
 
-import com.example.urbanstrategy.GameController;
+import com.example.urbanstrategy.controllers.GameController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
@@ -66,8 +66,8 @@ public class GameAnchorPane extends AnchorPane {
                 cell.setPrefWidth(180);
 
                 cell.setTitleBuilding(gameController.getBuildingTitle(row, col));
-//                cell.setResourcesTitle("Waste: 3443\nFood: 3434\nWater: 34333");
-//                cell.setProcessingTitle("Processing (CONSUME) ELECTRICITY (34)\nProcessing (PRODUCT) WATER (234)");
+                cell.setResourcesTitle("Waste: 3443\nFood: 3434\nWater: 34333");
+                cell.setProcessingTitle("Processing (CONSUME) ELECTRICITY (34)\nProcessing (PRODUCT) WATER (234)");
 
                 buildingsGridPane.add(cell, col, row);
             }
@@ -89,6 +89,8 @@ public class GameAnchorPane extends AnchorPane {
             final TransportAnchorPane transportAnchorPane = new TransportAnchorPane();
 
             transportAnchorPane.setNameTitle(transportTitle);
+            transportAnchorPane.setStatusTitle("Moved coal from mine to power plant (939)");
+
             transportBox.setMaxHeight(Double.MAX_VALUE);
             HBox.setHgrow(transportAnchorPane, Priority.ALWAYS);
 
