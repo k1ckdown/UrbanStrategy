@@ -50,6 +50,7 @@ public final class LogisticMediatorImpl implements LogisticMediator {
 
             transport.load(resource);
             transport.moveResources(destination, amount);
+            transport.unload();
 
             System.out.println("=============Transportation=============");
             System.out.printf(

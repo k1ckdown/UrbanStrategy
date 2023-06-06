@@ -1,6 +1,6 @@
 package com.example.urbanstrategy.modules.game.view;
 
-import com.example.urbanstrategy.modules.game.presenter.GameViewPresenter;
+import com.example.urbanstrategy.modules.game.presenter.IGamePresenter;
 import com.example.urbanstrategy.views.BuildingAnchorPane;
 import com.example.urbanstrategy.views.TransportStackPane;
 import javafx.geometry.Insets;
@@ -10,9 +10,9 @@ import javafx.scene.layout.*;
 
 import java.util.List;
 
-public class GameView extends AnchorPane {
+public final class GameView extends AnchorPane implements IGameView {
 
-    private GameViewPresenter presenter;
+    private IGamePresenter presenter;
     private final HBox transportBox = new HBox();
     private final GridPane buildingsGridPane = new GridPane();
 
@@ -20,14 +20,9 @@ public class GameView extends AnchorPane {
 
     }
 
-    public void setPresenter(GameViewPresenter presenter) {
+    public void setPresenter(IGamePresenter presenter) {
         this.presenter = presenter;
         setup();
-    }
-
-    public void updateTransportationInfoTitle(int atIndex, String title) {
-        final TransportStackPane transportStackPane = (TransportStackPane) transportBox.getChildren().get(atIndex);
-        transportStackPane.setStatusTitle(title);
     }
 
     public void updateResourcesTitle(int atIndex, String title) {
@@ -38,6 +33,11 @@ public class GameView extends AnchorPane {
     public void updateProcessingTitle(int atIndex, String title) {
         final BuildingAnchorPane buildingAnchorPane = (BuildingAnchorPane) buildingsGridPane.getChildren().get(atIndex);
         buildingAnchorPane.setProcessingTitle(title);
+    }
+
+    public void updateTransportationInfoTitle(int atIndex, String title) {
+        final TransportStackPane transportStackPane = (TransportStackPane) transportBox.getChildren().get(atIndex);
+        transportStackPane.setStatusTitle(title);
     }
 
     private Background getBackground(Image image) {
@@ -78,7 +78,6 @@ public class GameView extends AnchorPane {
 
         final int numberOfRows = presenter.getNumberOfRows();
         final int numberOfColumns = presenter.getNumberOfColumns();
-
         for (int row = 0; row < numberOfRows; row++) {
             for (int col = 0; col < numberOfColumns; col++) {
                 final BuildingAnchorPane cell = new BuildingAnchorPane();

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 import java.util.List;
 
-public interface GameViewPresenter {
+public interface IGamePresenter {
     int getNumberOfRows();
     int getNumberOfColumns();
     List<String> getTransportTitles();

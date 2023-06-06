@@ -8,7 +8,7 @@ import com.example.urbanstrategy.models.city.interfaces.ICityController;
 import com.example.urbanstrategy.models.processingMethods.ProcessingMethodType;
 import com.example.urbanstrategy.models.resources.ResourceType;
 import com.example.urbanstrategy.models.transports.TransportType;
-import com.example.urbanstrategy.modules.game.view.GameView;
+import com.example.urbanstrategy.modules.game.view.IGameView;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 
@@ -17,12 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class GamePresenter implements GameViewPresenter {
+public final class GamePresenter implements IGamePresenter {
 
-    private final ICityController cityController;
-    private final CustomBuildingBuilder customBuildingBuilder;
+    private final IGameView view;
 
-    private final GameView view;
     private final int numberOfRows;
     private final int numberOfColumns;
 
@@ -31,7 +29,10 @@ public final class GamePresenter implements GameViewPresenter {
     private final TransportType[] transportTypes;
     private final ProcessingMethodType[] processingMethodTypes;
 
-    public GamePresenter(GameView view) {
+    private final ICityController cityController;
+    private final CustomBuildingBuilder customBuildingBuilder;
+
+    public GamePresenter(IGameView view) {
         resourceTypes = ResourceType.values();
         buildingTypes = BuildingType.values();
         transportTypes = TransportType.values();
