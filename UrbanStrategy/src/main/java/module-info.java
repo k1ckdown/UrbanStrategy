@@ -5,7 +5,7 @@ module com.example.urbanstrategy {
 
 //    opens com.example.urbanstrategy to javafx.fxml;
 
-    exports com.example.urbanstrategy;
+    exports com.example.urbanstrategy.application;
 //    exports com.example.urbanstrategy.ui;
 //    exports com.example.urbanstrategy.buildings;
 //    exports com.example.urbanstrategy.resources;
