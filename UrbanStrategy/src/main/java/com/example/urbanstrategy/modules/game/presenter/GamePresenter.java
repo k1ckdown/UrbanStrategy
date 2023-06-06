@@ -8,6 +8,7 @@ import com.example.urbanstrategy.models.processingMethods.ProcessingMethodType;
 import com.example.urbanstrategy.models.resources.ResourceType;
 import com.example.urbanstrategy.models.transports.TransportType;
 import com.example.urbanstrategy.modules.game.view.GameView;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,14 +37,26 @@ public final class GamePresenter {
 
     public void play() {
         cityController.startSimulate();
-    }
 
-    public int getNumberOfRows() {
-        return numberOfRows;
-    }
+        Thread playThread = new Thread(() -> {
+            while (true) {
 
-    public int getNumberOfColumns() {
-        return buildingTypes.length / numberOfRows;
+                try {
+                    final List<String> resourceTitles = getAllResourceTitles();
+                    Platform.runLater(() -> {
+                        for (int i = 0; i < resourceTitles.size(); i++) {
+                            view.updateResourcesTitle(i, resourceTitles.get(i));
+                        }
+                    });
+                    Thread.sleep(4000);
+                } catch (Exception error) {
+                    throw new RuntimeException(error);
+                }
+
+            }
+        });
+
+        playThread.start();
     }
 
     public void didTapOnResourceButton(int atIndex) {
@@ -75,6 +88,22 @@ public final class GamePresenter {
     public void didUpdateProcessingTitle(BuildingType forBuildingType, String text) {
         final int index = Arrays.asList(buildingTypes).indexOf(forBuildingType);
         view.updateProcessingTitle(index, text);
+    }
+
+    public int getNumberOfRows() {
+        return numberOfRows;
+    }
+
+    public int getNumberOfColumns() {
+        return buildingTypes.length / numberOfRows;
+    }
+
+    public List<String> getAllProcessingTitles() {
+        return cityController.getResourceProcessingStatuses();
+    }
+
+    public List<String> getAllResourceTitles() {
+        return cityController.getDescriptionsResourcesOfBuildings();
     }
 
     public String getBuildingTitle(int row, int col) {

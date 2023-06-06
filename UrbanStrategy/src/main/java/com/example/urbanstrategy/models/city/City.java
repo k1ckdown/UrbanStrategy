@@ -6,6 +6,7 @@ import com.example.urbanstrategy.models.city.interfaces.ICityController;
 import com.example.urbanstrategy.models.factories.BuildingFactory;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class City implements ICityController, ICityBuilding {
@@ -33,16 +34,36 @@ public final class City implements ICityController, ICityBuilding {
         simulate.start();
     }
 
-    public LocalTime getLocalTime() {
-        return localTime;
-    }
-
     public void addBuilding(Building building) {
         buildings.add(building);
     }
 
     public void removeBuilding(Building building) {
         buildings.remove(building);
+    }
+
+    public LocalTime getLocalTime() {
+        return localTime;
+    }
+
+    public List<String> getResourceProcessingStatuses() {
+        List<String> descriptions = new ArrayList<>();
+
+        for (Building building : buildings) {
+            descriptions.add(building.getInfoAboutProcessing());
+        }
+
+        return descriptions;
+    }
+
+    public List<String> getDescriptionsResourcesOfBuildings() {
+        List<String> descriptions = new ArrayList<>();
+
+        for (Building building : buildings) {
+            descriptions.add(building.getInfoAboutResources());
+        }
+
+        return descriptions;
     }
 
 }
