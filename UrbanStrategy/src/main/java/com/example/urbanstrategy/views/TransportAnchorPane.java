@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
-public class TransportAnchorPane extends AnchorPane {
+public final class TransportAnchorPane extends AnchorPane {
 
     private final Label nameTitleLabel = new Label();
     private final Label statusTitleLabel = new Label();
