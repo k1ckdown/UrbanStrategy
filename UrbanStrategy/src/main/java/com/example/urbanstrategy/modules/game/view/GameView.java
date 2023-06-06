@@ -60,8 +60,10 @@ public class GameView extends AnchorPane {
         buildingsGridPane.setAlignment(Pos.CENTER);
         buildingsGridPane.setStyle("-fx-background-color: #413e3c;");
 
-        for (int row = 0; row < presenter.getNumberOfRows(); row++) {
-            for (int col = 0; col < presenter.getNumberOfColumns(); col++) {
+        final int numberOfRows = presenter.getNumberOfRows();
+        final int numberOfColumns = presenter.getNumberOfColumns();
+        for (int row = 0; row < numberOfRows; row++) {
+            for (int col = 0; col < numberOfColumns; col++) {
                 final BuildingAnchorPane cell = new BuildingAnchorPane();
 
                 cell.setPrefHeight(280);

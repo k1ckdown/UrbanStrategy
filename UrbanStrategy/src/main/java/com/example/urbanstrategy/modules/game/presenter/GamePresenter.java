@@ -21,14 +21,23 @@ public final class GamePresenter implements GameViewPresenter {
     private final CustomBuildingBuilder customBuildingBuilder;
 
     private final GameView view;
-    private final int numberOfRows = 2;
+    private final int numberOfRows;
+    private final int numberOfColumns;
 
-    private final ResourceType[] resourceTypes = ResourceType.values();
-    private final BuildingType[] buildingTypes = BuildingType.values();
-    private final TransportType[] transportTypes = TransportType.values();
-    private final ProcessingMethodType[] processingMethodTypes = ProcessingMethodType.values();
+    private final ResourceType[] resourceTypes;
+    private final BuildingType[] buildingTypes;
+    private final TransportType[] transportTypes;
+    private final ProcessingMethodType[] processingMethodTypes;
 
     public GamePresenter(GameView view) {
+        resourceTypes = ResourceType.values();
+        buildingTypes = BuildingType.values();
+        transportTypes = TransportType.values();
+        processingMethodTypes = ProcessingMethodType.values();
+
+        numberOfRows = 2;
+        numberOfColumns = buildingTypes.length / numberOfRows;
+
         final City city = new City();
         cityController = city;
         customBuildingBuilder = new CustomBuildingBuilder(city);
@@ -97,7 +106,7 @@ public final class GamePresenter implements GameViewPresenter {
     }
 
     public int getNumberOfColumns() {
-        return buildingTypes.length / numberOfRows;
+        return numberOfColumns;
     }
 
     public List<String> getAllProcessingTitles() {
@@ -109,7 +118,7 @@ public final class GamePresenter implements GameViewPresenter {
     }
 
     public String getBuildingTitle(int row, int col) {
-        return buildingTypes[row * numberOfRows + col].name();
+        return buildingTypes[row * numberOfColumns + col].name();
     }
 
     public List<String> getTransportTitles() {

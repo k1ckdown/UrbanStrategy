@@ -11,6 +11,6 @@ public class DestroyResourceStrategy extends ResourceProcessingStrategy {
     }
 
     public void process(Resource resource, double processingRate) {
-        resource.resetAmount();
+        resource.increaseAmount(processingRate);
     }
 }
