@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class GamePresenter {
+public final class GamePresenter implements GameViewPresenter {
 
     private final ICityController cityController;
     private final CustomBuildingBuilder customBuildingBuilder;
@@ -43,12 +43,14 @@ public final class GamePresenter {
 
                 try {
                     final List<String> resourceTitles = getAllResourceTitles();
+                    final List<String> processingTitles = getAllProcessingTitles();
                     Platform.runLater(() -> {
                         for (int i = 0; i < resourceTitles.size(); i++) {
                             view.updateResourcesTitle(i, resourceTitles.get(i));
+                            view.updateProcessingTitle(i, processingTitles.get(i));
                         }
                     });
-                    Thread.sleep(4000);
+                    Thread.sleep(1000);
                 } catch (Exception error) {
                     throw new RuntimeException(error);
                 }

@@ -1,6 +1,6 @@
 package com.example.urbanstrategy.modules.game.view;
 
-import com.example.urbanstrategy.modules.game.presenter.GamePresenter;
+import com.example.urbanstrategy.modules.game.presenter.GameViewPresenter;
 import com.example.urbanstrategy.views.BuildingAnchorPane;
 import com.example.urbanstrategy.views.TransportAnchorPane;
 import javafx.geometry.Insets;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GameView extends AnchorPane {
 
-    private GamePresenter presenter;
+    private GameViewPresenter presenter;
     private final HBox transportBox = new HBox();
     private final GridPane buildingsGridPane = new GridPane();
 
@@ -19,7 +19,7 @@ public class GameView extends AnchorPane {
 
     }
 
-    public void setPresenter(GamePresenter presenter) {
+    public void setPresenter(GameViewPresenter presenter) {
         this.presenter = presenter;
         setup();
     }
@@ -66,10 +66,7 @@ public class GameView extends AnchorPane {
 
                 cell.setPrefHeight(280);
                 cell.setPrefWidth(180);
-
                 cell.setTitleBuilding(presenter.getBuildingTitle(row, col));
-                cell.setResourcesTitle("Waste: 3443\nFood: 3434\nWater: 34333");
-                cell.setProcessingTitle("Processing (CONSUME) ELECTRICITY (34)\nProcessing (PRODUCT) WATER (234)");
 
                 buildingsGridPane.add(cell, col, row);
             }
