@@ -2,9 +2,10 @@ package com.example.urbanstrategy.modules.game.view;
 
 import com.example.urbanstrategy.modules.game.presenter.GameViewPresenter;
 import com.example.urbanstrategy.views.BuildingAnchorPane;
-import com.example.urbanstrategy.views.TransportAnchorPane;
+import com.example.urbanstrategy.views.TransportStackPane;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class GameView extends AnchorPane {
     }
 
     public void updateTransportationInfoTitle(int atIndex, String title) {
-        final TransportAnchorPane transportAnchorPane = (TransportAnchorPane) transportBox.getChildren().get(atIndex);
-        transportAnchorPane.setStatusTitle(title);
+        final TransportStackPane transportStackPane = (TransportStackPane) transportBox.getChildren().get(atIndex);
+        transportStackPane.setStatusTitle(title);
     }
 
     public void updateResourcesTitle(int atIndex, String title) {
@@ -37,6 +38,21 @@ public class GameView extends AnchorPane {
     public void updateProcessingTitle(int atIndex, String title) {
         final BuildingAnchorPane buildingAnchorPane = (BuildingAnchorPane) buildingsGridPane.getChildren().get(atIndex);
         buildingAnchorPane.setProcessingTitle(title);
+    }
+
+    private Background getBackground(Image image) {
+        final BackgroundSize backgroundSize = new BackgroundSize(
+                100, 100,
+                true, true, true, true
+        );
+
+        final BackgroundImage backgroundImage = new BackgroundImage(
+                image,
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER, backgroundSize
+        );
+
+        return new Background(backgroundImage);
     }
 
     private void setup() {
@@ -62,12 +78,15 @@ public class GameView extends AnchorPane {
 
         final int numberOfRows = presenter.getNumberOfRows();
         final int numberOfColumns = presenter.getNumberOfColumns();
+
         for (int row = 0; row < numberOfRows; row++) {
             for (int col = 0; col < numberOfColumns; col++) {
                 final BuildingAnchorPane cell = new BuildingAnchorPane();
+                final Image buildingImage = presenter.getBuildingImage(row, col);
 
                 cell.setPrefHeight(280);
                 cell.setPrefWidth(180);
+                cell.setBackground(getBackground(buildingImage));
                 cell.setTitleBuilding(presenter.getBuildingTitle(row, col));
 
                 buildingsGridPane.add(cell, col, row);
@@ -86,16 +105,15 @@ public class GameView extends AnchorPane {
         transportBox.setAlignment(Pos.CENTER);
 
         final List<String> titles = presenter.getTransportTitles();
-        for (String transportTitle : titles) {
-            final TransportAnchorPane transportAnchorPane = new TransportAnchorPane();
+        for (int q = 0; q < titles.size(); q++) {
+            final TransportStackPane transportStackPane = new TransportStackPane();
+            final Image transportImage = presenter.getTransportImage(q);
 
-            transportAnchorPane.setNameTitle(transportTitle);
-            transportAnchorPane.setStatusTitle("Moved coal from mine to power plant (939)");
+            transportStackPane.setNameTitle(titles.get(q));
+            transportStackPane.setStatusTitle("Moved coal from mine to power plant (939)");
+            transportStackPane.setBackground(getBackground(transportImage));
 
-            transportBox.setMaxHeight(Double.MAX_VALUE);
-            HBox.setHgrow(transportAnchorPane, Priority.ALWAYS);
-
-            transportBox.getChildren().add(transportAnchorPane);
+            transportBox.getChildren().add(transportStackPane);
         }
 
         setTopAnchor(transportBox, getTopAnchor(buildingsGridPane) + buildingsGridPane.getPrefHeight() + 10);

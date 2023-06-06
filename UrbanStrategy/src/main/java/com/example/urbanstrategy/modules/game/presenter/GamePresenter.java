@@ -1,5 +1,6 @@
 package com.example.urbanstrategy.modules.game.presenter;
 
+import com.example.urbanstrategy.utils.ImageProvider;
 import com.example.urbanstrategy.models.buildings.BuildingType;
 import com.example.urbanstrategy.models.buildings.customBuilding.CustomBuildingBuilder;
 import com.example.urbanstrategy.models.city.City;
@@ -9,6 +10,7 @@ import com.example.urbanstrategy.models.resources.ResourceType;
 import com.example.urbanstrategy.models.transports.TransportType;
 import com.example.urbanstrategy.modules.game.view.GameView;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -118,7 +120,15 @@ public final class GamePresenter implements GameViewPresenter {
     }
 
     public String getBuildingTitle(int row, int col) {
-        return buildingTypes[row * numberOfColumns + col].name();
+        return getBuildingType(row, col).name();
+    }
+
+    public Image getBuildingImage(int row, int col) {
+        return ImageProvider.getInstance().getBuildingImage(getBuildingType(row, col));
+    }
+
+    public Image getTransportImage(int atIndex) {
+        return ImageProvider.getInstance().getTransportImage(transportTypes[atIndex]);
     }
 
     public List<String> getTransportTitles() {
@@ -136,6 +146,10 @@ public final class GamePresenter implements GameViewPresenter {
                 .stream()
                 .map(Enum::name)
                 .collect(Collectors.toList());
+    }
+
+    private BuildingType getBuildingType(int row, int col) {
+        return buildingTypes[row * numberOfColumns + col];
     }
 
 }

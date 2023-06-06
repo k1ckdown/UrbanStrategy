@@ -2,12 +2,8 @@ package com.example.urbanstrategy.views;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-
-import java.io.InputStream;
-import java.net.URL;
 
 public final class BuildingAnchorPane extends AnchorPane {
 
@@ -32,28 +28,9 @@ public final class BuildingAnchorPane extends AnchorPane {
     }
 
     public void setup() {
-        setupSuperView();
         setupNameTitleLabel();
         setupListOfResources();
         setupProcessingInfoLabel();
-    }
-
-    private void setupSuperView() {
-        final String imagePath = "/images/mine.png";
-        final InputStream inputStream = getClass().getResourceAsStream(imagePath);
-
-        assert inputStream != null;
-        final Image image = new Image(inputStream);
-        final BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, true);
-        final BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-        final Background background = new Background(backgroundImage);
-        setBackground(background);
-
-//        final URL imagePath = getClass().getResource("/images/mine.png");
-//        String style = "-fx-background-image: url('" + imagePath + "'); " +
-//                "-fx-background-size: cover; " +
-//                "-fx-background-position: center center;";
-//        setStyle(style);
     }
 
     public void setupNameTitleLabel() {
