@@ -5,7 +5,6 @@ import com.example.urbanstrategy.models.buildings.*;
 import com.example.urbanstrategy.models.buildings.customBuilding.CustomBuilding;
 import com.example.urbanstrategy.models.buildings.defaultBuildings.*;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
-import com.example.urbanstrategy.models.mediators.logisticMediator.LogisticMediatorImpl;
 import com.example.urbanstrategy.models.processingMethods.ResourceProcessingStrategy;
 import com.example.urbanstrategy.models.resources.Resource;
 
@@ -15,10 +14,8 @@ import java.util.Map;
 
 public final class BuildingFactory {
 
-    private final LogisticMediatorImpl logisticMediator;
-
     private BuildingFactory() {
-        logisticMediator = new LogisticMediatorImpl();
+
     }
 
     public static BuildingFactory getInstance() {
@@ -39,7 +36,6 @@ public final class BuildingFactory {
                 name,
                 "imagePath",
                 "desc",
-                logisticMediator,
                 processingByResource
         );
     }
@@ -52,32 +48,34 @@ public final class BuildingFactory {
             buildingList.add(makeDefaultBuilding(type, city));
         }
 
-        logisticMediator.updateBuildingList(buildingList);
         return buildingList;
     }
 
-    private Building makeDefaultBuilding(BuildingType buildingType, ICityBuilding city) {
+    private Building makeDefaultBuilding(
+            BuildingType buildingType,
+            ICityBuilding city
+    ) {
         switch (buildingType) {
             case MINE:
-                return new Mine(city, logisticMediator);
+                return new Mine(city);
             case FARM:
-                return new Farm(city, logisticMediator);
+                return new Farm(city);
             case MALL:
-                return new Mall(city, logisticMediator);
+                return new Mall(city);
             case HOUSE:
-                return new House(city, logisticMediator);
+                return new House(city);
             case SAWMILL:
-                return new Sawmill(city, logisticMediator);
+                return new Sawmill(city);
             case FACTORY:
-                return new Factory(city, logisticMediator);
+                return new Factory(city);
             case HOSPITAL:
-                return new Hospital(city, logisticMediator);
+                return new Hospital(city);
             case RESTAURANT:
-                return new Restaurant(city, logisticMediator);
+                return new Restaurant(city);
             case POWER_PLANT:
-                return new PowerPlant(city, logisticMediator);
+                return new PowerPlant(city);
             case WATER_TREATMENT_PLANT:
-                return new WaterTreatmentPlant(city, logisticMediator);
+                return new WaterTreatmentPlant(city);
         }
 
         return null;

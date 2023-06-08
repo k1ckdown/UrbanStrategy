@@ -5,9 +5,11 @@ import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.resources.interfaces.IResourceTransported;
 
 public abstract class Transport {
+
     private final String name;
     private final int capacity;
     private IResourceTransported resource;
+    private String transportationStatus;
 
     public Transport(String name, int capacity) {
         this.name = name;
@@ -26,11 +28,15 @@ public abstract class Transport {
         resource = null;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getCapacity() {
         return capacity;
     }
 
-    public String getName() {
-        return name;
+    public String getTransportationStatus() {
+        return transportationStatus;
     }
 }

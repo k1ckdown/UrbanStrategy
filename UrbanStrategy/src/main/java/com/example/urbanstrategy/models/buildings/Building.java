@@ -1,10 +1,10 @@
 package com.example.urbanstrategy.models.buildings;
 
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
-import com.example.urbanstrategy.models.mediators.logisticMediator.LogisticMediator;
 import com.example.urbanstrategy.models.processingMethods.specificMethods.ConsumeResourceStrategy;
 import com.example.urbanstrategy.models.processingMethods.specificMethods.ProduceResourceStrategy;
 import com.example.urbanstrategy.models.processingMethods.ResourceProcessingStrategy;
+import com.example.urbanstrategy.models.processingMethods.specificMethods.RecycleResourceStrategy;
 import com.example.urbanstrategy.models.processingMethods.specificMethods.TreatmentResourceStrategy;
 import com.example.urbanstrategy.models.resources.Resource;
 import com.example.urbanstrategy.models.resources.ResourceType;
@@ -22,7 +22,6 @@ public abstract class Building {
 
     private final ICityBuilding city;
     private final Random randomGenerator;
-    private final LogisticMediator logisticMediator;
     private final Map<Resource, List<LocalTime>> scheduleSending;
     private final Map<Resource, List<ResourceProcessingStrategy>> processingByResource;
 
@@ -31,14 +30,12 @@ public abstract class Building {
             String name,
             String imagePath,
             String description,
-            LogisticMediator logisticMediator,
             Map<Resource, List<ResourceProcessingStrategy>> processingByResource
     ) {
         this.city = city;
         this.name = name;
         this.imagePath = imagePath;
         this.description = description;
-        this.logisticMediator = logisticMediator;
         this.processingByResource = processingByResource;
         scheduleSending = new HashMap<>();
         randomGenerator = new Random();
@@ -88,7 +85,8 @@ public abstract class Building {
                 return processingByResource.get(resource)
                         .stream()
                         .anyMatch(process -> process instanceof ConsumeResourceStrategy
-                                || process instanceof TreatmentResourceStrategy);
+                                || process instanceof TreatmentResourceStrategy
+                                || process instanceof RecycleResourceStrategy);
             }
         }
         return false;
@@ -126,7 +124,7 @@ public abstract class Building {
                     .stream()
                     .anyMatch(time -> time.getHour() == city.getLocalTime().getHour())) {
                 double rate = 0.2;
-                logisticMediator.transportResources(this, resource, rate);
+                city.transferResources(this, resource, rate);
             }
         }
     }

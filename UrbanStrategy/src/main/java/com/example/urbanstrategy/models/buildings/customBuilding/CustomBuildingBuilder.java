@@ -47,6 +47,10 @@ public final class CustomBuildingBuilder {
     }
 
     public Building getAssembledBuilding() {
-        return BuildingFactory.getInstance().makeCustomBuilding(city, name, processingByResource);
+        return BuildingFactory.getInstance().makeCustomBuilding(
+                city,
+                name,
+                processingByResource
+        );
     }
 }

@@ -33,6 +33,12 @@ public final class GamePresenter implements IGamePresenter {
     private final CustomBuildingBuilder customBuildingBuilder;
 
     public GamePresenter(IGameView view) {
+        this.view = view;
+
+        final City city = new City();
+        cityController = city;
+        customBuildingBuilder = new CustomBuildingBuilder(city);
+
         resourceTypes = ResourceType.values();
         buildingTypes = BuildingType.values();
         transportTypes = TransportType.values();
@@ -40,11 +46,6 @@ public final class GamePresenter implements IGamePresenter {
 
         numberOfRows = 2;
         numberOfColumns = buildingTypes.length / numberOfRows;
-
-        final City city = new City();
-        cityController = city;
-        customBuildingBuilder = new CustomBuildingBuilder(city);
-        this.view = view;
     }
 
     public void play() {

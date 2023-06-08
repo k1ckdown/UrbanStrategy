@@ -2,7 +2,6 @@ package com.example.urbanstrategy.models.buildings.defaultBuildings;
 
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
-import com.example.urbanstrategy.models.mediators.logisticMediator.LogisticMediator;
 import com.example.urbanstrategy.models.processingMethods.specificMethods.ConsumeResourceStrategy;
 import com.example.urbanstrategy.models.processingMethods.specificMethods.ProduceResourceStrategy;
 import com.example.urbanstrategy.models.processingMethods.specificMethods.TreatmentResourceStrategy;
@@ -15,8 +14,8 @@ import java.util.Map;
 
 public final class Restaurant extends Building {
 
-    public Restaurant(ICityBuilding city, LogisticMediator logisticMediator) {
-        super(city, "restaurant", "", "", logisticMediator, Map.of(
+    public Restaurant(ICityBuilding city) {
+        super(city, "restaurant", "", "", Map.of(
                 new Food(), List.of(new TreatmentResourceStrategy()),
                 new Water(), List.of(new ConsumeResourceStrategy()),
                 new Dish(), List.of(new ProduceResourceStrategy())

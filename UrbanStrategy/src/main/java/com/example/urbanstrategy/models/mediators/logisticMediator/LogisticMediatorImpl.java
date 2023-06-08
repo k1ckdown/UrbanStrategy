@@ -1,30 +1,30 @@
 package com.example.urbanstrategy.models.mediators.logisticMediator;
 
 import com.example.urbanstrategy.models.buildings.Building;
-import com.example.urbanstrategy.models.factories.TransportFactory;
 import com.example.urbanstrategy.models.resources.Resource;
 import com.example.urbanstrategy.models.resources.ResourceType;
 import com.example.urbanstrategy.models.transports.*;
 import com.example.urbanstrategy.models.transports.specificTransports.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public final class LogisticMediatorImpl implements LogisticMediator {
 
-    private List<Building> buildingList;
+    private final List<Building> buildingList;
     private final List<Transport> transportList;
     private final Random randomGenerator;
 
-    public LogisticMediatorImpl() {
-        this.transportList = TransportFactory.getInstance().createAllTransport();
+    public LogisticMediatorImpl(List<Building> buildingList, List<Transport> transportList) {
+        this.buildingList = buildingList;
+        this.transportList = transportList;
         randomGenerator = new Random();
     }
 
-    public void updateBuildingList(List<Building> buildingList) {
-        this.buildingList = buildingList;
+    public void registerBuilding(Building building) {
+        buildingList.add(building);
     }
 
     public void transportResources(Building sender, Resource resource, double rate) {
@@ -33,13 +33,10 @@ public final class LogisticMediatorImpl implements LogisticMediator {
 
         if (optTransport.isPresent()) {
             Transport transport = optTransport.get();
-            List<Building> destinations = new ArrayList<>();
+            List<Building> destinations = buildingList.stream()
+                    .filter(building -> building.needsResource(resource.getType()))
+                    .collect(Collectors.toList());
 
-            for (Building destination : buildingList) {
-                if (destination.needsResource(resource.getType())) {
-                    destinations.add(destination);
-                }
-            }
 
             if (destinations.size() == 0) {
                 return;
