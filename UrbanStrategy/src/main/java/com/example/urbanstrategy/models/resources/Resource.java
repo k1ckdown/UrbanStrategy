@@ -27,6 +27,10 @@ public abstract class Resource implements IResourceTransported {
         amount += value;
     }
 
+    public void remove(int value) {
+        amount -= value;
+    }
+
     public void resetAmount() {
         amount = 0;
     }

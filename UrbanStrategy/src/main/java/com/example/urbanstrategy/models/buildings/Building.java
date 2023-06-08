@@ -1,11 +1,8 @@
 package com.example.urbanstrategy.models.buildings;
 
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
-import com.example.urbanstrategy.models.processingMethods.specificMethods.ConsumeResourceStrategy;
-import com.example.urbanstrategy.models.processingMethods.specificMethods.ProduceResourceStrategy;
+import com.example.urbanstrategy.models.processingMethods.ProcessingMethodType;
 import com.example.urbanstrategy.models.processingMethods.ResourceProcessingStrategy;
-import com.example.urbanstrategy.models.processingMethods.specificMethods.RecycleResourceStrategy;
-import com.example.urbanstrategy.models.processingMethods.specificMethods.TreatmentResourceStrategy;
 import com.example.urbanstrategy.models.resources.Resource;
 import com.example.urbanstrategy.models.resources.ResourceType;
 
@@ -84,9 +81,9 @@ public abstract class Building {
             if (resource.getType() == resourceType) {
                 return processingByResource.get(resource)
                         .stream()
-                        .anyMatch(process -> process instanceof ConsumeResourceStrategy
-                                || process instanceof TreatmentResourceStrategy
-                                || process instanceof RecycleResourceStrategy);
+                        .anyMatch(method -> method.getType() == ProcessingMethodType.CONSUME
+                                || method.getType() == ProcessingMethodType.TREATMENT
+                                || method.getType() == ProcessingMethodType.RECYCLE);
             }
         }
         return false;
@@ -163,8 +160,8 @@ public abstract class Building {
 
     private void generateResourceSendingSchedule() {
         for (Resource resource : processingByResource.keySet()) {
-            if (processingByResource.get(resource).stream().anyMatch(process ->
-                    process instanceof ProduceResourceStrategy
+            if (processingByResource.get(resource).stream().anyMatch(method ->
+                    method.getType() == ProcessingMethodType.PRODUCE
             )) {
 
                 scheduleSending.put(resource, new ArrayList<>());

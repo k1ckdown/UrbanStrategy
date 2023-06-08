@@ -1,10 +1,7 @@
 package com.example.urbanstrategy.models.factories;
 
 import com.example.urbanstrategy.models.transports.*;
-import com.example.urbanstrategy.models.transports.specificTransports.Car;
-import com.example.urbanstrategy.models.transports.specificTransports.Lorry;
-import com.example.urbanstrategy.models.transports.specificTransports.PowerLines;
-import com.example.urbanstrategy.models.transports.specificTransports.Train;
+import com.example.urbanstrategy.models.transports.specificTransports.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +40,7 @@ public final class TransportFactory {
             case POWER_LINES:
                 return new PowerLines();
             case WATER_SUPPLY:
-                break;
+                return new WaterSupply();
         }
         return null;
     }

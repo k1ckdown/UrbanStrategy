@@ -4,7 +4,6 @@ import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.resources.Resource;
 import com.example.urbanstrategy.models.resources.ResourceType;
 import com.example.urbanstrategy.models.transports.*;
-import com.example.urbanstrategy.models.transports.specificTransports.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +27,6 @@ public final class LogisticMediatorImpl implements LogisticMediator {
     }
 
     public void transportResources(Building sender, Resource resource, double rate) {
-        resource.decreaseAmount(rate);
         final Optional<Transport> optTransport = getTransportFor(resource.getType());
 
         if (optTransport.isPresent()) {
@@ -70,17 +68,27 @@ public final class LogisticMediatorImpl implements LogisticMediator {
             case WASTE:
             case FURNITURE:
             case MEDICAL_SUPPLIES:
-                return transportList.stream().filter(transport -> transport instanceof Lorry).findFirst();
+                return transportList.stream()
+                        .filter(transport -> transport.getType() == TransportType.LORRY)
+                        .findFirst();
             case COAL:
             case GRAIN:
-                return transportList.stream().filter(transport -> transport instanceof Train).findFirst();
+                return transportList.stream()
+                        .filter(transport -> transport.getType() == TransportType.TRAIN)
+                        .findFirst();
             case FOOD:
             case DISH:
-                return transportList.stream().filter(transport -> transport instanceof Car).findFirst();
+                return transportList.stream()
+                        .filter(transport -> transport.getType() == TransportType.CAR)
+                        .findFirst();
             case WATER:
-                return transportList.stream().filter(transport -> transport instanceof WaterSupply).findFirst();
+                return transportList.stream()
+                        .filter(transport -> transport.getType() == TransportType.WATER_SUPPLY)
+                        .findFirst();
             case ELECTRICITY:
-                return transportList.stream().filter(transport -> transport instanceof PowerLines).findFirst();
+                return transportList.stream()
+                        .filter(transport -> transport.getType() == TransportType.POWER_LINES)
+                        .findFirst();
         }
 
         return Optional.empty();
