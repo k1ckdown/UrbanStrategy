@@ -8,6 +8,7 @@ public interface ICityController {
     void startSimulate();
     void addBuilding(Building building);
     void removeBuilding(Building building);
+    List<String> getTransportStatuses();
     List<String> getResourceProcessingStatuses();
     List<String> getDescriptionsResourcesOfBuildings();
 }

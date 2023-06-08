@@ -47,6 +47,14 @@ public final class LogisticMediatorImpl implements LogisticMediator {
             transport.moveResources(destination, amount);
             transport.unload();
 
+            transport.updateTransportationStatus(String.format(
+                    "Moved %s from %s to %s (%d)",
+                    resource.getName(),
+                    sender.getName(),
+                    destination.getName(),
+                    amount
+            ));
+
             System.out.println("=============Transportation=============");
             System.out.printf(
                     "Transport %s moved %s from %s to %s (%d).\n",

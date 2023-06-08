@@ -35,7 +35,7 @@ public final class GameView extends AnchorPane implements IGameView {
         buildingAnchorPane.setProcessingTitle(title);
     }
 
-    public void updateTransportationInfoTitle(int atIndex, String title) {
+    public void updateTransportationStatusTitle(int atIndex, String title) {
         final TransportStackPane transportStackPane = (TransportStackPane) transportBox.getChildren().get(atIndex);
         transportStackPane.setStatusTitle(title);
     }
@@ -86,7 +86,7 @@ public final class GameView extends AnchorPane implements IGameView {
                 cell.setPrefHeight(280);
                 cell.setPrefWidth(180);
                 cell.setBackground(getBackground(buildingImage));
-                cell.setTitleBuilding(presenter.getBuildingTitle(row, col));
+                cell.setTitleBuilding(presenter.getBuildingHeader(row, col));
 
                 buildingsGridPane.add(cell, col, row);
             }
@@ -103,12 +103,12 @@ public final class GameView extends AnchorPane implements IGameView {
         transportBox.setSpacing(70);
         transportBox.setAlignment(Pos.CENTER);
 
-        final List<String> titles = presenter.getTransportTitles();
-        for (int q = 0; q < titles.size(); q++) {
+        final List<String> headers = presenter.getTransportHeaders();
+        for (int q = 0; q < headers.size(); q++) {
             final TransportStackPane transportStackPane = new TransportStackPane();
             final Image transportImage = presenter.getTransportImage(q);
 
-            transportStackPane.setNameTitle(titles.get(q));
+            transportStackPane.setNameTitle(headers.get(q));
             transportStackPane.setStatusTitle("Moved coal from mine to power plant (939)");
             transportStackPane.setBackground(getBackground(transportImage));
 

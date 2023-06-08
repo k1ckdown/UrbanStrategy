@@ -12,7 +12,6 @@ import com.example.urbanstrategy.modules.game.view.IGameView;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,12 +56,19 @@ public final class GamePresenter implements IGamePresenter {
                 try {
                     final List<String> resourceTitles = getAllResourceTitles();
                     final List<String> processingTitles = getAllProcessingTitles();
+                    final List<String> transportStatusTitles = getAllTransportStatusTitles();
+
                     Platform.runLater(() -> {
                         for (int i = 0; i < resourceTitles.size(); i++) {
                             view.updateResourcesTitle(i, resourceTitles.get(i));
                             view.updateProcessingTitle(i, processingTitles.get(i));
                         }
+
+                        for (int i = 0; i < transportStatusTitles.size(); i++) {
+                            view.updateTransportationStatusTitle(i, transportStatusTitles.get(i));
+                        }
                     });
+
                     Thread.sleep(1000);
                 } catch (Exception error) {
                     throw new RuntimeException(error);
@@ -92,7 +98,7 @@ public final class GamePresenter implements IGamePresenter {
 
     public void didUpdateTransportationInfoTitle(TransportType type, String text) {
         final int index = Arrays.asList(transportTypes).indexOf(type);
-        view.updateTransportationInfoTitle(index, text);
+        view.updateTransportationStatusTitle(index, text);
     }
 
     public void didUpdateResourcesTitle(BuildingType forBuildingType, String text) {
@@ -113,34 +119,22 @@ public final class GamePresenter implements IGamePresenter {
         return numberOfColumns;
     }
 
-    public List<String> getAllProcessingTitles() {
-        return cityController.getResourceProcessingStatuses();
-    }
-
-    public List<String> getAllResourceTitles() {
-        return cityController.getDescriptionsResourcesOfBuildings();
-    }
-
-    public String getBuildingTitle(int row, int col) {
-        return getBuildingType(row, col).name();
-    }
-
     public Image getBuildingImage(int row, int col) {
         return ImageProvider.getInstance().getBuildingImage(getBuildingType(row, col));
+    }
+
+    public String getBuildingHeader(int row, int col) {
+        return getBuildingType(row, col).name();
     }
 
     public Image getTransportImage(int atIndex) {
         return ImageProvider.getInstance().getTransportImage(transportTypes[atIndex]);
     }
 
-    public List<String> getTransportTitles() {
-        final List<String> titles = new ArrayList<>();
-
-        for (TransportType type : transportTypes) {
-            titles.add(type.name());
-        }
-
-        return titles;
+    public List<String> getTransportHeaders() {
+        return Arrays.stream(transportTypes)
+                .map(Enum::name)
+                .collect(Collectors.toList());
     }
 
     public List<String> getSupportedProcessingMethodsTitles() {
@@ -152,6 +146,18 @@ public final class GamePresenter implements IGamePresenter {
 
     private BuildingType getBuildingType(int row, int col) {
         return buildingTypes[row * numberOfColumns + col];
+    }
+
+    private List<String> getAllProcessingTitles() {
+        return cityController.getResourceProcessingStatuses();
+    }
+
+    private List<String> getAllTransportStatusTitles() {
+        return cityController.getTransportStatuses();
+    }
+
+    private List<String> getAllResourceTitles() {
+        return cityController.getDescriptionsResourcesOfBuildings();
     }
 
 }
