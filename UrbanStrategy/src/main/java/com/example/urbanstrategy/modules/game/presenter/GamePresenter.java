@@ -111,6 +111,10 @@ public final class GamePresenter implements IGamePresenter {
         view.updateProcessingTitle(index, text);
     }
 
+    public void didTapOnBuildingConfigButton() {
+        view.showResourcesListView();
+    }
+
     public int getNumberOfRows() {
         return numberOfRows;
     }
@@ -134,6 +138,12 @@ public final class GamePresenter implements IGamePresenter {
     public List<String> getTransportHeaders() {
         return Arrays.stream(transportTypes)
                 .map(Enum::name)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getResourcesItems() {
+        return Arrays.stream(resourceTypes)
+                .map(resourceType -> resourceType.name().replace("_", " "))
                 .collect(Collectors.toList());
     }
 
