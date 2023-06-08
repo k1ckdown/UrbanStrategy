@@ -11,7 +11,7 @@ public final class Grain extends Resource {
 
     public Grain() {
         super(
-                "grain",
+                "Grain",
                 List.of(ProcessingMethodType.TREATMENT),
                 ResourceType.GRAIN
         );

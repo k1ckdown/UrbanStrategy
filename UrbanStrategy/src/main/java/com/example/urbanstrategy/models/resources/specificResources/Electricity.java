@@ -11,7 +11,7 @@ public final class Electricity extends Resource {
 
     public Electricity() {
         super(
-                "electricity",
+                "Electricity",
                 List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE),
                 ResourceType.ELECTRICITY
         );

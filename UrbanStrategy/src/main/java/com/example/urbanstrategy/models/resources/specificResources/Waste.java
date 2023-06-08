@@ -11,7 +11,7 @@ public final class Waste extends Resource {
 
     public Waste() {
         super(
-                "waste",
+                "Waste",
                 List.of(ProcessingMethodType.PRODUCE, ProcessingMethodType.RECYCLE, ProcessingMethodType.CONSUME),
                 ResourceType.WASTE
         );

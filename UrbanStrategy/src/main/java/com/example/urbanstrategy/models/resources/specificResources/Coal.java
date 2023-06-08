@@ -11,7 +11,7 @@ public final class Coal extends Resource {
 
     public Coal() {
         super(
-                "coal",
+                "Coal",
                 List.of(ProcessingMethodType.CONSUME, ProcessingMethodType.PRODUCE),
                 ResourceType.COAL
         );

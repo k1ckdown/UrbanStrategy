@@ -11,7 +11,7 @@ public final class Furniture extends Resource {
 
     public Furniture() {
         super(
-                "furniture",
+                "Furniture",
                 List.of(ProcessingMethodType.PRODUCE, ProcessingMethodType.CONSUME),
                 ResourceType.FURNITURE
         );

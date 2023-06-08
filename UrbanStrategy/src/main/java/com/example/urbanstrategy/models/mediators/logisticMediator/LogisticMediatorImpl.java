@@ -17,9 +17,9 @@ public final class LogisticMediatorImpl implements LogisticMediator {
     private final Random randomGenerator;
 
     public LogisticMediatorImpl(List<Building> buildingList, List<Transport> transportList) {
+        randomGenerator = new Random();
         this.buildingList = buildingList;
         this.transportList = transportList;
-        randomGenerator = new Random();
     }
 
     public void registerBuilding(Building building) {

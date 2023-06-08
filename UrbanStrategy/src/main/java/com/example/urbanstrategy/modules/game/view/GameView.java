@@ -69,10 +69,10 @@ public final class GameView extends AnchorPane implements IGameView {
         getChildren().add(buildingsGridPane);
 
         buildingsGridPane.setPadding(new Insets(10));
-        buildingsGridPane.setHgap(30);
-        buildingsGridPane.setVgap(30);
-        buildingsGridPane.setPrefWidth(1000);
-        buildingsGridPane.setPrefHeight(550);
+        buildingsGridPane.setHgap(15);
+        buildingsGridPane.setVgap(15);
+        buildingsGridPane.setPrefWidth(1100);
+        buildingsGridPane.setPrefHeight(580);
         buildingsGridPane.setAlignment(Pos.CENTER);
         buildingsGridPane.setStyle("-fx-background-color: #413e3c;");
 
@@ -83,8 +83,8 @@ public final class GameView extends AnchorPane implements IGameView {
                 final BuildingAnchorPane cell = new BuildingAnchorPane();
                 final Image buildingImage = presenter.getBuildingImage(row, col);
 
-                cell.setPrefHeight(280);
-                cell.setPrefWidth(180);
+                cell.setPrefHeight(270);
+                cell.setPrefWidth(240);
                 cell.setBackground(getBackground(buildingImage));
                 cell.setTitleBuilding(presenter.getBuildingHeader(row, col));
 
@@ -100,7 +100,7 @@ public final class GameView extends AnchorPane implements IGameView {
     private void setupTransportBox() {
         getChildren().add(transportBox);
 
-        transportBox.setSpacing(70);
+        transportBox.setSpacing(40);
         transportBox.setAlignment(Pos.CENTER);
 
         final List<String> headers = presenter.getTransportHeaders();

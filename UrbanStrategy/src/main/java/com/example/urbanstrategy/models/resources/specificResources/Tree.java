@@ -11,7 +11,7 @@ public final class Tree extends Resource {
 
     public Tree() {
         super(
-                "tree",
+                "Tree",
                 List.of(ProcessingMethodType.DESTROY, ProcessingMethodType.TREATMENT),
                 ResourceType.TREE
         );

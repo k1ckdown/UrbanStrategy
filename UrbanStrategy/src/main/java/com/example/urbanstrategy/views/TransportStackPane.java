@@ -24,18 +24,25 @@ public final class TransportStackPane extends StackPane {
     }
 
     private void setup() {
+        setupSuperView();
         setupNameTitleLabel();
         setupStatusTitleLabel();
+    }
+
+    private void setupSuperView() {
+        setMaxWidth(200);
+        setStyle("-fx-border-width: 2; -fx-border-color: rgba(132,132,208,0.84)");
+
     }
 
     private void setupNameTitleLabel() {
         getChildren().add(nameTitleLabel);
 
         nameTitleLabel.setPrefHeight(40);
-        nameTitleLabel.setPrefWidth(300);
-        nameTitleLabel.setStyle("-fx-background-color: #799ad9; -fx-font-family: 'Futura'");
+        nameTitleLabel.setPrefWidth(200);
         nameTitleLabel.setTextFill(Color.BLACK);
         nameTitleLabel.setAlignment(Pos.CENTER);
+        nameTitleLabel.setStyle("-fx-background-color: #799ad9; -fx-font-family: 'Futura'; -fx-font-size: 16");
 
         StackPane.setAlignment(nameTitleLabel, Pos.TOP_CENTER);
     }
@@ -44,6 +51,7 @@ public final class TransportStackPane extends StackPane {
         getChildren().add(statusTitleLabel);
 
         statusTitleLabel.setPrefHeight(60);
+        nameTitleLabel.setPrefWidth(200);
         statusTitleLabel.setStyle("-fx-background-color: rgba(198,198,203,0.73);");
         statusTitleLabel.setTextFill(Color.BLACK);
         statusTitleLabel.setAlignment(Pos.CENTER);

@@ -137,7 +137,7 @@ public abstract class Building {
                 resourceProcessing.process(resource, rate);
 
                 info.append(String.format(
-                        "Processing (%s) %s (%d)\n",
+                        "%s - %s (%d)\n",
                         resourceProcessing.getName(),
                         resource.getName(),
                         (int) (oldAmount * rate)

@@ -11,7 +11,7 @@ public final class Dish extends Resource {
 
     public Dish() {
         super(
-                "dish",
+                "Dish",
                 List.of(ProcessingMethodType.PRODUCE, ProcessingMethodType.CONSUME),
                 ResourceType.DISH
         );

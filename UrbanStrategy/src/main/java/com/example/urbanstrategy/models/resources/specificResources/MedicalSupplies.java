@@ -11,7 +11,7 @@ public final class MedicalSupplies extends Resource {
 
     public MedicalSupplies() {
         super(
-                "medical supplies",
+                "Medicaments",
                 List.of(ProcessingMethodType.PRODUCE),
                 ResourceType.MEDICAL_SUPPLIES
         );

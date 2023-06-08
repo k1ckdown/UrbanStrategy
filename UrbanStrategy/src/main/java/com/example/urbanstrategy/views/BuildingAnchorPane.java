@@ -10,6 +10,7 @@ public final class BuildingAnchorPane extends AnchorPane {
     private final Label nameTitleLabel = new Label();
     private final Label resourcesLabel = new Label();
     private final Label processingInfoLabel = new Label();
+    private final Label processingHeaderLabel = new Label();
 
     public BuildingAnchorPane() {
         setup();
@@ -28,9 +29,15 @@ public final class BuildingAnchorPane extends AnchorPane {
     }
 
     public void setup() {
+        setupSuperView();
         setupNameTitleLabel();
         setupListOfResources();
+        setupProcessingHeaderLabel();
         setupProcessingInfoLabel();
+    }
+
+    private void setupSuperView() {
+        setStyle("-fx-border-width: 2; -fx-border-color: rgba(132,181,208,0.84)");
     }
 
     public void setupNameTitleLabel() {
@@ -52,11 +59,25 @@ public final class BuildingAnchorPane extends AnchorPane {
         resourcesLabel.setPrefHeight(90);
         resourcesLabel.setTextFill(Color.BLACK);
         resourcesLabel.setAlignment(Pos.CENTER);
-        resourcesLabel.setStyle("-fx-background-color: rgba(198,198,203,0.73); -fx-font-size: 18px");
+        resourcesLabel.setStyle("-fx-background-color: rgba(198,198,203,0.73); -fx-font-size: 17px");
 
-        AnchorPane.setTopAnchor(resourcesLabel, nameTitleLabel.getPrefHeight() + 20);
+        AnchorPane.setTopAnchor(resourcesLabel, nameTitleLabel.getPrefHeight() + 15);
         AnchorPane.setLeftAnchor(resourcesLabel, 0.0);
         AnchorPane.setRightAnchor(resourcesLabel, 0.0);
+    }
+
+    private void setupProcessingHeaderLabel() {
+        getChildren().add(processingHeaderLabel);
+
+        processingHeaderLabel.setText("Processing");
+        processingHeaderLabel.setTextFill(Color.BLACK);
+        processingHeaderLabel.setAlignment(Pos.CENTER);
+        processingHeaderLabel.setStyle("-fx-background-color: rgba(147,229,70,0.72); -fx-font-size: 15px");
+
+        AnchorPane.setLeftAnchor(processingHeaderLabel, 0.0);
+        AnchorPane.setRightAnchor(processingHeaderLabel, 0.0);
+        AnchorPane.setBottomAnchor(processingHeaderLabel, 80.0);
+
     }
 
     private void setupProcessingInfoLabel() {
@@ -65,7 +86,7 @@ public final class BuildingAnchorPane extends AnchorPane {
         processingInfoLabel.setPrefHeight(80);
         processingInfoLabel.setTextFill(Color.BLACK);
         processingInfoLabel.setAlignment(Pos.CENTER);
-        processingInfoLabel.setStyle("-fx-background-color: rgba(198,198,203,0.73); -fx-font-size: 9px");
+        processingInfoLabel.setStyle("-fx-background-color: rgba(198,198,203,0.73); -fx-font-size: 12px");
 
         AnchorPane.setLeftAnchor(processingInfoLabel, 0.0);
         AnchorPane.setRightAnchor(processingInfoLabel, 0.0);
