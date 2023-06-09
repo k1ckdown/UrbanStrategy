@@ -7,13 +7,13 @@ import com.example.urbanstrategy.models.resources.ResourceType;
 
 import java.util.List;
 
-public final class MedicalSupplies extends Resource {
+public final class Medicaments extends Resource {
 
-    public MedicalSupplies() {
+    public Medicaments() {
         super(
                 "Medicaments",
-                List.of(ProcessingMethodType.PRODUCE),
-                ResourceType.MEDICAL_SUPPLIES
+                List.of(ProcessingMethodType.PRODUCE, ProcessingMethodType.CONSUME),
+                ResourceType.MEDICAMENTS
         );
     }
 }

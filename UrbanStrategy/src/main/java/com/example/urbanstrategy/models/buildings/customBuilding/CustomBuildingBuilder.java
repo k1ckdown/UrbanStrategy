@@ -32,10 +32,6 @@ public final class CustomBuildingBuilder {
         this.name = name;
     }
 
-    public List<ProcessingMethodType> getSupportedProcessingMethods() {
-        return currentResource.supportedMethods;
-    }
-
     public void addResource(ResourceType type) {
         currentResource = ResourcesFactory.getInstance().makeResource(type);
         processingByResource.put(currentResource, new ArrayList<>());
@@ -47,6 +43,10 @@ public final class CustomBuildingBuilder {
                     .get(currentResource)
                     .add(ProcessingMethodsFactory.getInstance().makeMethod(type));
         });
+    }
+
+    public List<ProcessingMethodType> getSupportedProcessingMethods() {
+        return currentResource.supportedMethods;
     }
 
     public Building getAssembledBuilding() {

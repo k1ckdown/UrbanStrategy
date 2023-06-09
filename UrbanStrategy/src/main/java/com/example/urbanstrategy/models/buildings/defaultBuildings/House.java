@@ -13,8 +13,8 @@ public final class House extends Building {
 
 
     public House(ICityBuilding city) {
-        super(city,"house", "", "", Map.of(
-                new MedicalSupplies(), List.of(new ConsumeResourceStrategy()),
+        super(city,"house", "", Map.of(
+                new Medicaments(), List.of(new ConsumeResourceStrategy()),
                 new Electricity(), List.of(new ConsumeResourceStrategy()),
                 new Water(), List.of(new ConsumeResourceStrategy()),
                 new Food(), List.of(new ConsumeResourceStrategy()),

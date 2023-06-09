@@ -1,6 +1,7 @@
 package com.example.urbanstrategy.modules.game.view;
 
 import com.example.urbanstrategy.modules.game.presenter.IGamePresenter;
+import com.example.urbanstrategy.utils.ImageProvider;
 import com.example.urbanstrategy.views.BuildingAnchorPane;
 import com.example.urbanstrategy.views.BuildingConfigButton;
 import com.example.urbanstrategy.views.TransportStackPane;
@@ -50,6 +51,10 @@ public final class GameView extends AnchorPane implements IGameView {
 
     public void addCustomBuildingCell(String title, int row, int col) {
         final BuildingAnchorPane cell = new BuildingAnchorPane();
+        final Image buildingImage = ImageProvider.getInstance().getCustomBuildingImage();
+
+        cell.setTitleBuilding(title);
+        cell.setBackground(getBackground(buildingImage));
         cell.setTitleBuilding(title);
 
         buildingsGridPane.add(cell, col, row);
@@ -65,6 +70,11 @@ public final class GameView extends AnchorPane implements IGameView {
         configListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+    public void didEndSelectingProcessingMethods() {
+        presenter.didSelectProcessingMethods(configListView.getSelectionModel().getSelectedIndices());
+        showResourcesListView();
+    }
+
     public void didEndEditingNameBuilding() {
         presenter.didEnterNameBuilding(nameBuildingTextField.getText());
         nameBuildingTextField.setVisible(false);
@@ -72,25 +82,12 @@ public final class GameView extends AnchorPane implements IGameView {
         showResourcesListView();
     }
 
-    public void didEndSelectingProcessingMethods() {
-        presenter.didSelectProcessingMethods(configListView.getSelectionModel().getSelectedIndices());
-        showResourcesListView();
-    }
-
     public void updateResourcesTitle(int atIndex, String title) {
-        if (atIndex >= buildingsGridPane.getChildren().size()) {
-            return;
-        }
-
         final BuildingAnchorPane buildingAnchorPane = (BuildingAnchorPane) buildingsGridPane.getChildren().get(atIndex);
         buildingAnchorPane.setResourcesTitle(title);
     }
 
     public void updateProcessingTitle(int atIndex, String title) {
-        if (atIndex >= buildingsGridPane.getChildren().size()) {
-            return;
-        }
-
         final BuildingAnchorPane buildingAnchorPane = (BuildingAnchorPane) buildingsGridPane.getChildren().get(atIndex);
         buildingAnchorPane.setProcessingTitle(title);
     }

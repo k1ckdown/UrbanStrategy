@@ -86,6 +86,10 @@ public final class GamePresenter implements IGamePresenter {
         playThread.start();
     }
 
+    public void didEnterNameBuilding(String name) {
+        customBuildingBuilder.setName(name);
+    }
+
     public void didSelectResource(int atIndex) {
         customBuildingBuilder.addResource(resourceTypes[atIndex]);
     }
@@ -99,8 +103,17 @@ public final class GamePresenter implements IGamePresenter {
         customBuildingBuilder.addResourceProcessingMethod(selectedMethodTypes);
     }
 
-    public void didEnterNameBuilding(String name) {
-        customBuildingBuilder.setName(name);
+    public void didTapOnContinueConfigButton() {
+        if (buildingConfigStage == 0) {
+            view.didEndEditingNameBuilding();
+            buildingConfigStage += 1;
+        } else if (buildingConfigStage == 1) {
+            view.showMethodsListView();
+            buildingConfigStage += 1;
+        } else  {
+            view.didEndSelectingProcessingMethods();
+            buildingConfigStage = 1;
+        }
     }
 
     public void didTapOnCreateCustomBuildingButton() {
@@ -119,19 +132,6 @@ public final class GamePresenter implements IGamePresenter {
         }
     }
 
-    public void didTapOnContinueConfigButton() {
-        if (buildingConfigStage == 0) {
-            view.didEndEditingNameBuilding();
-            buildingConfigStage += 1;
-        } else if (buildingConfigStage == 1) {
-            view.showMethodsListView();
-            buildingConfigStage += 1;
-        } else if (buildingConfigStage == 2) {
-            view.didEndSelectingProcessingMethods();
-            buildingConfigStage = 1;
-        }
-    }
-
     public int getNumberOfRows() {
         return numberOfRows;
     }
@@ -141,7 +141,7 @@ public final class GamePresenter implements IGamePresenter {
     }
 
     public Image getBuildingImage(int row, int col) {
-        return ImageProvider.getInstance().getBuildingImage(getBuildingType(row, col));
+        return ImageProvider.getInstance().getDefaultBuildingImage(getBuildingType(row, col));
     }
 
     public String getBuildingHeader(int row, int col) {

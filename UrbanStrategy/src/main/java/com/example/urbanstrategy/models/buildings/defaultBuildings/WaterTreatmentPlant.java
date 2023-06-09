@@ -14,7 +14,7 @@ import java.util.Map;
 public final class WaterTreatmentPlant extends Building {
 
     public WaterTreatmentPlant(ICityBuilding city) {
-        super(city, "water treatment plant", "", "", Map.of(
+        super(city, "water treatment plant", "", Map.of(
                 new Water(), List.of(new ProduceResourceStrategy()),
                 new Electricity(), List.of(new ConsumeResourceStrategy())
         ));

@@ -14,7 +14,7 @@ import java.util.Map;
 public final class Mine extends Building {
 
     public Mine(ICityBuilding city) {
-        super(city, "mine", "", "", Map.of(
+        super(city, "mine", "", Map.of(
                 new Coal(), List.of(new ProduceResourceStrategy()),
                 new Waste(), List.of(new RecycleResourceStrategy())
         ));

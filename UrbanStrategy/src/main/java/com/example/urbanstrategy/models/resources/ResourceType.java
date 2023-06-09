@@ -11,5 +11,5 @@ public enum ResourceType {
     GRAIN,
     FURNITURE,
     ELECTRICITY,
-    MEDICAL_SUPPLIES
+    MEDICAMENTS
 }

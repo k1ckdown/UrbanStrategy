@@ -34,7 +34,6 @@ public final class BuildingFactory {
         return new CustomBuilding(
                 city,
                 name,
-                "imagePath",
                 "desc",
                 processingByResource
         );

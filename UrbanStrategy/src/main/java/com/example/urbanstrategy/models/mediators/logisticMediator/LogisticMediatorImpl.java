@@ -71,7 +71,7 @@ public final class LogisticMediatorImpl implements LogisticMediator {
             case WOOD:
             case WASTE:
             case FURNITURE:
-            case MEDICAL_SUPPLIES:
+            case MEDICAMENTS:
                 return transportList.stream()
                         .filter(transport -> transport.getType() == TransportType.LORRY)
                         .findFirst();

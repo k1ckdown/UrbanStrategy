@@ -38,8 +38,8 @@ public final class ResourcesFactory {
                 return new Furniture();
             case ELECTRICITY:
                 return new Electricity() ;
-            case MEDICAL_SUPPLIES:
-                return new MedicalSupplies();
+            case MEDICAMENTS:
+                return new Medicaments();
         }
         return null;
     }

@@ -12,7 +12,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Building {
     private final String name;
-    private final String imagePath;
     private final String description;
     private String infoAboutResources;
     private String infoAboutProcessing;
@@ -25,13 +24,11 @@ public abstract class Building {
     public Building(
             ICityBuilding city,
             String name,
-            String imagePath,
             String description,
             Map<Resource, List<ResourceProcessingStrategy>> processingByResource
     ) {
         this.city = city;
         this.name = name;
-        this.imagePath = imagePath;
         this.description = description;
         this.processingByResource = processingByResource;
         scheduleSending = new HashMap<>();
@@ -43,21 +40,17 @@ public abstract class Building {
         return name;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public String getInfoAboutProcessing() {
+        return infoAboutProcessing;
     }
 
     public String getInfoAboutResources() {
         updateInfoAboutResources();
         return infoAboutResources;
-    }
-
-    public String getInfoAboutProcessing() {
-        return infoAboutProcessing;
     }
 
     public void simulate() {

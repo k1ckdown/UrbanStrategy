@@ -15,7 +15,7 @@ import java.util.Map;
 public final class Restaurant extends Building {
 
     public Restaurant(ICityBuilding city) {
-        super(city, "restaurant", "", "", Map.of(
+        super(city, "restaurant", "", Map.of(
                 new Food(), List.of(new TreatmentResourceStrategy()),
                 new Water(), List.of(new ConsumeResourceStrategy()),
                 new Dish(), List.of(new ProduceResourceStrategy())

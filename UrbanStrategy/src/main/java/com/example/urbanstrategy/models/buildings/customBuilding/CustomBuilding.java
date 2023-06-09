@@ -13,10 +13,9 @@ public final class CustomBuilding extends Building {
     public CustomBuilding(
             ICityBuilding city,
             String name,
-            String imagePath,
             String description,
             Map<Resource, List<ResourceProcessingStrategy>> processingByResource
     ) {
-        super(city, name, imagePath, description, processingByResource);
+        super(city, name, description, processingByResource);
     }
 }
