@@ -2,19 +2,16 @@ package com.example.urbanstrategy.modules.game.view;
 
 import com.example.urbanstrategy.modules.game.presenter.IGamePresenter;
 import com.example.urbanstrategy.views.BuildingAnchorPane;
+import com.example.urbanstrategy.views.BuildingConfigButton;
 import com.example.urbanstrategy.views.TransportStackPane;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
@@ -27,14 +24,16 @@ public final class GameView extends AnchorPane implements IGameView {
     private IGamePresenter presenter;
 
     private final HBox transportBox = new HBox();
-    private final Button createBuildingButton = new Button();
+    private final Button addBuildingButton = new Button();
     private final GridPane buildingsGridPane = new GridPane();
+    private final ScrollPane buildingsScrollPane = new ScrollPane();
 
-    private final Button buildingConfigButton = new Button();
     private final TextField nameBuildingTextField = new TextField();
-    private final ListView<String> resourcesListView = new ListView<String>();
-    private final ObservableList<String> resourcesList = resourcesListView.getItems();
+    private final ListView<String> configListView = new ListView<String>();
+    private final ObservableList<String> configList = configListView.getItems();
     private final StackPane buildingConfigStackPane = new StackPane();
+    private final BuildingConfigButton continueConfigButton = new BuildingConfigButton();
+    private final BuildingConfigButton createBuildingButton = new BuildingConfigButton();
 
     public GameView() {
 
@@ -49,16 +48,49 @@ public final class GameView extends AnchorPane implements IGameView {
         buildingConfigStackPane.setVisible(false);
     }
 
-    public void showResourcesListView() {
-        resourcesListView.setVisible(true);
+    public void addCustomBuildingCell(String title, int row, int col) {
+        final BuildingAnchorPane cell = new BuildingAnchorPane();
+        cell.setTitleBuilding(title);
+
+        buildingsGridPane.add(cell, col, row);
+    }
+
+    public void showMethodsListView() {
+        presenter.didSelectResource(configListView.getSelectionModel().getSelectedIndex());
+
+        createBuildingButton.setVisible(false);
+        continueConfigButton.setText("Add Methods");
+        StackPane.setAlignment(continueConfigButton, Pos.BOTTOM_CENTER);
+        configList.setAll(presenter.getSupportedProcessingMethodsTitles());
+        configListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
+
+    public void didEndEditingNameBuilding() {
+        presenter.didEnterNameBuilding(nameBuildingTextField.getText());
+        nameBuildingTextField.setVisible(false);
+        configListView.setVisible(true);
+        showResourcesListView();
+    }
+
+    public void didEndSelectingProcessingMethods() {
+        presenter.didSelectProcessingMethods(configListView.getSelectionModel().getSelectedIndices());
+        showResourcesListView();
     }
 
     public void updateResourcesTitle(int atIndex, String title) {
+        if (atIndex >= buildingsGridPane.getChildren().size()) {
+            return;
+        }
+
         final BuildingAnchorPane buildingAnchorPane = (BuildingAnchorPane) buildingsGridPane.getChildren().get(atIndex);
         buildingAnchorPane.setResourcesTitle(title);
     }
 
     public void updateProcessingTitle(int atIndex, String title) {
+        if (atIndex >= buildingsGridPane.getChildren().size()) {
+            return;
+        }
+
         final BuildingAnchorPane buildingAnchorPane = (BuildingAnchorPane) buildingsGridPane.getChildren().get(atIndex);
         buildingAnchorPane.setProcessingTitle(title);
     }
@@ -68,8 +100,23 @@ public final class GameView extends AnchorPane implements IGameView {
         transportStackPane.setStatusTitle(title);
     }
 
+    private void showResourcesListView() {
+        createBuildingButton.setVisible(true);
+        continueConfigButton.setText("Add Resource");
+        StackPane.setAlignment(continueConfigButton, Pos.BOTTOM_RIGHT);
+        configList.setAll(presenter.getResourcesItems());
+        configListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
     private void showBuildingConfigurator() {
+        configListView.setVisible(false);
+        nameBuildingTextField.setText("");
+        nameBuildingTextField.setVisible(true);
+        createBuildingButton.setVisible(false);
         buildingConfigStackPane.setVisible(true);
+        continueConfigButton.setText("Continue");
+        configList.clear();
+        StackPane.setAlignment(continueConfigButton, Pos.BOTTOM_CENTER);
     }
 
     private Background getBackground(Image image) {
@@ -89,27 +136,39 @@ public final class GameView extends AnchorPane implements IGameView {
 
     private void setup() {
         setupSuperView();
+        setupBuildingsScrollPane();
         setupBuildingsGridPane();
         setupTransportBox();
-        setupCreateBuildingButton();
+        setupAddBuildingButton();
         setupBuildingConfigStackPane();
         setupNameBuildingTextField();
-        setupBuildingConfigButton();
-        setupResourcesListView();
+        setupContinueConfigButton();
+        setupCreateBuildingButton();
+        setupConfigListView();
     }
 
     private void setupSuperView() {
         setStyle("-fx-background-color: #332f2f;");
     }
 
-    private void setupBuildingsGridPane() {
-        getChildren().add(buildingsGridPane);
+    private void setupBuildingsScrollPane() {
+        getChildren().add(buildingsScrollPane);
 
+        buildingsScrollPane.setContent(buildingsGridPane);
+        buildingsScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        buildingsScrollPane.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
+
+        setTopAnchor(buildingsScrollPane, 0.0);
+        setLeftAnchor(buildingsScrollPane, 0.0);
+        setRightAnchor(buildingsScrollPane, 0.0);
+    }
+
+    private void setupBuildingsGridPane() {
         buildingsGridPane.setPadding(new Insets(10));
         buildingsGridPane.setHgap(20);
         buildingsGridPane.setVgap(20);
-        buildingsGridPane.setPrefWidth(1100);
-        buildingsGridPane.setPrefHeight(580);
+        buildingsScrollPane.setPrefWidth(1100);
+        buildingsScrollPane.setPrefHeight(580);
         buildingsGridPane.setAlignment(Pos.CENTER);
         buildingsGridPane.setStyle("-fx-background-color: #413e3c;");
 
@@ -120,18 +179,12 @@ public final class GameView extends AnchorPane implements IGameView {
                 final BuildingAnchorPane cell = new BuildingAnchorPane();
                 final Image buildingImage = presenter.getBuildingImage(row, col);
 
-                cell.setPrefHeight(270);
-                cell.setPrefWidth(230);
                 cell.setBackground(getBackground(buildingImage));
                 cell.setTitleBuilding(presenter.getBuildingHeader(row, col));
 
                 buildingsGridPane.add(cell, col, row);
             }
         }
-
-        setTopAnchor(buildingsGridPane, 0.0);
-        setLeftAnchor(buildingsGridPane, 0.0);
-        setRightAnchor(buildingsGridPane, 0.0);
     }
 
     private void setupTransportBox() {
@@ -151,27 +204,27 @@ public final class GameView extends AnchorPane implements IGameView {
             transportBox.getChildren().add(transportStackPane);
         }
 
-        setTopAnchor(transportBox, getTopAnchor(buildingsGridPane) + buildingsGridPane.getPrefHeight() + 10);
+        setTopAnchor(transportBox, buildingsScrollPane.getPrefHeight() + 10);
         setBottomAnchor(transportBox, 10.0);
         setLeftAnchor(transportBox, 10.0);
         setRightAnchor(transportBox, 200.0);
     }
 
-    private void setupCreateBuildingButton() {
-        getChildren().add(createBuildingButton);
+    private void setupAddBuildingButton() {
+        getChildren().add(addBuildingButton);
 
-        createBuildingButton.setPrefWidth(120);
-        createBuildingButton.setPrefHeight(120);
-        createBuildingButton.setText("Create Building!");
-        createBuildingButton.setWrapText(true);
-        createBuildingButton.setTextAlignment(TextAlignment.CENTER);
-        createBuildingButton.setFont(Font.font("Futura", FontWeight.BOLD, 18));
-        createBuildingButton.setCursor(Cursor.HAND);
-        createBuildingButton.setStyle("-fx-background-color: rgb(238,142,38); -fx-background-radius: 25");
-        createBuildingButton.setOnAction(actionEvent -> showBuildingConfigurator());
+        addBuildingButton.setPrefWidth(120);
+        addBuildingButton.setPrefHeight(120);
+        addBuildingButton.setText("Create Building!");
+        addBuildingButton.setWrapText(true);
+        addBuildingButton.setTextAlignment(TextAlignment.CENTER);
+        addBuildingButton.setFont(Font.font("Futura", FontWeight.BOLD, 18));
+        addBuildingButton.setCursor(Cursor.HAND);
+        addBuildingButton.setStyle("-fx-background-color: rgb(238,142,38); -fx-background-radius: 25");
+        addBuildingButton.setOnAction(actionEvent -> showBuildingConfigurator());
 
-        setRightAnchor(createBuildingButton, 40.0);
-        setBottomAnchor(createBuildingButton, 50.0);
+        setRightAnchor(addBuildingButton, 40.0);
+        setBottomAnchor(addBuildingButton, 50.0);
     }
 
     private void setupBuildingConfigStackPane() {
@@ -187,23 +240,23 @@ public final class GameView extends AnchorPane implements IGameView {
         setRightAnchor(buildingConfigStackPane, 200.0);
     }
 
-    private void setupBuildingConfigButton() {
-        buildingConfigStackPane.getChildren().add(buildingConfigButton);
+    private void setupContinueConfigButton() {
+        buildingConfigStackPane.getChildren().add(continueConfigButton);
 
-        buildingConfigButton.setPrefHeight(70);
-        buildingConfigButton.setPrefWidth(230);
-        buildingConfigButton.setTextFill(Color.BLACK);
-        buildingConfigButton.setFont(Font.font("SF Mono", FontWeight.BOLD, 20));
-        buildingConfigButton.setText("Continue");
-        buildingConfigButton.setCursor(Cursor.HAND);
-        buildingConfigButton.setStyle("-fx-background-radius: 20; -fx-background-color: #ee8e26");
-        buildingConfigButton.setOnAction(actionEvent -> presenter.didTapOnBuildingConfigButton());
+        continueConfigButton.setText("Continue");
+        continueConfigButton.setOnAction(actionEvent -> presenter.didTapOnContinueConfigButton());
 
-        StackPane.setAlignment(buildingConfigButton, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(continueConfigButton, Pos.BOTTOM_CENTER);
+    }
 
-//        buildingConfigButton.setOnAction(event -> {
-//            System.out.println(resourcesListView.getSelectionModel().getSelectedIndex());
-//        });
+    private void setupCreateBuildingButton() {
+        buildingConfigStackPane.getChildren().add(createBuildingButton);
+
+        createBuildingButton.setText("Create Building");
+        createBuildingButton.setVisible(false);
+        createBuildingButton.setOnAction(actionEvent -> presenter.didTapOnCreateCustomBuildingButton());
+
+        StackPane.setAlignment(createBuildingButton, Pos.BOTTOM_LEFT);
     }
 
     private void setupNameBuildingTextField() {
@@ -223,20 +276,19 @@ public final class GameView extends AnchorPane implements IGameView {
         StackPane.setAlignment(nameBuildingTextField, Pos.CENTER);
     }
 
-    private void setupResourcesListView() {
-        buildingConfigStackPane.getChildren().add(resourcesListView);
+    private void setupConfigListView() {
+        buildingConfigStackPane.getChildren().add(configListView);
 
-        resourcesList.addAll(presenter.getResourcesItems());
-        resourcesListView.setMaxHeight(380);
-        resourcesListView.setMaxWidth(600);
-        resourcesListView.setOrientation(Orientation.VERTICAL);
-        resourcesListView.setStyle("-fx-background-color: #3d3d3f; -fx-background-radius: 10");
-        resourcesListView.setPadding(new Insets(10));
-        resourcesListView.setVisible(false);
+        configListView.setMaxHeight(380);
+        configListView.setMaxWidth(600);
+        configListView.setOrientation(Orientation.VERTICAL);
+        configListView.setStyle("-fx-background-color: #3d3d3f; -fx-background-radius: 10");
+        configListView.setPadding(new Insets(10));
+        configListView.setVisible(false);
 
-        StackPane.setAlignment(resourcesListView, Pos.TOP_CENTER);
+        StackPane.setAlignment(configListView, Pos.TOP_CENTER);
 
-        resourcesListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+        configListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
                 return new ListCell<String>() {

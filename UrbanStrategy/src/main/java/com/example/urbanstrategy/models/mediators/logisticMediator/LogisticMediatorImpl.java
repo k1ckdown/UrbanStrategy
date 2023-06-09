@@ -22,10 +22,6 @@ public final class LogisticMediatorImpl implements LogisticMediator {
         this.transportList = transportList;
     }
 
-    public void registerBuilding(Building building) {
-        buildingList.add(building);
-    }
-
     public void transportResources(Building sender, Resource resource, double rate) {
         final Optional<Transport> optTransport = getTransportFor(resource.getType());
 

@@ -11,6 +11,7 @@ import com.example.urbanstrategy.models.processingMethods.ResourceProcessingStra
 import com.example.urbanstrategy.models.resources.Resource;
 import com.example.urbanstrategy.models.resources.ResourceType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,20 +38,25 @@ public final class CustomBuildingBuilder {
 
     public void addResource(ResourceType type) {
         currentResource = ResourcesFactory.getInstance().makeResource(type);
-        processingByResource.put(currentResource, List.of());
+        processingByResource.put(currentResource, new ArrayList<>());
     }
 
-    public void addResourceProcessingMethod(ProcessingMethodType type) {
-        processingByResource
-                .get(currentResource)
-                .add(ProcessingMethodsFactory.getInstance().makeMethod(type));
+    public void addResourceProcessingMethod(List<ProcessingMethodType> types) {
+        types.forEach(type -> {
+            processingByResource
+                    .get(currentResource)
+                    .add(ProcessingMethodsFactory.getInstance().makeMethod(type));
+        });
     }
 
     public Building getAssembledBuilding() {
-        return BuildingFactory.getInstance().makeCustomBuilding(
+        final Building assembledBuilding = BuildingFactory.getInstance().makeCustomBuilding(
                 city,
                 name,
-                processingByResource
+                new HashMap<>(processingByResource)
         );
+
+        processingByResource.clear();
+        return assembledBuilding;
     }
 }

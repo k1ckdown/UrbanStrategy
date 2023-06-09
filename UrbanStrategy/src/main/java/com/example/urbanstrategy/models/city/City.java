@@ -48,7 +48,7 @@ public final class City implements ICityController, ICityBuilding {
 
     public void addBuilding(Building building) {
         buildings.add(building);
-        logisticMediator.registerBuilding(building);
+        building.simulate();
     }
 
     public void removeBuilding(Building building) {
@@ -72,6 +72,7 @@ public final class City implements ICityController, ICityBuilding {
     }
 
     public List<String> getDescriptionsResourcesOfBuildings() {
+        System.out.println(buildings.size());
         return buildings.stream()
                 .map(Building::getInfoAboutResources)
                 .collect(Collectors.toList());

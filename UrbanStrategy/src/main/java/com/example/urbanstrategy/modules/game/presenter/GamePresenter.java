@@ -1,5 +1,6 @@
 package com.example.urbanstrategy.modules.game.presenter;
 
+import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.utils.ImageProvider;
 import com.example.urbanstrategy.models.buildings.BuildingType;
 import com.example.urbanstrategy.models.buildings.customBuilding.CustomBuildingBuilder;
@@ -12,6 +13,7 @@ import com.example.urbanstrategy.modules.game.view.IGameView;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +23,9 @@ public final class GamePresenter implements IGamePresenter {
     private final IGameView view;
 
     private final int numberOfRows;
-    private final int numberOfColumns;
+    private int numberOfColumns;
+    private int buildingConfigStage;
+    private int numberOfCustomBuilding;
 
     private final ResourceType[] resourceTypes;
     private final BuildingType[] buildingTypes;
@@ -44,6 +48,8 @@ public final class GamePresenter implements IGamePresenter {
         processingMethodTypes = ProcessingMethodType.values();
 
         numberOfRows = 2;
+        buildingConfigStage = 0;
+        numberOfCustomBuilding = 0;
         numberOfColumns = buildingTypes.length / numberOfRows;
     }
 
@@ -80,39 +86,50 @@ public final class GamePresenter implements IGamePresenter {
         playThread.start();
     }
 
-    public void didTapOnResourceButton(int atIndex) {
+    public void didSelectResource(int atIndex) {
         customBuildingBuilder.addResource(resourceTypes[atIndex]);
     }
 
-    public void didTapOnProcessingMethod(int atIndex) {
-        customBuildingBuilder.addResourceProcessingMethod(processingMethodTypes[atIndex]);
+    public void didSelectProcessingMethods(List<Integer> indexes) {
+        List<ProcessingMethodType> selectedMethodTypes = new ArrayList<>();
+        for (Integer index : indexes) {
+            selectedMethodTypes.add(processingMethodTypes[index]);
+        }
+
+        customBuildingBuilder.addResourceProcessingMethod(selectedMethodTypes);
     }
 
-    public void didTapOnAddNameBuildingButton(String name) {
+    public void didEnterNameBuilding(String name) {
         customBuildingBuilder.setName(name);
     }
 
     public void didTapOnCreateCustomBuildingButton() {
-        cityController.addBuilding(customBuildingBuilder.getAssembledBuilding());
+        final Building customBuilding = customBuildingBuilder.getAssembledBuilding();
+        cityController.addBuilding(customBuilding);
+
+        buildingConfigStage = 0;
+        numberOfCustomBuilding += 1;
+        final int row = (numberOfCustomBuilding - 1) % numberOfRows;
+
+        view.hideBuildingConfigurator();
+        view.addCustomBuildingCell(customBuilding.getName(), row, numberOfColumns);
+
+        if (row == numberOfRows - 1) {
+            numberOfColumns += 1;
+        }
     }
 
-    public void didUpdateTransportationInfoTitle(TransportType type, String text) {
-        final int index = Arrays.asList(transportTypes).indexOf(type);
-        view.updateTransportationStatusTitle(index, text);
-    }
-
-    public void didUpdateResourcesTitle(BuildingType forBuildingType, String text) {
-        final int index = Arrays.asList(buildingTypes).indexOf(forBuildingType);
-        view.updateResourcesTitle(index, text);
-    }
-
-    public void didUpdateProcessingTitle(BuildingType forBuildingType, String text) {
-        final int index = Arrays.asList(buildingTypes).indexOf(forBuildingType);
-        view.updateProcessingTitle(index, text);
-    }
-
-    public void didTapOnBuildingConfigButton() {
-        view.showResourcesListView();
+    public void didTapOnContinueConfigButton() {
+        if (buildingConfigStage == 0) {
+            view.didEndEditingNameBuilding();
+            buildingConfigStage += 1;
+        } else if (buildingConfigStage == 1) {
+            view.showMethodsListView();
+            buildingConfigStage += 1;
+        } else if (buildingConfigStage == 2) {
+            view.didEndSelectingProcessingMethods();
+            buildingConfigStage = 1;
+        }
     }
 
     public int getNumberOfRows() {
@@ -148,8 +165,7 @@ public final class GamePresenter implements IGamePresenter {
     }
 
     public List<String> getSupportedProcessingMethodsTitles() {
-        return customBuildingBuilder.getSupportedProcessingMethods()
-                .stream()
+        return customBuildingBuilder.getSupportedProcessingMethods().stream()
                 .map(Enum::name)
                 .collect(Collectors.toList());
     }

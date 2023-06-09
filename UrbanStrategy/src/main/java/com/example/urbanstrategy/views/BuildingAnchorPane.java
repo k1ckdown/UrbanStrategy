@@ -37,6 +37,8 @@ public final class BuildingAnchorPane extends AnchorPane {
     }
 
     private void setupSuperView() {
+        setMinHeight(260);
+        setMinWidth(230);
         setStyle("-fx-border-width: 2; -fx-border-color: rgba(132,181,208,0.84)");
     }
 
