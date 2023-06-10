@@ -15,11 +15,15 @@ import java.util.Map;
 public final class Restaurant extends Building {
 
     public Restaurant(ICityBuilding city) {
-        super(city, "restaurant", "", Map.of(
+        super(
+                city,
+                "restaurant",
+                "A place where food and drinks are served to customers, often with a specific cuisine or theme.",
+                Map.of(
                 new Food(), List.of(new TreatmentResourceStrategy()),
                 new Water(), List.of(new ConsumeResourceStrategy()),
-                new Dish(), List.of(new ProduceResourceStrategy())
-        ));
+                new Dish(), List.of(new ProduceResourceStrategy()))
+        );
     }
 
 

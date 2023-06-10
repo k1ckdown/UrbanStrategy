@@ -14,10 +14,14 @@ import java.util.Map;
 public final class Hospital extends Building {
 
     public Hospital(ICityBuilding city) {
-        super(city, "hospital", "", Map.of(
+        super(
+                city,
+                "hospital",
+                "A medical facility where people receive treatment for illnesses and injuries.",
+                Map.of(
                 new Medicaments(), List.of(new ProduceResourceStrategy()),
                 new Electricity(), List.of(new ConsumeResourceStrategy()),
-                new Water(), List.of(new ConsumeResourceStrategy())
-        ));
+                new Water(), List.of(new ConsumeResourceStrategy()))
+        );
     }
 }

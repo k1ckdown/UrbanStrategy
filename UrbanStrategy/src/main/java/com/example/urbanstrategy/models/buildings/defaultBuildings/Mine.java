@@ -14,10 +14,15 @@ import java.util.Map;
 public final class Mine extends Building {
 
     public Mine(ICityBuilding city) {
-        super(city, "mine", "", Map.of(
+        super(
+                city,
+                "mine",
+                "A place where valuable minerals and ores are extracted from the earth.",
+                Map.of(
                 new Coal(), List.of(new ProduceResourceStrategy()),
                 new Waste(), List.of(new RecycleResourceStrategy())
-        ));
+                )
+        );
     }
 
 }

@@ -16,11 +16,15 @@ import java.util.Map;
 public final class Sawmill extends Building {
 
     public Sawmill(ICityBuilding city) {
-        super(city, "sawmill", "", Map.of(
+        super(
+                city,
+                "sawmill",
+                "A facility where logs are processed into lumber and other wood products.",
+                Map.of(
                 new Tree(), List.of(new DestroyResourceStrategy(), new TreatmentResourceStrategy()),
                 new Water(), List.of(new ConsumeResourceStrategy()),
-                new Wood(), List.of(new ProduceResourceStrategy())
-        ));
+                new Wood(), List.of(new ProduceResourceStrategy()))
+        );
     }
 
 

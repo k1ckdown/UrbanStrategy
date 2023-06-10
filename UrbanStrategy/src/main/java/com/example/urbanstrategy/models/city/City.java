@@ -72,7 +72,6 @@ public final class City implements ICityController, ICityBuilding {
     }
 
     public List<String> getDescriptionsResourcesOfBuildings() {
-        System.out.println(buildings.size());
         return buildings.stream()
                 .map(Building::getInfoAboutResources)
                 .collect(Collectors.toList());

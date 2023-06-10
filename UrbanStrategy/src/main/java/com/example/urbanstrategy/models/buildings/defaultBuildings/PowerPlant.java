@@ -13,10 +13,14 @@ import java.util.Map;
 public final class PowerPlant extends Building {
 
     public PowerPlant(ICityBuilding city) {
-        super(city, "power plant", "", Map.of(
+        super(
+                city,
+                "power plant",
+                "A facility that generates electricity for homes, businesses, and other buildings.",
+                Map.of(
                 new Electricity(), List.of(new ProduceResourceStrategy()),
-                new Coal(), List.of(new ConsumeResourceStrategy())
-        ));
+                new Coal(), List.of(new ConsumeResourceStrategy()))
+        );
     }
 
 }
