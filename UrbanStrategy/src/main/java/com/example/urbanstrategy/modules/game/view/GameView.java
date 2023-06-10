@@ -177,6 +177,7 @@ public final class GameView extends AnchorPane implements IGameView {
                 final Image buildingImage = presenter.getBuildingImage(row, col);
 
                 cell.setBackground(getBackground(buildingImage));
+                cell.setDescriptionTitle(presenter.getBuildingDesc(row, col));
                 cell.setTitleBuilding(presenter.getBuildingHeader(row, col));
 
                 buildingsGridPane.add(cell, col, row);
@@ -217,7 +218,7 @@ public final class GameView extends AnchorPane implements IGameView {
         addBuildingButton.setTextAlignment(TextAlignment.CENTER);
         addBuildingButton.setFont(Font.font("Futura", FontWeight.BOLD, 18));
         addBuildingButton.setCursor(Cursor.HAND);
-        addBuildingButton.setStyle("-fx-background-color: rgb(238,142,38); -fx-background-radius: 25");
+        addBuildingButton.setStyle("-fx-background-color: rgb(184,208,26); -fx-background-radius: 25");
         addBuildingButton.setOnAction(actionEvent -> showBuildingConfigurator());
 
         setRightAnchor(addBuildingButton, 40.0);
@@ -302,7 +303,7 @@ public final class GameView extends AnchorPane implements IGameView {
                             setText(null);
                             setStyle("-fx-background-color: #3d3d3f;");
                         } else if (isSelected()) {
-                            setStyle("-fx-background-color: #ee8e26; -fx-text-fill: black;");
+                            setStyle("-fx-background-color: #b8d01a; -fx-text-fill: black;");
                         } else {
                             setStyle("-fx-background-color: #3d3d3f; -fx-text-fill: lightgray;");
                         }

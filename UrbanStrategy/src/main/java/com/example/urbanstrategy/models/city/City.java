@@ -65,6 +65,24 @@ public final class City implements ICityController, ICityBuilding {
         mutex.unlock();
     }
 
+    public List<String> getNamesBuildings() {
+        return buildings.stream()
+                .map(Building::getName)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getDescriptionsBuilding() {
+        return buildings.stream()
+                .map(Building::getDescription)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getTransportStatuses() {
+        return transports.stream()
+                .map(Transport::getTransportationStatus)
+                .collect(Collectors.toList());
+    }
+
     public List<String> getResourceProcessingStatuses() {
         return buildings.stream()
                 .map(Building::getInfoAboutProcessing)
@@ -74,12 +92,6 @@ public final class City implements ICityController, ICityBuilding {
     public List<String> getDescriptionsResourcesOfBuildings() {
         return buildings.stream()
                 .map(Building::getInfoAboutResources)
-                .collect(Collectors.toList());
-    }
-
-    public List<String> getTransportStatuses() {
-        return transports.stream()
-                .map(Transport::getTransportationStatus)
                 .collect(Collectors.toList());
     }
 

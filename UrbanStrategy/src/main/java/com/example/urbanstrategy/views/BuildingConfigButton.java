@@ -18,6 +18,6 @@ public final class BuildingConfigButton extends Button {
         setTextFill(Color.BLACK);
         setFont(Font.font("SF Mono", FontWeight.BOLD, 20));
         setCursor(Cursor.HAND);
-        setStyle("-fx-background-radius: 20; -fx-background-color: #ee8e26");
+        setStyle("-fx-background-radius: 20; -fx-background-color: #b8d01a");
     }
 }

@@ -1,16 +1,21 @@
 package com.example.urbanstrategy.views;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 public final class BuildingAnchorPane extends AnchorPane {
 
+    private boolean isSelectedDescription = false;
     private final Label nameTitleLabel = new Label();
     private final Label resourcesLabel = new Label();
     private final Label processingInfoLabel = new Label();
     private final Label processingHeaderLabel = new Label();
+    private final Label descriptionLabel = new Label();
+    private final Button descriptionButton = new Button();
 
     public BuildingAnchorPane() {
         setup();
@@ -18,6 +23,10 @@ public final class BuildingAnchorPane extends AnchorPane {
 
     public void setTitleBuilding(String title) {
         nameTitleLabel.setText(title);
+    }
+
+    public void setDescriptionTitle(String title) {
+        descriptionLabel.setText(title);
     }
 
     public void setResourcesTitle(String title) {
@@ -28,12 +37,19 @@ public final class BuildingAnchorPane extends AnchorPane {
         processingInfoLabel.setText(title);
     }
 
+    private void toggleDescriptionLabel() {
+        isSelectedDescription = !isSelectedDescription;
+        descriptionLabel.setVisible(isSelectedDescription);
+    }
+
     public void setup() {
         setupSuperView();
         setupNameTitleLabel();
         setupListOfResources();
         setupProcessingHeaderLabel();
         setupProcessingInfoLabel();
+        setupDescriptionLabel();
+        descriptionButton();
     }
 
     private void setupSuperView() {
@@ -63,9 +79,9 @@ public final class BuildingAnchorPane extends AnchorPane {
         resourcesLabel.setAlignment(Pos.CENTER);
         resourcesLabel.setStyle("-fx-background-color: rgba(198,198,203,0.73); -fx-font-size: 17px");
 
-        AnchorPane.setTopAnchor(resourcesLabel, nameTitleLabel.getPrefHeight() + 15);
         AnchorPane.setLeftAnchor(resourcesLabel, 0.0);
         AnchorPane.setRightAnchor(resourcesLabel, 0.0);
+        AnchorPane.setTopAnchor(resourcesLabel, nameTitleLabel.getPrefHeight() + 15);
     }
 
     private void setupProcessingHeaderLabel() {
@@ -94,5 +110,37 @@ public final class BuildingAnchorPane extends AnchorPane {
         AnchorPane.setRightAnchor(processingInfoLabel, 0.0);
         AnchorPane.setBottomAnchor(processingInfoLabel, 0.0);
     }
+
+    private void setupDescriptionLabel() {
+        getChildren().add(descriptionLabel);
+
+        descriptionLabel.setVisible(false);
+        descriptionLabel.setTranslateY(1);
+        descriptionLabel.setPrefWidth(60);
+        descriptionLabel.setPrefHeight(60);
+        descriptionLabel.setWrapText(true);
+        descriptionLabel.setPadding(new Insets(5));
+        descriptionLabel.setTextFill(Color.valueOf("#B8D01AFF"));
+        descriptionLabel.setAlignment(Pos.CENTER);
+        descriptionLabel.setStyle("-fx-background-color: #212020FF; -fx-font-size: 10; -fx-background-radius: 10");
+
+        AnchorPane.setLeftAnchor(descriptionLabel, 10.0);
+        AnchorPane.setRightAnchor(descriptionLabel, 10.0);
+        AnchorPane.setTopAnchor(descriptionLabel, nameTitleLabel.getPrefHeight() + 30);
+    }
+
+    private void descriptionButton() {
+        getChildren().add(descriptionButton);
+
+        descriptionButton.setText("I");
+        descriptionButton.setTranslateY(1);
+        descriptionButton.setMinSize(26, 2);
+        descriptionButton.setStyle("-fx-background-color: rgb(184,208,26); -fx-background-radius: 13");
+        descriptionButton.setOnAction(event -> toggleDescriptionLabel());
+
+        AnchorPane.setTopAnchor(descriptionButton, 1.0);
+        AnchorPane.setRightAnchor(descriptionButton, 10.0);
+    }
+
 
 }

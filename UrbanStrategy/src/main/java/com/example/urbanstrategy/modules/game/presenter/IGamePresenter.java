@@ -16,6 +16,7 @@ public interface IGamePresenter {
     List<String> getTransportHeaders();
     List<String> getSupportedProcessingMethodsTitles();
     String getBuildingHeader(int row, int col);
+    String getBuildingDesc(int row, int col);
     Image getTransportImage(int atIndex);
     Image getBuildingImage(int row, int col);
 }

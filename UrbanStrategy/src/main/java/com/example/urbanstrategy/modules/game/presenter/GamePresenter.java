@@ -22,10 +22,13 @@ public final class GamePresenter implements IGamePresenter {
 
     private final IGameView view;
 
-    private final int numberOfRows;
     private int numberOfColumns;
+    private final int numberOfRows;
     private int buildingConfigStage;
     private int numberOfCustomBuilding;
+
+    private final List<String> namesBuildings;
+    private final List<String> descriptionsBuilding;
 
     private final ResourceType[] resourceTypes;
     private final BuildingType[] buildingTypes;
@@ -42,6 +45,8 @@ public final class GamePresenter implements IGamePresenter {
         cityController = city;
         customBuildingBuilder = new CustomBuildingBuilder(city);
 
+        namesBuildings = city.getNamesBuildings();
+        descriptionsBuilding = city.getDescriptionsBuilding();
         resourceTypes = ResourceType.values();
         buildingTypes = BuildingType.values();
         transportTypes = TransportType.values();
@@ -141,11 +146,15 @@ public final class GamePresenter implements IGamePresenter {
     }
 
     public Image getBuildingImage(int row, int col) {
-        return ImageProvider.getInstance().getDefaultBuildingImage(getBuildingType(row, col));
+        return ImageProvider.getInstance().getDefaultBuildingImage(buildingTypes[getBuildingIndex(row, col)]);
     }
 
     public String getBuildingHeader(int row, int col) {
-        return getBuildingType(row, col).name();
+        return namesBuildings.get(getBuildingIndex(row, col)).toUpperCase();
+    }
+
+    public String getBuildingDesc(int row, int col) {
+        return descriptionsBuilding.get(getBuildingIndex(row, col));
     }
 
     public Image getTransportImage(int atIndex) {
@@ -170,8 +179,8 @@ public final class GamePresenter implements IGamePresenter {
                 .collect(Collectors.toList());
     }
 
-    private BuildingType getBuildingType(int row, int col) {
-        return buildingTypes[row * numberOfColumns + col];
+    private int getBuildingIndex(int row, int col) {
+        return row * numberOfColumns + col;
     }
 
     private List<String> getAllProcessingTitles() {
