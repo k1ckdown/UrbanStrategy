@@ -67,14 +67,14 @@ public final class LogisticMediatorImpl implements LogisticMediator {
 
     private Optional<Transport> getTransportFor(ResourceType resourceType) {
         switch (resourceType) {
-            case TREE:
-            case WOOD:
             case WASTE:
             case FURNITURE:
             case MEDICAMENTS:
                 return transportList.stream()
                         .filter(transport -> transport.getType() == TransportType.LORRY)
                         .findFirst();
+            case TREE:
+            case WOOD:
             case COAL:
             case GRAIN:
                 return transportList.stream()
