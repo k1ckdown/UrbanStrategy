@@ -3,6 +3,7 @@ package com.example.urbanstrategy.models.city;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.city.interfaces.ICityController;
+import com.example.urbanstrategy.models.dtos.ResourceTransferDTO;
 import com.example.urbanstrategy.models.factories.BuildingFactory;
 import com.example.urbanstrategy.models.factories.TransportFactory;
 import com.example.urbanstrategy.models.mediators.logisticMediator.LogisticMediator;
@@ -12,21 +13,21 @@ import com.example.urbanstrategy.models.transports.Transport;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.stream.Collectors;
 
 public final class City implements ICityController, ICityBuilding {
 
-    private final ReentrantLock mutex;
     private LocalTime localTime;
     private final List<Building> buildings;
     private final List<Transport> transports;
     private final LogisticMediator logisticMediator;
+    private final ConcurrentLinkedQueue<ResourceTransferDTO> transferQueue;
 
     public City() {
-        mutex = new ReentrantLock();
         localTime = LocalTime.of(8, 0, 0);
 
+        transferQueue = new ConcurrentLinkedQueue<>();
         this.buildings = BuildingFactory.getInstance().makeAllBuildings(this);
         this.transports = TransportFactory.getInstance().createAllTransport();
         this.logisticMediator = new LogisticMediatorImpl(buildings, transports);
@@ -40,6 +41,7 @@ public final class City implements ICityController, ICityBuilding {
         Thread simulate = new Thread(() -> {
             while (true) {
                 localTime = localTime.plusSeconds(1);
+                processResourceTransfers();
             }
         });
 
@@ -60,9 +62,19 @@ public final class City implements ICityController, ICityBuilding {
     }
 
     public void transferResources(Building sender, Resource resource, double rate) {
-        mutex.lock();
-        logisticMediator.transportResources(sender, resource, rate);
-        mutex.unlock();
+        final ResourceTransferDTO transfer = new ResourceTransferDTO(sender, resource, rate);
+        transferQueue.add(transfer);
+    }
+
+    public void processResourceTransfers() {
+        ResourceTransferDTO transfer;
+        while ((transfer = transferQueue.poll()) != null) {
+            logisticMediator.transportResources(
+                    transfer.getSender(),
+                    transfer.getResource(),
+                    transfer.getRate()
+            );
+        }
     }
 
     public List<String> getNamesBuildings() {

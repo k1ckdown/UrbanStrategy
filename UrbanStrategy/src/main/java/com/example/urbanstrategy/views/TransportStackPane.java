@@ -32,7 +32,6 @@ public final class TransportStackPane extends StackPane {
     private void setupSuperView() {
         setMaxWidth(200);
         setStyle("-fx-border-width: 2; -fx-border-color: rgba(132,132,208,0.84)");
-
     }
 
     private void setupNameTitleLabel() {
@@ -51,7 +50,7 @@ public final class TransportStackPane extends StackPane {
         getChildren().add(statusTitleLabel);
 
         statusTitleLabel.setPrefHeight(60);
-        nameTitleLabel.setPrefWidth(200);
+        statusTitleLabel.setPrefWidth(200);
         statusTitleLabel.setStyle("-fx-background-color: rgba(198,198,203,0.73);");
         statusTitleLabel.setTextFill(Color.BLACK);
         statusTitleLabel.setAlignment(Pos.CENTER);
