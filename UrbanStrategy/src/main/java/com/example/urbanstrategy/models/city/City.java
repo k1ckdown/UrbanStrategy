@@ -6,8 +6,8 @@ import com.example.urbanstrategy.models.city.interfaces.ICityController;
 import com.example.urbanstrategy.models.dtos.ResourceTransferDTO;
 import com.example.urbanstrategy.models.factories.BuildingFactory;
 import com.example.urbanstrategy.models.factories.TransportFactory;
-import com.example.urbanstrategy.models.mediators.logisticMediator.LogisticMediator;
-import com.example.urbanstrategy.models.mediators.logisticMediator.LogisticMediatorImpl;
+import com.example.urbanstrategy.models.mediators.logisticmediator.LogisticMediator;
+import com.example.urbanstrategy.models.mediators.logisticmediator.LogisticMediatorImpl;
 import com.example.urbanstrategy.models.resources.Resource;
 import com.example.urbanstrategy.models.transports.Transport;
 

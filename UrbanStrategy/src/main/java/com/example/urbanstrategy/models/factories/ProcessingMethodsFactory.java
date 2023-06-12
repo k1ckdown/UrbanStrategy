@@ -1,7 +1,7 @@
 package com.example.urbanstrategy.models.factories;
 
-import com.example.urbanstrategy.models.processingMethods.*;
-import com.example.urbanstrategy.models.processingMethods.specificMethods.*;
+import com.example.urbanstrategy.models.processingmethods.*;
+import com.example.urbanstrategy.models.processingmethods.specificMethods.*;
 
 public final class ProcessingMethodsFactory {
 

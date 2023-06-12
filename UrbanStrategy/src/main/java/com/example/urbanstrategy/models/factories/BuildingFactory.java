@@ -2,10 +2,10 @@ package com.example.urbanstrategy.models.factories;
 
 
 import com.example.urbanstrategy.models.buildings.*;
-import com.example.urbanstrategy.models.buildings.customBuilding.CustomBuilding;
-import com.example.urbanstrategy.models.buildings.defaultBuildings.*;
+import com.example.urbanstrategy.models.buildings.custombuilding.CustomBuilding;
+import com.example.urbanstrategy.models.buildings.defaultbuildings.*;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
-import com.example.urbanstrategy.models.processingMethods.ResourceProcessingStrategy;
+import com.example.urbanstrategy.models.processingmethods.ResourceProcessingStrategy;
 import com.example.urbanstrategy.models.resources.Resource;
 
 import java.util.ArrayList;

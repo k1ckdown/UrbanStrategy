@@ -1,7 +1,7 @@
 package com.example.urbanstrategy.models.resources;
 
 
-import com.example.urbanstrategy.models.processingMethods.ProcessingMethodType;
+import com.example.urbanstrategy.models.processingmethods.ProcessingMethodType;
 import com.example.urbanstrategy.models.resources.interfaces.IResourceTransported;
 
 import java.util.List;

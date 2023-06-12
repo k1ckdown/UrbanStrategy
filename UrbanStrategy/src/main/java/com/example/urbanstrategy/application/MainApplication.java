@@ -1,8 +1,8 @@
 package com.example.urbanstrategy.application;
 
 import com.example.urbanstrategy.models.city.City;
-import com.example.urbanstrategy.modules.urbanDetails.presenter.UrbanDetailsPresenter;
-import com.example.urbanstrategy.modules.urbanDetails.view.UrbanDetailsView;
+import com.example.urbanstrategy.modules.urbandetails.presenter.UrbanDetailsPresenter;
+import com.example.urbanstrategy.modules.urbandetails.view.UrbanDetailsView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

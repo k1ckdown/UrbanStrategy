@@ -2,7 +2,7 @@ package com.example.urbanstrategy.models.factories;
 
 
 import com.example.urbanstrategy.models.resources.*;
-import com.example.urbanstrategy.models.resources.specificResources.*;
+import com.example.urbanstrategy.models.resources.specificresources.*;
 
 public final class ResourcesFactory {
 

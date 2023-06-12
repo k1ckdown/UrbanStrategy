@@ -1,7 +1,7 @@
 package com.example.urbanstrategy.models.factories;
 
 import com.example.urbanstrategy.models.transports.*;
-import com.example.urbanstrategy.models.transports.specificTransports.*;
+import com.example.urbanstrategy.models.transports.specifictransports.*;
 
 import java.util.ArrayList;
 import java.util.List;

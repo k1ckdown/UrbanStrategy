@@ -1,8 +1,8 @@
 package com.example.urbanstrategy.models.buildings;
 
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
-import com.example.urbanstrategy.models.processingMethods.ProcessingMethodType;
-import com.example.urbanstrategy.models.processingMethods.ResourceProcessingStrategy;
+import com.example.urbanstrategy.models.processingmethods.ProcessingMethodType;
+import com.example.urbanstrategy.models.processingmethods.ResourceProcessingStrategy;
 import com.example.urbanstrategy.models.resources.Resource;
 import com.example.urbanstrategy.models.resources.ResourceType;
 
