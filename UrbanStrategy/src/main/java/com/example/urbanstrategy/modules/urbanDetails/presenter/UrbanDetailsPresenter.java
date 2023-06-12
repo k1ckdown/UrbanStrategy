@@ -1,64 +1,57 @@
-package com.example.urbanstrategy.modules.game.presenter;
+package com.example.urbanstrategy.modules.urbanDetails.presenter;
 
 import com.example.urbanstrategy.models.buildings.Building;
+import com.example.urbanstrategy.modules.buildingEditor.presenter.BuildingEditorPresenter;
+import com.example.urbanstrategy.modules.buildingEditor.presenter.BuildingEditorPresenterDelegate;
+import com.example.urbanstrategy.modules.buildingEditor.view.BuildingEditorView;
 import com.example.urbanstrategy.utils.ImageProvider;
 import com.example.urbanstrategy.models.buildings.BuildingType;
 import com.example.urbanstrategy.models.buildings.customBuilding.CustomBuildingBuilder;
 import com.example.urbanstrategy.models.city.City;
 import com.example.urbanstrategy.models.city.interfaces.ICityController;
-import com.example.urbanstrategy.models.processingMethods.ProcessingMethodType;
-import com.example.urbanstrategy.models.resources.ResourceType;
 import com.example.urbanstrategy.models.transports.TransportType;
-import com.example.urbanstrategy.modules.game.view.IGameView;
+import com.example.urbanstrategy.modules.urbanDetails.view.IUrbanDetailsView;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public final class GamePresenter implements IGamePresenter {
+public final class UrbanDetailsPresenter
+        implements IUrbanDetailsPresenter, BuildingEditorPresenterDelegate {
 
-    private final IGameView view;
+    private final IUrbanDetailsView view;
+    private final BuildingEditorView buildingEditorView;
+
+    private final ICityController cityController;
 
     private int numberOfColumns;
-    private final int numberOfRows;
-    private int buildingConfigStage;
-    private int numberOfCustomBuilding;
+    private final int numberOfRows = 2;
+    private int numberOfCustomBuilding = 0;
 
     private final List<String> namesTransports;
     private final List<String> namesBuildings;
     private final List<String> descriptionsBuilding;
 
-    private final ResourceType[] resourceTypes;
-    private final BuildingType[] buildingTypes;
-    private final TransportType[] transportTypes;
-    private final ProcessingMethodType[] processingMethodTypes;
+    private final BuildingType[] buildingTypes =  BuildingType.values();
+    private final TransportType[] transportTypes = TransportType.values();
 
-    private final ICityController cityController;
-    private final CustomBuildingBuilder customBuildingBuilder;
-
-    public GamePresenter(IGameView view) {
-        this.view = view;
-
-        final City city = new City();
+    public UrbanDetailsPresenter(IUrbanDetailsView view, City city) {
         cityController = city;
-        customBuildingBuilder = new CustomBuildingBuilder(city);
 
         namesTransports = cityController.getNamesTransports();
         namesBuildings = cityController.getNamesBuildings();
         descriptionsBuilding = cityController.getDescriptionsBuilding();
-
-        resourceTypes = ResourceType.values();
-        buildingTypes = BuildingType.values();
-        transportTypes = TransportType.values();
-        processingMethodTypes = ProcessingMethodType.values();
-
-        numberOfRows = 2;
-        buildingConfigStage = 0;
-        numberOfCustomBuilding = 0;
         numberOfColumns = buildingTypes.length / numberOfRows;
+
+        buildingEditorView = new BuildingEditorView();
+        final BuildingEditorPresenter buildingEditorPresenter = new BuildingEditorPresenter(
+                buildingEditorView,
+                new CustomBuildingBuilder(city)
+        );
+        buildingEditorPresenter.delegate = this;
+
+        this.view = view;
+        view.setPresenter(this);
     }
 
     public void play() {
@@ -84,47 +77,16 @@ public final class GamePresenter implements IGamePresenter {
         playThread.start();
     }
 
-    public void didEnterNameBuilding(String name) {
-        customBuildingBuilder.setName(name);
+    public void didTapOnAddBuildingButton() {
+        view.showBuildingEditor(buildingEditorView);
     }
 
-    public void didSelectResource(int atIndex) {
-        customBuildingBuilder.addResource(resourceTypes[atIndex]);
-    }
-
-    public void didSelectProcessingMethods(List<Integer> indexes) {
-        List<ProcessingMethodType> selectedMethodTypes = new ArrayList<>();
-        for (Integer index : indexes) {
-            selectedMethodTypes.add(processingMethodTypes[index]);
-        }
-
-        customBuildingBuilder.addResourceProcessingMethod(selectedMethodTypes);
-    }
-
-    public void didTapOnContinueConfigButton() {
-        if (buildingConfigStage == 0) {
-            view.didEndEditingNameBuilding();
-            buildingConfigStage += 1;
-        } else if (buildingConfigStage == 1) {
-            view.didEndSelectingResource();
-            buildingConfigStage += 1;
-        } else {
-            view.didEndSelectingProcessingMethods();
-            buildingConfigStage = 1;
-        }
-    }
-
-    public void didTapOnCreateCustomBuildingButton() {
-        final Building customBuilding = customBuildingBuilder.getAssembledBuilding();
+    public void addCustomBuilding(Building customBuilding) {
         cityController.addBuilding(customBuilding);
-
-        buildingConfigStage = 0;
         numberOfCustomBuilding += 1;
+
         final int row = (numberOfCustomBuilding - 1) % numberOfRows;
-
-        view.didEndCreatingBuilding();
         view.addCustomBuildingCell(customBuilding.getName(), customBuilding.getDescription(), row, numberOfColumns);
-
         if (row == numberOfRows - 1) {
             numberOfColumns += 1;
         }
@@ -160,18 +122,6 @@ public final class GamePresenter implements IGamePresenter {
 
     public Image getBuildingImage(int row, int col) {
         return ImageProvider.getInstance().getDefaultBuildingImage(buildingTypes[getBuildingIndex(row, col)]);
-    }
-
-    public List<String> getResourcesItems() {
-        return Arrays.stream(resourceTypes)
-                .map(resourceType -> resourceType.name().replace("_", " "))
-                .collect(Collectors.toList());
-    }
-
-    public List<String> getSupportedProcessingMethodsTitles() {
-        return customBuildingBuilder.getSupportedProcessingMethods().stream()
-                .map(Enum::name)
-                .collect(Collectors.toList());
     }
 
     private int getBuildingIndex(int row, int col) {
