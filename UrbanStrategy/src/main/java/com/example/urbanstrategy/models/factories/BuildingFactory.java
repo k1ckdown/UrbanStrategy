@@ -34,12 +34,12 @@ public final class BuildingFactory {
         return new CustomBuilding(
                 city,
                 name,
-                "desc",
+                "Custom Building",
                 processingByResource
         );
     }
 
-    public List<Building> makeAllBuildings(ICityBuilding city) {
+    public List<Building> makeAllDefaultBuildings(ICityBuilding city) {
         List<Building> buildingList = new ArrayList<>();
         BuildingType[] buildingTypes = BuildingType.values();
 

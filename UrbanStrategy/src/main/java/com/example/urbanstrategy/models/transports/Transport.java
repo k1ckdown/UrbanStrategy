@@ -21,17 +21,17 @@ public abstract class Transport {
         transportationStatus = "Waiting...";
     }
 
-    public void moveResources(Building destination, int amount) {
-        resource.remove(amount);
-        destination.receiveResource(resource.getType(), amount);
+    public void unload() {
+        resource = null;
     }
 
     public void load(IResourceTransported resource) {
         this.resource = resource;
     }
 
-    public void unload() {
-        resource = null;
+    public void moveResources(Building destination, int amount) {
+        resource.remove(amount);
+        destination.receiveResource(resource.getType(), amount);
     }
 
     public void updateTransportationStatus(String status) {
@@ -42,12 +42,12 @@ public abstract class Transport {
         return name;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
     public TransportType getType() {
         return type;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     public String getTransportationStatus() {

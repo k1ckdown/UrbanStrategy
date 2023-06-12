@@ -6,7 +6,7 @@ import com.example.urbanstrategy.models.transports.TransportType;
 public final class Car extends Transport {
 
     public Car() {
-        super("car", 50, TransportType.CAR);
+        super("car", 150, TransportType.CAR);
     }
 
 }

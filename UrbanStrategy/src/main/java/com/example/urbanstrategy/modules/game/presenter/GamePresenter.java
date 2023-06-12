@@ -27,6 +27,7 @@ public final class GamePresenter implements IGamePresenter {
     private int buildingConfigStage;
     private int numberOfCustomBuilding;
 
+    private final List<String> namesTransports;
     private final List<String> namesBuildings;
     private final List<String> descriptionsBuilding;
 
@@ -45,8 +46,10 @@ public final class GamePresenter implements IGamePresenter {
         cityController = city;
         customBuildingBuilder = new CustomBuildingBuilder(city);
 
-        namesBuildings = city.getNamesBuildings();
-        descriptionsBuilding = city.getDescriptionsBuilding();
+        namesTransports = cityController.getNamesTransports();
+        namesBuildings = cityController.getNamesBuildings();
+        descriptionsBuilding = cityController.getDescriptionsBuilding();
+
         resourceTypes = ResourceType.values();
         buildingTypes = BuildingType.values();
         transportTypes = TransportType.values();
@@ -65,19 +68,9 @@ public final class GamePresenter implements IGamePresenter {
             while (true) {
 
                 try {
-                    final List<String> resourceTitles = getAllResourceTitles();
-                    final List<String> processingTitles = getAllProcessingTitles();
-                    final List<String> transportStatusTitles = getAllTransportStatusTitles();
-
                     Platform.runLater(() -> {
-                        for (int i = 0; i < resourceTitles.size(); i++) {
-                            view.updateResourcesTitle(i, resourceTitles.get(i));
-                            view.updateProcessingTitle(i, processingTitles.get(i));
-                        }
-
-                        for (int i = 0; i < transportStatusTitles.size(); i++) {
-                            view.updateTransportationStatusTitle(i, transportStatusTitles.get(i));
-                        }
+                        updateBuildingInfo();
+                        updateTransportInfo();
                     });
 
                     Thread.sleep(1000);
@@ -113,9 +106,9 @@ public final class GamePresenter implements IGamePresenter {
             view.didEndEditingNameBuilding();
             buildingConfigStage += 1;
         } else if (buildingConfigStage == 1) {
-            view.showMethodsListView();
+            view.didEndSelectingResource();
             buildingConfigStage += 1;
-        } else  {
+        } else {
             view.didEndSelectingProcessingMethods();
             buildingConfigStage = 1;
         }
@@ -129,8 +122,8 @@ public final class GamePresenter implements IGamePresenter {
         numberOfCustomBuilding += 1;
         final int row = (numberOfCustomBuilding - 1) % numberOfRows;
 
-        view.hideBuildingConfigurator();
-        view.addCustomBuildingCell(customBuilding.getName(), row, numberOfColumns);
+        view.didEndCreatingBuilding();
+        view.addCustomBuildingCell(customBuilding.getName(), customBuilding.getDescription(), row, numberOfColumns);
 
         if (row == numberOfRows - 1) {
             numberOfColumns += 1;
@@ -145,8 +138,12 @@ public final class GamePresenter implements IGamePresenter {
         return numberOfColumns;
     }
 
-    public Image getBuildingImage(int row, int col) {
-        return ImageProvider.getInstance().getDefaultBuildingImage(buildingTypes[getBuildingIndex(row, col)]);
+    public int getNumberOfTransports() {
+        return transportTypes.length;
+    }
+
+    public String getTransportHeader(int atIndex) {
+        return namesTransports.get(atIndex).toUpperCase();
     }
 
     public String getBuildingHeader(int row, int col) {
@@ -161,10 +158,8 @@ public final class GamePresenter implements IGamePresenter {
         return ImageProvider.getInstance().getTransportImage(transportTypes[atIndex]);
     }
 
-    public List<String> getTransportHeaders() {
-        return Arrays.stream(transportTypes)
-                .map(Enum::name)
-                .collect(Collectors.toList());
+    public Image getBuildingImage(int row, int col) {
+        return ImageProvider.getInstance().getDefaultBuildingImage(buildingTypes[getBuildingIndex(row, col)]);
     }
 
     public List<String> getResourcesItems() {
@@ -183,16 +178,22 @@ public final class GamePresenter implements IGamePresenter {
         return row * numberOfColumns + col;
     }
 
-    private List<String> getAllProcessingTitles() {
-        return cityController.getResourceProcessingStatuses();
+    private void updateTransportInfo() {
+        final List<String> transportStatusTitles = cityController.getTransportStatuses();
+
+        for (int i = 0; i < transportStatusTitles.size(); i++) {
+            view.updateTransportationStatusTitle(i, transportStatusTitles.get(i));
+        }
     }
 
-    private List<String> getAllTransportStatusTitles() {
-        return cityController.getTransportStatuses();
-    }
+    private void updateBuildingInfo() {
+        final List<String> resourceTitles = cityController.getDescriptionsResourcesOfBuildings();
+        final List<String> processingTitles = cityController.getResourceProcessingStatuses();
 
-    private List<String> getAllResourceTitles() {
-        return cityController.getDescriptionsResourcesOfBuildings();
+        for (int i = 0; i < resourceTitles.size(); i++) {
+            view.updateResourcesTitle(i, resourceTitles.get(i));
+            view.updateProcessingTitle(i, processingTitles.get(i));
+        }
     }
 
 }

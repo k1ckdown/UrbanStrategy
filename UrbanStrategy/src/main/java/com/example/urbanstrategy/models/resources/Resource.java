@@ -18,7 +18,7 @@ public abstract class Resource implements IResourceTransported {
 
     public Resource(String name, List<ProcessingMethodType> supportedMethods, ResourceType type) {
         this.name = name;
-        this.amount = new Random().nextInt(5000 - 1000 + 1) + 1000;
+        this.amount = new Random().nextInt(500 - 100 + 1) + 10;
         this.supportedMethods = supportedMethods;
         this.type = type;
     }

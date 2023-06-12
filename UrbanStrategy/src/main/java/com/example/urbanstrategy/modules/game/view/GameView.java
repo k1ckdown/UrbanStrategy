@@ -18,8 +18,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
-import java.util.List;
-
 public final class GameView extends AnchorPane implements IGameView {
 
     private IGamePresenter presenter;
@@ -30,7 +28,7 @@ public final class GameView extends AnchorPane implements IGameView {
     private final ScrollPane buildingsScrollPane = new ScrollPane();
 
     private final TextField nameBuildingTextField = new TextField();
-    private final ListView<String> configListView = new ListView<String>();
+    private final ListView<String> configListView = new ListView<>();
     private final ObservableList<String> configList = configListView.getItems();
     private final StackPane buildingConfigStackPane = new StackPane();
     private final BuildingConfigButton continueConfigButton = new BuildingConfigButton();
@@ -45,29 +43,8 @@ public final class GameView extends AnchorPane implements IGameView {
         setup();
     }
 
-    public void hideBuildingConfigurator() {
+    public void didEndCreatingBuilding() {
         buildingConfigStackPane.setVisible(false);
-    }
-
-    public void addCustomBuildingCell(String title, int row, int col) {
-        final BuildingAnchorPane cell = new BuildingAnchorPane();
-        final Image buildingImage = ImageProvider.getInstance().getCustomBuildingImage();
-
-        cell.setTitleBuilding(title);
-        cell.setBackground(getBackground(buildingImage));
-        cell.setTitleBuilding(title);
-
-        buildingsGridPane.add(cell, col, row);
-    }
-
-    public void showMethodsListView() {
-        presenter.didSelectResource(configListView.getSelectionModel().getSelectedIndex());
-
-        createBuildingButton.setVisible(false);
-        continueConfigButton.setText("Add Methods");
-        StackPane.setAlignment(continueConfigButton, Pos.BOTTOM_CENTER);
-        configList.setAll(presenter.getSupportedProcessingMethodsTitles());
-        configListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     public void didEndSelectingProcessingMethods() {
@@ -80,6 +57,16 @@ public final class GameView extends AnchorPane implements IGameView {
         nameBuildingTextField.setVisible(false);
         configListView.setVisible(true);
         showResourcesListView();
+    }
+
+    public void didEndSelectingResource() {
+        presenter.didSelectResource(configListView.getSelectionModel().getSelectedIndex());
+
+        createBuildingButton.setVisible(false);
+        continueConfigButton.setText("Add Methods");
+        StackPane.setAlignment(continueConfigButton, Pos.BOTTOM_CENTER);
+        configList.setAll(presenter.getSupportedProcessingMethodsTitles());
+        configListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     public void updateResourcesTitle(int atIndex, String title) {
@@ -95,6 +82,17 @@ public final class GameView extends AnchorPane implements IGameView {
     public void updateTransportationStatusTitle(int atIndex, String title) {
         final TransportStackPane transportStackPane = (TransportStackPane) transportBox.getChildren().get(atIndex);
         transportStackPane.setStatusTitle(title);
+    }
+
+    public void addCustomBuildingCell(String nameTitle, String descTitle, int row, int col) {
+        final BuildingAnchorPane cell = new BuildingAnchorPane();
+        final Image buildingImage = ImageProvider.getInstance().getCustomBuildingImage();
+
+        cell.setTitleBuilding(nameTitle);
+        cell.setDescriptionTitle(descTitle);
+        cell.setBackground(getBackground(buildingImage));
+
+        buildingsGridPane.add(cell, col, row);
     }
 
     private void showResourcesListView() {
@@ -191,12 +189,11 @@ public final class GameView extends AnchorPane implements IGameView {
         transportBox.setSpacing(30);
         transportBox.setAlignment(Pos.CENTER);
 
-        final List<String> headers = presenter.getTransportHeaders();
-        for (int q = 0; q < headers.size(); q++) {
+        for (int q = 0; q < presenter.getNumberOfTransports(); q++) {
             final TransportStackPane transportStackPane = new TransportStackPane();
             final Image transportImage = presenter.getTransportImage(q);
 
-            transportStackPane.setNameTitle(headers.get(q));
+            transportStackPane.setNameTitle(presenter.getTransportHeader(q));
             transportStackPane.setBackground(getBackground(transportImage));
 
             transportBox.getChildren().add(transportStackPane);

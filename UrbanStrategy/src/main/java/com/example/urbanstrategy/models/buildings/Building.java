@@ -69,6 +69,13 @@ public abstract class Building {
         simulate.start();
     }
 
+    public void receiveResource(ResourceType resourceType, int amount) {
+        Optional<Resource> sentResource = processingByResource.keySet()
+                .stream()
+                .filter(resource -> resource.getType() == resourceType).findFirst();
+        sentResource.ifPresent(resource -> resource.put(amount));
+    }
+
     public boolean needsResource(ResourceType resourceType) {
         for (Resource resource : processingByResource.keySet()) {
             if (resource.getType() == resourceType) {
@@ -82,20 +89,13 @@ public abstract class Building {
         return false;
     }
 
-    public void receiveResource(ResourceType resourceType, int amount) {
-        Optional<Resource> sentResource = processingByResource.keySet()
-                .stream()
-                .filter(resource -> resource.getType() == resourceType).findFirst();
-        sentResource.ifPresent(resource -> resource.put(amount));
+    private int getRandomNumber(int start, int end) {
+        return randomGenerator.nextInt(end - start + 1) + start;
     }
 
     private LocalTime getRandomTime() {
         int hour = ThreadLocalRandom.current().nextInt(24);
         return LocalTime.of(hour, 0, 0);
-    }
-
-    private int getRandomNumber(int start, int end) {
-        return randomGenerator.nextInt(end - start + 1) + start;
     }
 
     private void updateInfoAboutResources() {

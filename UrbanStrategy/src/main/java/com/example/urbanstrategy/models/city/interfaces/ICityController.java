@@ -7,7 +7,9 @@ import java.util.List;
 public interface ICityController {
     void startSimulate();
     void addBuilding(Building building);
-    void removeBuilding(Building building);
+    List<String> getNamesTransports();
+    List<String> getNamesBuildings();
+    List<String> getDescriptionsBuilding();
     List<String> getTransportStatuses();
     List<String> getResourceProcessingStatuses();
     List<String> getDescriptionsResourcesOfBuildings();

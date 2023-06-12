@@ -18,7 +18,7 @@ public final class TransportFactory {
         static final TransportFactory INSTANCE = new TransportFactory();
     }
 
-    public List<Transport> createAllTransport() {
+    public List<Transport> createAllTransports() {
         final List<Transport> transportList = new ArrayList<>();
         final TransportType[] transportTypes = TransportType.values();
 
