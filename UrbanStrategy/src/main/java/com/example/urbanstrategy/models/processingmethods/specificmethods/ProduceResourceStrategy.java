@@ -1,17 +1,17 @@
-package com.example.urbanstrategy.models.processingmethods.specificMethods;
+package com.example.urbanstrategy.models.processingmethods.specificmethods;
 
 
 import com.example.urbanstrategy.models.processingmethods.ProcessingMethodType;
 import com.example.urbanstrategy.models.processingmethods.ResourceProcessingStrategy;
 import com.example.urbanstrategy.models.resources.Resource;
 
-public class ConsumeResourceStrategy extends ResourceProcessingStrategy {
+public class ProduceResourceStrategy extends ResourceProcessingStrategy {
 
-    public ConsumeResourceStrategy() {
-        super(ProcessingMethodType.CONSUME);
+    public ProduceResourceStrategy() {
+        super(ProcessingMethodType.PRODUCE);
     }
 
     public void process(Resource resource, double processingRate) {
-        resource.decreaseAmount(processingRate);
+        resource.increaseAmount(processingRate);
     }
 }

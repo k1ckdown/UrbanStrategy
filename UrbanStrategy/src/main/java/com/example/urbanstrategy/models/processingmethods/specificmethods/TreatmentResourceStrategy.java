@@ -1,4 +1,4 @@
-package com.example.urbanstrategy.models.processingmethods.specificMethods;
+package com.example.urbanstrategy.models.processingmethods.specificmethods;
 
 
 import com.example.urbanstrategy.models.processingmethods.ProcessingMethodType;

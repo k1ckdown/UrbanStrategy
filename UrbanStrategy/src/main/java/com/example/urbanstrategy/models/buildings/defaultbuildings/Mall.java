@@ -2,7 +2,7 @@ package com.example.urbanstrategy.models.buildings.defaultbuildings;
 
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
-import com.example.urbanstrategy.models.processingmethods.specificMethods.ConsumeResourceStrategy;
+import com.example.urbanstrategy.models.processingmethods.specificmethods.ConsumeResourceStrategy;
 import com.example.urbanstrategy.models.resources.specificresources.Electricity;
 import com.example.urbanstrategy.models.resources.specificresources.Furniture;
 

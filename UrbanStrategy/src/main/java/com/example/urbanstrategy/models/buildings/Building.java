@@ -118,7 +118,6 @@ public abstract class Building {
     private void processResources() {
         StringBuilder info = new StringBuilder();
 
-        System.out.println("=============Processing=============");
         for (Resource resource : processingByResource.keySet()) {
             for (ResourceProcessingStrategy resourceProcessing : processingByResource.get(resource)) {
                 final double rate = 0.05 + (0.1 * randomGenerator.nextDouble());
@@ -131,18 +130,8 @@ public abstract class Building {
                         resource.getName(),
                         (int) (oldAmount * rate)
                 ));
-
-                System.out.printf(
-                        "Resource - %s (%d / %d). From - %s. Processing - %s.\n",
-                        resource.getName().toUpperCase(),
-                        (int)(oldAmount * rate),
-                        oldAmount,
-                        name.toUpperCase(),
-                        resourceProcessing.getName().toUpperCase()
-                );
             }
         }
-        System.out.println("=============Processing=============\n");
 
         infoAboutProcessing = info.toString();
     }

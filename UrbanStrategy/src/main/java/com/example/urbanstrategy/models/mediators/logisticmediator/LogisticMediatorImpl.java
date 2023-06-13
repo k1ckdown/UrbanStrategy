@@ -50,17 +50,6 @@ public final class LogisticMediatorImpl implements LogisticMediator {
                     destination.getName(),
                     amount
             ));
-
-            System.out.println("=============Transportation=============");
-            System.out.printf(
-                    "Transport %s moved %s from %s to %s (%d).\n",
-                    transport.getName(),
-                    resource.getName(),
-                    sender.getName(),
-                    destination.getName(),
-                    amount
-            );
-            System.out.println("=============Transportation=============\n");
         }
 
     }
