@@ -13,7 +13,6 @@ public abstract class Resource implements IResourceTransported {
 
     private int amount;
     private final String name;
-
     private final ResourceType type;
 
     public Resource(String name, List<ProcessingMethodType> supportedMethods, ResourceType type) {
