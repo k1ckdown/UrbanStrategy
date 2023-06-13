@@ -29,7 +29,7 @@ public final class City implements ICityController, ICityBuilding {
 
         transferQueue = new ConcurrentLinkedQueue<>();
         this.buildings = BuildingFactory.getInstance().makeAllDefaultBuildings(this);
-        this.transports = TransportFactory.getInstance().createAllTransports();
+        this.transports = TransportFactory.getInstance().makeAllTransports();
         this.logisticMediator = new LogisticMediatorImpl(buildings, transports);
     }
 
@@ -56,17 +56,6 @@ public final class City implements ICityController, ICityBuilding {
     public void transferResources(Building sender, Resource resource, double rate) {
         final ResourceTransferDTO transfer = new ResourceTransferDTO(sender, resource, rate);
         transferQueue.add(transfer);
-    }
-
-    public void processResourceTransfers() {
-        ResourceTransferDTO transfer;
-        while ((transfer = transferQueue.poll()) != null) {
-            logisticMediator.transportResources(
-                    transfer.getSender(),
-                    transfer.getResource(),
-                    transfer.getRate()
-            );
-        }
     }
 
     public LocalTime getLocalTime() {
@@ -107,6 +96,17 @@ public final class City implements ICityController, ICityBuilding {
         return buildings.stream()
                 .map(Building::getInfoAboutResources)
                 .collect(Collectors.toList());
+    }
+
+    private void processResourceTransfers() {
+        ResourceTransferDTO transfer;
+        while ((transfer = transferQueue.poll()) != null) {
+            logisticMediator.transportResources(
+                    transfer.getSender(),
+                    transfer.getResource(),
+                    transfer.getRate()
+            );
+        }
     }
 
 }

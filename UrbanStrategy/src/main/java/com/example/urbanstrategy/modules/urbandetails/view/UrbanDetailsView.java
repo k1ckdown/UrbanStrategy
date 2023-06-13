@@ -2,7 +2,6 @@ package com.example.urbanstrategy.modules.urbandetails.view;
 
 import com.example.urbanstrategy.modules.buildingeditor.view.BuildingEditorView;
 import com.example.urbanstrategy.modules.urbandetails.presenter.IUrbanDetailsPresenter;
-import com.example.urbanstrategy.utils.ImageProvider;
 import com.example.urbanstrategy.viewcomponents.BuildingAnchorPane;
 import com.example.urbanstrategy.viewcomponents.TransportStackPane;
 import javafx.geometry.Insets;
@@ -26,7 +25,7 @@ public final class UrbanDetailsView extends AnchorPane implements IUrbanDetailsV
 
     public void setPresenter(IUrbanDetailsPresenter presenter) {
         this.presenter = presenter;
-        setup();
+        setupUI();
     }
 
     public void updateResourcesTitle(int atIndex, String title) {
@@ -52,13 +51,12 @@ public final class UrbanDetailsView extends AnchorPane implements IUrbanDetailsV
         view.present();
     }
 
-    public void addCustomBuildingCell(String nameTitle, String descTitle, int row, int col) {
+    public void addCustomBuildingCell(String nameTitle, String descTitle, Image image, int row, int col) {
         final BuildingAnchorPane cell = new BuildingAnchorPane();
-        final Image buildingImage = ImageProvider.getInstance().getCustomBuildingImage();
 
         cell.setTitleBuilding(nameTitle);
         cell.setDescriptionTitle(descTitle);
-        cell.setBackground(getBackground(buildingImage));
+        cell.setBackground(getBackground(image));
 
         buildingsGridPane.add(cell, col, row);
     }
@@ -78,7 +76,7 @@ public final class UrbanDetailsView extends AnchorPane implements IUrbanDetailsV
         return new Background(backgroundImage);
     }
 
-    private void setup() {
+    private void setupUI() {
         setupSuperView();
         setupBuildingsScrollPane();
         setupBuildingsGridPane();

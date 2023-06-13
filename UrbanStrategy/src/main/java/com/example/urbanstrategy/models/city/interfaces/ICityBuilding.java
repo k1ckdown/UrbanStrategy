@@ -7,5 +7,5 @@ import java.time.LocalTime;
 
 public interface ICityBuilding {
     LocalTime getLocalTime();
-    void transferResources(Building sender, Resource resource, double rate);;
+    void transferResources(Building sender, Resource resource, double rate);
 }

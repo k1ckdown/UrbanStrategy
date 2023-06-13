@@ -18,18 +18,18 @@ public final class TransportFactory {
         static final TransportFactory INSTANCE = new TransportFactory();
     }
 
-    public List<Transport> createAllTransports() {
+    public List<Transport> makeAllTransports() {
         final List<Transport> transportList = new ArrayList<>();
         final TransportType[] transportTypes = TransportType.values();
 
         for(TransportType type : transportTypes) {
-            transportList.add(createTransport(type));
+            transportList.add(makeTransport(type));
         }
 
         return transportList;
     }
 
-    private Transport createTransport(TransportType type) {
+    private Transport makeTransport(TransportType type) {
         switch (type) {
             case CAR:
                 return new Car();

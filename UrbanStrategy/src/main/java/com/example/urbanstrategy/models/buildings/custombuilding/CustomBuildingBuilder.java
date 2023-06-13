@@ -1,7 +1,6 @@
 package com.example.urbanstrategy.models.buildings.custombuilding;
 
 import com.example.urbanstrategy.models.buildings.Building;
-import com.example.urbanstrategy.models.city.City;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.factories.BuildingFactory;
 import com.example.urbanstrategy.models.factories.ProcessingMethodsFactory;
@@ -23,7 +22,7 @@ public final class CustomBuildingBuilder {
     private final ICityBuilding city;
     private final Map<Resource, List<ResourceProcessingStrategy>> processingByResource;
 
-    public CustomBuildingBuilder(City city) {
+    public CustomBuildingBuilder(ICityBuilding city) {
         this.city = city;
         processingByResource = new HashMap<>();
     }

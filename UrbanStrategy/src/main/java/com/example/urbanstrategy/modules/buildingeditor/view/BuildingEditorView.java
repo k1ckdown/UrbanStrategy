@@ -27,7 +27,7 @@ public final class BuildingEditorView extends StackPane implements IBuildingEdit
 
     public void setPresenter(IBuildingEditorPresenter presenter) {
         this.presenter = presenter;
-        setup();
+        setupUI();
     }
 
     public void present() {
@@ -75,7 +75,7 @@ public final class BuildingEditorView extends StackPane implements IBuildingEdit
         configListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
-    private void setup() {
+    private void setupUI() {
         setupBuildingConfigStackPane();
         setupNameBuildingTextField();
         setupContinueConfigButton();

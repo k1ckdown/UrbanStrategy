@@ -86,7 +86,13 @@ public final class UrbanDetailsPresenter
         numberOfCustomBuilding += 1;
 
         final int row = (numberOfCustomBuilding - 1) % numberOfRows;
-        view.addCustomBuildingCell(customBuilding.getName(), customBuilding.getDescription(), row, numberOfColumns);
+        view.addCustomBuildingCell(
+                customBuilding.getName(),
+                customBuilding.getDescription(),
+                ImageProvider.getInstance().getCustomBuildingImage(),
+                row,
+                numberOfColumns
+        );
         if (row == numberOfRows - 1) {
             numberOfColumns += 1;
         }

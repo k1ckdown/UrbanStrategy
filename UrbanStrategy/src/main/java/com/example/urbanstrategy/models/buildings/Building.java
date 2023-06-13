@@ -36,30 +36,13 @@ public abstract class Building {
         generateResourceSendingSchedule();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getInfoAboutProcessing() {
-        return infoAboutProcessing;
-    }
-
-    public String getInfoAboutResources() {
-        updateInfoAboutResources();
-        return infoAboutResources;
-    }
-
     public void simulate() {
         Thread simulate = new Thread(() -> {
             while (true) {
                 try {
                     processResources();
                     sendResourcesIfTime();
-                    Thread.sleep(getRandomNumber(2000, 4000));
+                    Thread.sleep(randomGenerator.nextInt(4000 - 2000 + 1) + 2000);
                 } catch (Exception error) {
                     throw new RuntimeException(error);
                 }
@@ -89,8 +72,21 @@ public abstract class Building {
         return false;
     }
 
-    private int getRandomNumber(int start, int end) {
-        return randomGenerator.nextInt(end - start + 1) + start;
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getInfoAboutProcessing() {
+        return infoAboutProcessing;
+    }
+
+    public String getInfoAboutResources() {
+        updateInfoAboutResources();
+        return infoAboutResources;
     }
 
     private LocalTime getRandomTime() {
