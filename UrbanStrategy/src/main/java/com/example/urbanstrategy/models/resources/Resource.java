@@ -18,7 +18,7 @@ public abstract class Resource implements IResourceTransported {
 
     public Resource(String name, List<ProcessingMethodType> supportedMethods, ResourceType type) {
         this.name = name;
-        this.amount = new Random().nextInt(500 - 100 + 1) + 10;
+        this.amount = new Random().nextInt(500 - 10 + 1) + 10;
         this.supportedMethods = supportedMethods;
         this.type = type;
     }
@@ -35,12 +35,13 @@ public abstract class Resource implements IResourceTransported {
         amount = 0;
     }
 
-    public void decreaseAmount(double rate) {
-        amount -= (int)(amount * rate);
-    }
-
     public void increaseAmount(double rate) {
         amount += (int)(amount * rate);
+    }
+
+    public void decreaseAmount(double rate) {
+        final int newAmount = amount - (int)(amount * rate);
+        amount = Math.max(0, newAmount);
     }
 
     public int getAmount() {

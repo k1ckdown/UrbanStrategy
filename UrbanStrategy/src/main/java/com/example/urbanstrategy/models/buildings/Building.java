@@ -108,7 +108,8 @@ public abstract class Building {
         for (Resource resource : scheduleSending.keySet()) {
             if (scheduleSending.get(resource)
                     .stream()
-                    .anyMatch(time -> time.getHour() == city.getLocalTime().getHour())) {
+                    .anyMatch(time -> time.getHour() == city.getLocalTime().getHour()) &&
+                    resource.getAmount() > 0) {
                 double rate = 0.2;
                 city.transferResources(this, resource, rate);
             }
@@ -128,7 +129,7 @@ public abstract class Building {
                         "%s - %s (%d)\n",
                         resourceProcessing.getName(),
                         resource.getName(),
-                        (int) (oldAmount * rate)
+                        Math.abs(oldAmount - resource.getAmount())
                 ));
             }
         }

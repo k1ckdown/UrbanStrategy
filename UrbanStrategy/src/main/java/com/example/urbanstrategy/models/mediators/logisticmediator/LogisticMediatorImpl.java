@@ -32,7 +32,7 @@ public final class LogisticMediatorImpl implements LogisticMediator {
                     .collect(Collectors.toList());
 
 
-            if (destinations.size() == 0) {
+            if (destinations.size() == 0 || transport.getCapacity() < resource.getAmount()) {
                 return;
             }
 

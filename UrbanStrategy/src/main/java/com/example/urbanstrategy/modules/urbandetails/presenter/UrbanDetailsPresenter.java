@@ -54,7 +54,7 @@ public final class UrbanDetailsPresenter
         view.setPresenter(this);
     }
 
-    public void play() {
+    public void launch() {
         cityController.startSimulate();
 
         Thread playThread = new Thread(() -> {

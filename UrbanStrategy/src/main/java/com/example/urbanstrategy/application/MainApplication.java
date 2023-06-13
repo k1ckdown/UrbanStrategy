@@ -20,7 +20,7 @@ public final class MainApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-        urbanDetailsPresenter.play();
+        urbanDetailsPresenter.launch();
     }
 
     public static void main(String[] args) {
