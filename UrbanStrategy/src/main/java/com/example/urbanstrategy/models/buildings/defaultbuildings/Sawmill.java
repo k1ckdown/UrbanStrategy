@@ -1,5 +1,6 @@
 package com.example.urbanstrategy.models.buildings.defaultbuildings;
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.processingmethods.specificmethods.ConsumeResourceStrategy;
@@ -18,15 +19,13 @@ public final class Sawmill extends Building {
     public Sawmill(ICityBuilding city) {
         super(
                 city,
-                "sawmill",
-                "A facility where logs are processed into lumber and other wood products.",
+                Constants.BuildingNames.SAWMILL,
+                Constants.BuildingDescriptions.SAWMILL,
                 Map.of(
                 new Tree(), List.of(new DestroyResourceStrategy(), new TreatmentResourceStrategy()),
                 new Water(), List.of(new ConsumeResourceStrategy()),
                 new Wood(), List.of(new ProduceResourceStrategy()))
         );
     }
-
-
 
 }

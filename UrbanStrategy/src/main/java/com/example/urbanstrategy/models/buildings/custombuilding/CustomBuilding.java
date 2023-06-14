@@ -18,4 +18,5 @@ public final class CustomBuilding extends Building {
     ) {
         super(city, name, description, processingByResource);
     }
+
 }

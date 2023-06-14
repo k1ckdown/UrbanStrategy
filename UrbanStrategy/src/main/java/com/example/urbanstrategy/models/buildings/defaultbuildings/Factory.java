@@ -1,6 +1,7 @@
 package com.example.urbanstrategy.models.buildings.defaultbuildings;
 
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.processingmethods.specificmethods.ConsumeResourceStrategy;
@@ -18,8 +19,8 @@ public final class Factory extends Building {
     public Factory(ICityBuilding city) {
         super(
                 city,
-                "factory",
-                "A large industrial building where goods are manufactured on a large scale using machinery and assembly lines.",
+                Constants.BuildingNames.FACTORY,
+                Constants.BuildingDescriptions.FACTORY,
                 Map.of(
                 new Wood(), List.of(new ConsumeResourceStrategy()),
                 new Waste(), List.of(new ProduceResourceStrategy(), new RecycleResourceStrategy()),

@@ -1,6 +1,7 @@
 package com.example.urbanstrategy.models.factories;
 
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.buildings.*;
 import com.example.urbanstrategy.models.buildings.custombuilding.CustomBuilding;
 import com.example.urbanstrategy.models.buildings.defaultbuildings.*;
@@ -34,7 +35,7 @@ public final class BuildingFactory {
         return new CustomBuilding(
                 city,
                 name,
-                "Custom Building",
+                Constants.BuildingDescriptions.CUSTOM_BUILDING,
                 processingByResource
         );
     }

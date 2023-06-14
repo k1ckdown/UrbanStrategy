@@ -1,6 +1,7 @@
 package com.example.urbanstrategy.models.buildings.defaultbuildings;
 
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.processingmethods.specificmethods.ConsumeResourceStrategy;
@@ -16,8 +17,8 @@ public final class WaterTreatmentPlant extends Building {
     public WaterTreatmentPlant(ICityBuilding city) {
         super(
                 city,
-                "water treatment plant",
-                "A facility that cleans and purifies water for consumption and other uses.",
+                Constants.BuildingNames.WATER_TREATMENT_PLANT,
+                Constants.BuildingDescriptions.WATER_TREATMENT_PLANT,
                 Map.of(
                 new Water(), List.of(new ProduceResourceStrategy()),
                 new Electricity(), List.of(new ConsumeResourceStrategy()))

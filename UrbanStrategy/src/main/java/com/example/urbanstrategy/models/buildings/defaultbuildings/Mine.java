@@ -1,6 +1,7 @@
 package com.example.urbanstrategy.models.buildings.defaultbuildings;
 
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.processingmethods.specificmethods.ProduceResourceStrategy;
@@ -16,8 +17,8 @@ public final class Mine extends Building {
     public Mine(ICityBuilding city) {
         super(
                 city,
-                "mine",
-                "A place where valuable minerals and ores are extracted from the earth.",
+                Constants.BuildingNames.MINE,
+                Constants.BuildingDescriptions.MINE,
                 Map.of(
                 new Coal(), List.of(new ProduceResourceStrategy()),
                 new Waste(), List.of(new RecycleResourceStrategy())

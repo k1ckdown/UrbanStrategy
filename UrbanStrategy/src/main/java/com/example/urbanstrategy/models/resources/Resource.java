@@ -1,6 +1,7 @@
 package com.example.urbanstrategy.models.resources;
 
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.processingmethods.ProcessingMethodType;
 import com.example.urbanstrategy.models.resources.interfaces.IResourceTransported;
 
@@ -17,7 +18,9 @@ public abstract class Resource implements IResourceTransported {
 
     public Resource(String name, List<ProcessingMethodType> supportedMethods, ResourceType type) {
         this.name = name;
-        this.amount = new Random().nextInt(500 - 10 + 1) + 10;
+        this.amount = new Random().nextInt(
+                Constants.MAX_AMOUNT_RES - Constants.MIN_AMOUNT_RES + 1)
+                + Constants.MIN_AMOUNT_RES;
         this.supportedMethods = supportedMethods;
         this.type = type;
     }

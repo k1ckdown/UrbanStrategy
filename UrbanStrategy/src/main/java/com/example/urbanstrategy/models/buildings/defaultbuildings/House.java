@@ -1,5 +1,6 @@
 package com.example.urbanstrategy.models.buildings.defaultbuildings;
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.processingmethods.specificmethods.ConsumeResourceStrategy;
@@ -15,8 +16,8 @@ public final class House extends Building {
     public House(ICityBuilding city) {
         super(
                 city,
-                "house",
-                "A building designed for people to live in, providing shelter and comfort.",
+                Constants.BuildingNames.HOUSE,
+                Constants.BuildingDescriptions.HOUSE,
                 Map.of(
                 new Medicaments(), List.of(new ConsumeResourceStrategy()),
                 new Electricity(), List.of(new ConsumeResourceStrategy()),
@@ -26,7 +27,5 @@ public final class House extends Building {
                 new Dish(), List.of(new ConsumeResourceStrategy()))
         );
     }
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.example.urbanstrategy.models.buildings.defaultbuildings;
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.processingmethods.specificmethods.ConsumeResourceStrategy;
@@ -17,14 +18,13 @@ public final class Restaurant extends Building {
     public Restaurant(ICityBuilding city) {
         super(
                 city,
-                "restaurant",
-                "A place where food and drinks are served to customers, often with a specific cuisine or theme.",
+                Constants.BuildingNames.RESTAURANT,
+                Constants.BuildingDescriptions.RESTAURANT,
                 Map.of(
                 new Food(), List.of(new TreatmentResourceStrategy()),
                 new Water(), List.of(new ConsumeResourceStrategy()),
                 new Dish(), List.of(new ProduceResourceStrategy()))
         );
     }
-
 
 }

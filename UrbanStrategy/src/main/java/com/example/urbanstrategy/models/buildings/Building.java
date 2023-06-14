@@ -1,5 +1,6 @@
 package com.example.urbanstrategy.models.buildings;
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.city.interfaces.ICityBuilding;
 import com.example.urbanstrategy.models.processingmethods.ProcessingMethodType;
 import com.example.urbanstrategy.models.processingmethods.ResourceProcessingStrategy;
@@ -42,7 +43,10 @@ public abstract class Building {
                 try {
                     processResources();
                     sendResourcesIfTime();
-                    Thread.sleep(randomGenerator.nextInt(4000 - 2000 + 1) + 2000);
+                    Thread.sleep(randomGenerator.nextInt(
+                            Constants.MAX_BUILDING_SLEEP_TIME -
+                                    Constants.MIN_BUILDING_SLEEP_TIME + 1)
+                            + Constants.MIN_BUILDING_SLEEP_TIME);
                 } catch (Exception error) {
                     throw new RuntimeException(error);
                 }
@@ -110,8 +114,7 @@ public abstract class Building {
                     .stream()
                     .anyMatch(time -> time.getHour() == city.getLocalTime().getHour()) &&
                     resource.getAmount() > 0) {
-                double rate = 0.2;
-                city.transferResources(this, resource, rate);
+                city.transferResources(this, resource, Constants.RES_TRANSFER_RATE);
             }
         }
     }
@@ -121,7 +124,10 @@ public abstract class Building {
 
         for (Resource resource : processingByResource.keySet()) {
             for (ResourceProcessingStrategy resourceProcessing : processingByResource.get(resource)) {
-                final double rate = 0.05 + (0.1 * randomGenerator.nextDouble());
+                final double minRate = Constants.RES_PROCESS_MIN_RATE;
+                final double maxRate = Constants.RES_PROCESS_MAX_RATE;
+                final double rate = minRate + (maxRate * randomGenerator.nextDouble());
+
                 final int oldAmount = resource.getAmount();
                 resourceProcessing.process(resource, rate);
 

@@ -1,5 +1,6 @@
 package com.example.urbanstrategy.modules.urbandetails.presenter;
 
+import com.example.urbanstrategy.common.Constants;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.modules.buildingeditor.presenter.BuildingEditorPresenter;
 import com.example.urbanstrategy.modules.buildingeditor.presenter.BuildingEditorPresenterDelegate;
@@ -66,7 +67,7 @@ public final class UrbanDetailsPresenter
                         updateTransportInfo();
                     });
 
-                    Thread.sleep(1000);
+                    Thread.sleep(Constants.UPDATE_SLEEP_TIME);
                 } catch (Exception error) {
                     throw new RuntimeException(error);
                 }
