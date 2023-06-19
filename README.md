@@ -1,4 +1,4 @@
-# 🏠 UrbanStrategy
+# 🏠 Urban Strategy
 
 ### Task - create a system that allows to build a simulation of a city.
 
