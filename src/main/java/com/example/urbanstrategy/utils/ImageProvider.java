@@ -3,7 +3,6 @@ package com.example.urbanstrategy.utils;
 
 import com.example.urbanstrategy.models.buildings.BuildingType;
 import com.example.urbanstrategy.models.transports.TransportType;
-import javafx.scene.effect.ImageInput;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;

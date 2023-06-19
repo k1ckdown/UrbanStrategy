@@ -4,8 +4,6 @@ package com.example.urbanstrategy.models.transports;
 import com.example.urbanstrategy.models.buildings.Building;
 import com.example.urbanstrategy.models.resources.interfaces.IResourceTransported;
 
-import java.util.Objects;
-
 public abstract class Transport {
 
     private final String name;

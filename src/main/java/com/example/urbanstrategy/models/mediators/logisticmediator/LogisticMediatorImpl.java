@@ -51,7 +51,6 @@ public final class LogisticMediatorImpl implements LogisticMediator {
                     amount
             ));
         }
-
     }
 
     private Optional<Transport> getTransportFor(ResourceType resourceType) {
